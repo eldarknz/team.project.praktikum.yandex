@@ -5,6 +5,8 @@ import { PageLoader } from '@components/PageLoader'
 import { ROUTES } from '@routers/routes'
 
 export const ErrorLayout = () => {
+  document.title = 'Ошибка 404'
+
   return (
     <main className="error-layout">
       <Suspense fallback={<PageLoader />}>

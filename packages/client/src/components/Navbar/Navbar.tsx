@@ -8,7 +8,7 @@ import './Navbar.scss'
 const LINKS = [
   {
     title: 'Игра',
-    link: ROUTES.Game,
+    link: ROUTES.Home,
   },
   {
     title: 'Лидерборд',

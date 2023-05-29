@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 import { Router } from './routers/Router'
 
@@ -14,7 +15,11 @@ function App() {
   //   fetchServerData()
   // }, [])
 
-  return <Router />
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  )
 }
 
 export default App

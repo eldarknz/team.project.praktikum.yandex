@@ -1,17 +1,20 @@
 import { useEffect } from 'react'
 
-function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+import { Router } from './routers/Router'
 
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+function App() {
+  // useEffect(() => {
+  //   const fetchServerData = async () => {
+  //     const url = `http://localhost:${__SERVER_PORT__}`
+  //     const response = await fetch(url)
+  //     const data = await response.json()
+  //     console.log(data)
+  //   }
+
+  //   fetchServerData()
+  // }, [])
+
+  return <Router />
 }
 
 export default App

@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom'
 import { Navbar } from '@components/Navbar'
 import { PageLoader } from '@components/PageLoader'
 
+import './Auth.scss'
+
 export const AuthLayout = () => {
   return (
     <div className="auth-layout">

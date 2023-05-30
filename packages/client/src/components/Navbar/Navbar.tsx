@@ -1,14 +1,20 @@
+import { useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 import cn from 'classnames'
 
-import { ROUTES } from '@routers/routes'
+import { PRIVATE_ROUTES, ROUTES } from '@routers/routes'
+import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated'
 
 import './Navbar.scss'
 
 const LINKS = [
   {
-    title: 'Игра',
+    title: 'Главная',
     link: ROUTES.Home,
+  },
+  {
+    title: 'Игра',
+    link: ROUTES.Game,
   },
   {
     title: 'Лидерборд',
@@ -33,9 +39,19 @@ const LINKS = [
 ]
 
 export const Navbar = () => {
+  const { isAuthenticated } = useIsViewerAuthenticated()
+
+  const availableLinks = useMemo(
+    () =>
+      isAuthenticated
+        ? LINKS
+        : LINKS.filter(({ link }) => !PRIVATE_ROUTES.includes(link)),
+    [isAuthenticated]
+  )
+
   return (
     <div className="navbar">
-      {LINKS.map(({ title, link }) => (
+      {availableLinks.map(({ title, link }) => (
         <NavLink
           key={title}
           to={link}

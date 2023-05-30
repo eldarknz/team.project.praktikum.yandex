@@ -22,6 +22,7 @@
       "@controllers/*": ["./src/controllers/*"],
       "@core/*": ["./src/core/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
       "@routers/*": ["./src/routers/*"],
       "@service/*": ["./src/service/*"],

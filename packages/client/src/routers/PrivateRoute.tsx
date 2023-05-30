@@ -10,10 +10,9 @@ interface PrivateRouteProps {
 
 export const PrivateRoute = ({ page }: PrivateRouteProps) => {
   const { isAuthenticated } = useIsViewerAuthenticated()
-  console.log("WOW!!! It's private route!!!")
 
   if (!isAuthenticated) {
-    return <Navigate to={ROUTES.Home} />
+    return <Navigate to={ROUTES.Home.path} />
   }
 
   return <Fragment>{page}</Fragment>

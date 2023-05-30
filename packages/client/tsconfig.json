@@ -19,16 +19,21 @@
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@controllers/*": ["./src/controllers/*"],
       "@core/*": ["./src/core/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@pages/*": ["./src/pages/*"],
       "@routers/*": ["./src/routers/*"],
       "@service/*": ["./src/service/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/api/*"],
+      "@utils/*": ["./src/utils/*"],
       "@public/*": ["./public/*"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

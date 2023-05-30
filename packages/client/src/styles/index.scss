@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+@import './variables';
 
-#root {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
+body {
+  font-family: $body-font-family;
+  font-style: $base-font-style;
+  font-weight: $base-font-weight;
 }

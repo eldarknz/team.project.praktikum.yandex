@@ -1,32 +1,28 @@
-@import '../../styles/index';
+@import '@styles/variables.scss';
 
 .error {
-  width: 180px;
-  height: 170px;
-  text-align: center;
-  position: absolute;
-  top: 50vh;
-  margin-top: -85px;
-  left: 50vw;
-  margin-left: -90px;
-  color: #1e1e1e;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $base-black;
 
   &--name {
-    font-size: 40px;
-    line-height: 40px;
+    @include h1;
     margin-top: 0;
     margin-bottom: 20px;
   }
 
   &--title {
-    font-size: 20px;
-    line-height: 20px;
+    @include h2;
     margin-top: 0;
     margin-bottom: 70px;
   }
 
   &--button {
-    color: #3369f3;
+    color: $primaryColor;
     margin: 0;
     border: none;
     background-color: transparent;

@@ -1,1 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+
 $primaryColor: #3369f3;
+$baseBlack: #1e1e1e;
+
+$bodyFontFamily: 'Inter';
+$baseFontStyle: normal;
+$baseFontWeight: 500;
+
+@mixin h1 {
+  font-size: 40px;
+  line-height: 40px;
+}
+
+@mixin h2 {
+  font-size: 20px;
+  line-height: 20px;
+}

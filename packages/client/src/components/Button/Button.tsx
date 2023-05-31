@@ -5,7 +5,7 @@ import {
 } from 'react';
 import './Button.scss';
 
-type ButtonProps = {
+export type ButtonProps = {
   className?: string;
   type?:
     | 'submit'

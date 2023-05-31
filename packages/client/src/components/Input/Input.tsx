@@ -6,7 +6,7 @@ import {
 import cn from 'classnames';
 import './Input.scss';
 
-type InputProps = {
+export type InputProps = {
   inputClassName?: string;
   name: string;
   type?: 'text' | 'password' | 'file' | 'hidden';

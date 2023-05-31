@@ -1,5 +1,7 @@
+import { AuthForm } from '@components/AuthForm';
+
 export const SignInPage = () => {
   document.title = 'Вход';
 
-  return <div>SignInPage</div>;
+  return <AuthForm authType="signin" />;
 };

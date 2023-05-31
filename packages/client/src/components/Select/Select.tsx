@@ -61,7 +61,10 @@ export default function Select<T>({
   );
 }
 
-const classMap: Record<SelectKind, string> = {
+const classMap: Record<
+  SelectKind,
+  string | undefined
+> = {
   [SelectKind.Default]: styles.default,
   [SelectKind.Purple]: styles.purple,
 };

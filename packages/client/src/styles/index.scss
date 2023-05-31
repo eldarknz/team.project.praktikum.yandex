@@ -5,3 +5,9 @@ body {
   font-style: $baseFontStyle;
   font-weight: $baseFontWeight;
 }
+
+html,
+body,
+#root {
+  height: 100%;
+}

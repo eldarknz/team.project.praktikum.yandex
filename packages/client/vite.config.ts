@@ -14,7 +14,10 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react(), svgr()],
+  plugins: [
+    react(),
+    svgr({ include: '**/*.svg' }),
+  ],
   resolve: {
     alias: {
       '@api': path.resolve(

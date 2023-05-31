@@ -12,16 +12,16 @@ export function GameLayout() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Link to={ROUTES.Home}>
+        <Link to={ROUTES.Home.path}>
           <HomeSVG />
         </Link>
-        <Link to={ROUTES.Account}>
+        <Link to={ROUTES.Account.path}>
           <ProfileSVG />
         </Link>
-        <Link to={ROUTES.Leaderboard}>
+        <Link to={ROUTES.Leaderboard.path}>
           <LiderBoardSVG />
         </Link>
-        <Link to={ROUTES.Forum}>
+        <Link to={ROUTES.Forum.path}>
           <SettingsSVG />
         </Link>
       </div>

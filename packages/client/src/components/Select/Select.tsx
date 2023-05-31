@@ -1,6 +1,6 @@
 import useClickOutside from '@hooks/useClickOutside';
 import styles from './Select.module.scss';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 export enum SelectKind {
   Default,
@@ -30,6 +30,16 @@ export default function Select<T>({
   const close = () => setShow(false);
   const ref = useRef(null);
   useClickOutside(ref, close, show);
+  const classMap: Record<
+    SelectKind,
+    string | undefined
+  > = useMemo(
+    () => ({
+      [SelectKind.Default]: styles.default,
+      [SelectKind.Purple]: styles.purple,
+    }),
+    []
+  );
   return (
     <div
       className={`${styles.container} ${classMap[variant]}`}>
@@ -60,11 +70,3 @@ export default function Select<T>({
     </div>
   );
 }
-
-const classMap: Record<
-  SelectKind,
-  string | undefined
-> = {
-  [SelectKind.Default]: styles['default'],
-  [SelectKind.Purple]: styles['purple'],
-};

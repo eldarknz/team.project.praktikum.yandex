@@ -21,6 +21,7 @@ export default {
     '^@styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@public/(.*)$': '<rootDir>/src/public/$1',
+    "\\.svg$": "jest-svg-transformer",
     '\\.(css|less|sass|scss)$': '<rootDir>/__mocks__/style.js',
   },
 }

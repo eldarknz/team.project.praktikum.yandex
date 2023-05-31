@@ -1,3 +1,6 @@
+import React from 'react'
+import { Error } from '@components/Error'
+
 export const Error404Page = () => {
-  return <div>Error404Page</div>
+  return <Error error="404" title="Не туда попали" />
 }

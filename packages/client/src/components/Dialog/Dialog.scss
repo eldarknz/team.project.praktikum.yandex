@@ -1,0 +1,48 @@
+@import '@styles/variables.scss';
+
+$horPadding: 16px;
+$verPadding: 16px;
+
+.dialog {
+  display: none;
+  cursor: default;
+
+  .dialog__content {
+    border: none;
+    display: block;
+    max-width: 90vw;
+    min-width: $dialogMinWidth;
+    border-radius: $baseBorderRadius;
+    box-shadow: $baseBoxShadow;
+    padding: 0;
+  }
+
+  .dialog__header {
+    text-align: center;
+    font-weight: 600;
+    padding: $verPadding $horPadding;
+  }
+
+  .dialog__body {
+    text-align: center;
+    padding: $verPadding $horPadding;
+  }
+
+  &.dialog--open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.dialog-overlay {
+  display: none;
+  background: rgba($baseBlack, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
+}

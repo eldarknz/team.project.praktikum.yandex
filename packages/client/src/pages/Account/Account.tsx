@@ -1,5 +1,13 @@
-export const AccountPage = () => {
-  document.title = 'Профиль'
+import { Dialog } from '@components/Dialog';
 
-  return <div>Account page</div>
-}
+export const AccountPage = () => {
+  document.title = 'Профиль';
+
+  return (
+    <div>
+      <Dialog isOpen={true} title="wow">
+        content
+      </Dialog>
+    </div>
+  );
+};

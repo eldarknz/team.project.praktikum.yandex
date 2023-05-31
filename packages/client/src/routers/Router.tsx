@@ -42,42 +42,20 @@ export const Router = () => {
   return (
     <Fragment>
       <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route
-            element={<AccountPage />}
-            path={ROUTES.Account}
-          />
-          <Route
-            element={<ForumPage />}
-            path={ROUTES.Forum}
-          />
-          <Route
-            element={<LeaderboardPage />}
-            path={ROUTES.Leaderboard}
-          />
-          <Route
-            element={<HomePage />}
-            path={ROUTES.Home}
-          />
-        </Route>
-
-        <Route element={<AuthLayout />}>
-          <Route
-            element={<SignInPage />}
-            path={ROUTES.SignIn}
-          />
-          <Route
-            element={<SignUpPage />}
-            path={ROUTES.SignUp}
-          />
-        </Route>
-
-        <Route element={<ErrorLayout />}>
-          <Route
-            element={<Error404Page />}
-            path={'*'}
-          />
-        </Route>
+        {LAYOUTS.map(
+          ([layoutKey, LayoutComponent]) => (
+            <Route
+              key={layoutKey}
+              element={<LayoutComponent />}>
+              {mapRoutes(
+                Object.values(ROUTES).filter(
+                  ({ layout }) =>
+                    layout === layoutKey
+                )
+              )}
+            </Route>
+          )
+        )}
       </Routes>
     </Fragment>
   );

@@ -1,5 +1,8 @@
 import { Suspense } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import {
+  NavLink,
+  Outlet,
+} from 'react-router-dom';
 
 import { PageLoader } from '@components/PageLoader';
 import { ROUTES } from '@routers/routes';
@@ -13,7 +16,9 @@ export const ErrorLayout = () => {
         <Outlet />
       </Suspense>
 
-      <NavLink to={ROUTES.Home}>To game</NavLink>
+      <NavLink to={ROUTES.Home.path}>
+        To home
+      </NavLink>
     </main>
   );
 };

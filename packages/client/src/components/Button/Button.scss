@@ -1,0 +1,23 @@
+@import '@styles/variables.scss';
+
+.basicButton {
+  background-color: $primaryColor;
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  padding: 0.7rem;
+  border: none;
+  margin-top: 1rem;
+  width: 100%;
+  text-decoration: none;
+
+  &--link {
+    display: inline-block;
+    background-color: unset;
+    color: $primaryColor;
+  }
+
+  &:disabled {
+    background-color: $neutral60;
+  }
+}

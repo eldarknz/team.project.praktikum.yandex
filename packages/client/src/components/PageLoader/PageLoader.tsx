@@ -1,3 +1,9 @@
+import './PageLoader.scss';
+
 export const PageLoader = () => {
-  return <div>Loading Page...</div>;
+  return (
+    <div className="page-loader">
+      <span className="loader"></span>
+    </div>
+  );
 };

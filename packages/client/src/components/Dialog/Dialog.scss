@@ -5,9 +5,9 @@ $verPadding: 16px;
 
 .dialog {
   display: none;
-  cursor: default;
 
   .dialog__content {
+    cursor: default;
     border: none;
     display: block;
     max-width: 90vw;
@@ -24,7 +24,6 @@ $verPadding: 16px;
   }
 
   .dialog__body {
-    text-align: center;
     padding: $verPadding $horPadding;
   }
 

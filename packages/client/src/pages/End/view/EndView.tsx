@@ -1,3 +1,4 @@
+import { Button } from '@components/Button';
 import styles from './EndView.module.scss';
 
 export type EndViewProps = {
@@ -12,12 +13,11 @@ export default function EndView({
       <h3 className={styles.title}>
         Ого, вау, вот эта попытка!
       </h3>
-      {/* TODO: заменить на компонент когда появится */}
-      <button
+      <Button
         className={styles.btn}
         onClick={onRetry}>
         Повторить
-      </button>
+      </Button>
     </>
   );
 }

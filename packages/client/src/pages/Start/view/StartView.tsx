@@ -2,6 +2,7 @@ import Select, {
   SelectKind,
 } from '@components/Select/Select';
 import styles from './StartView.module.scss';
+import { Button } from '@components/Button';
 
 export type StartViewProps = {
   username: string;
@@ -28,12 +29,11 @@ export default function StartView({
         variant={SelectKind.Purple}
         {...rest}
       />
-      {/* TODO: заменить на компонент когда появится */}
-      <button
+      <Button
         className={styles.btn}
         onClick={onStart}>
         Начать
-      </button>
+      </Button>
     </>
   );
 }

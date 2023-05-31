@@ -60,6 +60,7 @@
   },
   "include": [
     "src",
+    "./typed.d.ts"
   ],
   "references": [
     {

@@ -6,4 +6,5 @@ export const ROUTES = {
   Account: '/account',
   Start: '/start',
   Leaderboard: '/leaderboard',
-}
+  End: '/end',
+};

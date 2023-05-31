@@ -13,7 +13,7 @@ export const ErrorLayout = () => {
         <Outlet />
       </Suspense>
 
-      <NavLink to={ROUTES.Home}>To game</NavLink>
+      <NavLink to={ROUTES.Home.path}>To home</NavLink>
     </main>
   )
 }

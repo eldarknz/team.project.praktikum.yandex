@@ -1,44 +1,60 @@
+import { useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 import cn from 'classnames'
 
 import { ROUTES } from '@routers/routes'
+import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated'
 
 import './Navbar.scss'
 
 const LINKS = [
   {
+    title: 'Главная',
+    route: ROUTES.Home,
+  },
+  {
     title: 'Игра',
-    link: ROUTES.Home,
+    route: ROUTES.Game,
   },
   {
     title: 'Лидерборд',
-    link: ROUTES.Leaderboard,
+    route: ROUTES.Leaderboard,
   },
   {
     title: 'Профиль',
-    link: ROUTES.Account,
+    route: ROUTES.Account,
   },
   {
     title: 'Форум',
-    link: ROUTES.Forum,
+    route: ROUTES.Forum,
   },
   {
     title: 'Sign-In',
-    link: ROUTES.SignIn,
+    route: ROUTES.SignIn,
   },
   {
     title: 'Sign-Up',
-    link: ROUTES.SignUp,
+    route: ROUTES.SignUp,
   },
 ]
 
 export const Navbar = () => {
+  const { isAuthenticated } = useIsViewerAuthenticated()
+
+  const availableLinks = useMemo(
+    () =>
+      isAuthenticated
+        ? LINKS
+        : LINKS.filter(({ route: { isPrivate } }) => !isPrivate),
+    [isAuthenticated]
+  )
+
   return (
     <div className="navbar">
-      {LINKS.map(({ title, link }) => (
+      {availableLinks.map(({ title, route: { path } }) => (
         <NavLink
           key={title}
-          to={link}
+          to={path}
           className={({ isActive }) =>
             cn({
               'navbar-item': true,

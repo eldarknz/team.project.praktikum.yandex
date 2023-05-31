@@ -1,11 +1,40 @@
-import { InputHTMLAttributes } from 'react';
+import { InputControl } from '@components/InputControl/InputControl';
+import {
+  InputHTMLAttributes,
+  useId,
+} from 'react';
+import cn from 'classnames';
+import './Input.scss';
 
-type OwnProps = {
-  className: string;
+type InputProps = {
+  inputClassName?: string;
+  name: string;
+  type?: 'text' | 'password' | 'file' | 'hidden';
+  error?: string | boolean;
+  labelText?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-type Props = OwnProps;
+export const Input = ({
+  inputClassName = 'baseInput',
+  error,
+  type = 'text',
+  labelText,
+  ...otherProps
+}: InputProps) => {
+  const inputId = labelText ? useId() : undefined;
+  const inputClassNames = cn(inputClassName);
 
-export const Input = ({ ...otherProps }: Props) => {
-  return <input {...otherProps} />;
+  return (
+    <InputControl
+      labelId={inputId}
+      labelText={labelText}
+      error={error}>
+      <input
+        id={inputId}
+        type={type}
+        className={inputClassNames}
+        {...otherProps}
+      />
+    </InputControl>
+  );
 };

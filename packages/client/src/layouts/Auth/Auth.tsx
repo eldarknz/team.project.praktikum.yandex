@@ -6,6 +6,8 @@ import { PageLoader } from '@components/PageLoader';
 
 import './Auth.scss';
 
+import './Auth.scss';
+
 export const AuthLayout = () => {
   return (
     <div className="auth-layout">

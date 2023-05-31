@@ -1,4 +1,5 @@
 import { Spinner } from '@components/Spinner';
+
 import './PageLoader.scss';
 
 export const PageLoader = () => {

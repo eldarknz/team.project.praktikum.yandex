@@ -21,11 +21,7 @@
     margin-bottom: 70px;
   }
 
-  &--button {
-    color: $primaryColor;
+  & .basicButton {
     margin: 0;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
   }
 }

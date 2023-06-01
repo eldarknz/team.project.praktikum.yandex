@@ -2,7 +2,7 @@
 
 .basicButton {
   background-color: $primaryColor;
-  color: #fff;
+  color: $baseWhite;
   border-radius: 8px;
   text-align: center;
   padding: 0.7rem;
@@ -10,6 +10,7 @@
   margin-top: 1rem;
   width: 100%;
   text-decoration: none;
+  cursor: pointer;
 
   &--link {
     display: inline-block;

@@ -8,6 +8,10 @@ $danger: hsl(0, 100%, 55%);
 $bodyFontFamily: 'Inter';
 $baseFontStyle: normal;
 $baseFontWeight: 500;
+$baseBoxShadow: 0px 0px 6px rgba($baseBlack, 0.2);
+$baseBorderRadius: 12px;
+
+$dialogMinWidth: 300px;
 
 @mixin h1 {
   font-size: 40px;

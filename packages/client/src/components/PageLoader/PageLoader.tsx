@@ -1,9 +1,11 @@
-import './PageLoader.scss'
+import { Spinner } from '@components/Spinner';
+
+import './PageLoader.scss';
 
 export const PageLoader = () => {
   return (
     <div className="page-loader">
-      <span className="loader"></span>
+      <Spinner size={64} />
     </div>
-  )
-}
+  );
+};

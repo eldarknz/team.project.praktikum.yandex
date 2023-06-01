@@ -1,13 +1,13 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 
-import { Router } from './routers/Router'
+import { Router } from './routers/Router';
 
 function App() {
   return (
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

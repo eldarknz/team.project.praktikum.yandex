@@ -1,10 +1,15 @@
-import { Component, ErrorInfo, Fragment, PropsWithChildren } from 'react'
-import { Link } from 'react-router-dom'
+import {
+  Component,
+  ErrorInfo,
+  Fragment,
+  PropsWithChildren,
+} from 'react';
+import { Link } from 'react-router-dom';
 
-import { ROUTES } from '@routers/routes'
+import { ROUTES } from '@routers/routes';
 
 interface PageErrorBoundaryState {
-  hasError: boolean
+  hasError: boolean;
 }
 
 // TODO: add styles to component
@@ -13,17 +18,20 @@ export class PageErrorBoundary extends Component<
   PageErrorBoundaryState
 > {
   constructor(props: PropsWithChildren) {
-    super(props)
-    this.state = { hasError: false }
+    super(props);
+    this.state = { hasError: false };
   }
 
   static getDerivedStateFromError() {
-    return { hasError: true }
+    return { hasError: true };
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error(error)
-    console.error(info)
+  componentDidCatch(
+    error: Error,
+    info: ErrorInfo
+  ) {
+    console.error(error);
+    console.error(info);
   }
 
   render() {
@@ -31,11 +39,13 @@ export class PageErrorBoundary extends Component<
       return (
         <Fragment>
           <h1>Something went wrong.</h1>
-          <Link to={ROUTES.Home}>На главную</Link>
+          <Link to={ROUTES.Home.path}>
+            На главную
+          </Link>
         </Fragment>
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }

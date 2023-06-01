@@ -1,11 +1,11 @@
-import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { Navbar } from '@components/Navbar'
-import { PageLoader } from '@components/PageLoader'
-import { PageErrorBoundary } from '@components/PageErrorBoundary'
+import { Navbar } from '@components/Navbar';
+import { PageLoader } from '@components/PageLoader';
+import { PageErrorBoundary } from '@components/PageErrorBoundary';
 
-import './Auth.scss'
+import './Auth.scss';
 
 export const AuthLayout = () => {
   return (
@@ -19,5 +19,5 @@ export const AuthLayout = () => {
         </main>
       </div>
     </PageErrorBoundary>
-  )
-}
+  );
+};

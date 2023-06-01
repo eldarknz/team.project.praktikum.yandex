@@ -1,11 +1,11 @@
-import { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { Navbar } from '@components/Navbar'
-import { PageLoader } from '@components/PageLoader'
-import { PageErrorBoundary } from '@components/PageErrorBoundary'
+import { Navbar } from '@components/Navbar';
+import { PageLoader } from '@components/PageLoader';
+import { PageErrorBoundary } from '@components/PageErrorBoundary';
 
-import './Default.scss'
+import './Default.scss';
 
 export const DefaultLayout = () => {
   return (
@@ -19,5 +19,5 @@ export const DefaultLayout = () => {
         </main>
       </div>
     </PageErrorBoundary>
-  )
-}
+  );
+};

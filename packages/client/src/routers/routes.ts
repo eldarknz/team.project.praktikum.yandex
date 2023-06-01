@@ -1,26 +1,45 @@
-import { lazy, ComponentType } from 'react'
+import { lazy, ComponentType } from 'react';
 
-const HomePage = lazy(() => import('@pages/Home'))
-const AccountPage = lazy(() => import('@pages/Account'))
-const ForumPage = lazy(() => import('@pages/Forum'))
-const LeaderboardPage = lazy(() => import('@pages/Leaderboard'))
-const GamePage = lazy(() => import('@pages/Game'))
-const SignInPage = lazy(() => import('@pages/SignIn'))
-const SignUpPage = lazy(() => import('@pages/SignUp'))
-const Error404Page = lazy(() => import('@pages/Error404'))
+const HomePage = lazy(
+  () => import('@pages/Home')
+);
+const AccountPage = lazy(
+  () => import('@pages/Account')
+);
+const ForumPage = lazy(
+  () => import('@pages/Forum')
+);
+const LeaderboardPage = lazy(
+  () => import('@pages/Leaderboard')
+);
+const GamePage = lazy(
+  () => import('@pages/Game')
+);
+const SignInPage = lazy(
+  () => import('@pages/SignIn')
+);
+const SignUpPage = lazy(
+  () => import('@pages/SignUp')
+);
+const Error404Page = lazy(
+  () => import('@pages/Error404')
+);
+const End = lazy(() => import('@pages/End'));
+const Start = lazy(() => import('@pages/Start'));
 
 export enum Layout {
   Default,
   Auth,
   Error,
+  Game,
 }
 
 export type RouteItem = {
-  path: string
-  isPrivate: boolean
-  component: ComponentType
-  layout: Layout
-}
+  path: string;
+  isPrivate: boolean;
+  component: ComponentType;
+  layout: Layout;
+};
 
 export const ROUTES: Record<string, RouteItem> = {
   Home: {
@@ -65,10 +84,22 @@ export const ROUTES: Record<string, RouteItem> = {
     component: LeaderboardPage,
     layout: Layout.Default,
   },
+  Start: {
+    path: '/start',
+    isPrivate: true,
+    component: Start,
+    layout: Layout.Game,
+  },
+  End: {
+    path: '/end',
+    isPrivate: true,
+    component: End,
+    layout: Layout.Game,
+  },
   Error404: {
     path: '*',
     isPrivate: false,
     component: Error404Page,
     layout: Layout.Error,
   },
-}
+};

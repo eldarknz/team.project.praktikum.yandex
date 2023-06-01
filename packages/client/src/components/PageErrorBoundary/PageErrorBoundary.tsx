@@ -39,7 +39,9 @@ export class PageErrorBoundary extends Component<
       return (
         <Fragment>
           <h1>Something went wrong.</h1>
-          <Link to={ROUTES.Home}>На главную</Link>
+          <Link to={ROUTES.Home.path}>
+            На главную
+          </Link>
         </Fragment>
       );
     }

@@ -11,6 +11,7 @@ import {
   RouteItem,
   ROUTES,
 } from './routes';
+import { GameLayout } from '@layouts/Game/GameLayout';
 
 const mapRoutes = (routes: RouteItem[]) => {
   return routes.map(
@@ -36,6 +37,7 @@ const LAYOUTS: [Layout, ComponentType][] = [
   [Layout.Default, DefaultLayout],
   [Layout.Auth, AuthLayout],
   [Layout.Error, ErrorLayout],
+  [Layout.Game, GameLayout],
 ];
 
 export const Router = () => {

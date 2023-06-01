@@ -19,6 +19,7 @@
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@controllers/*": ["./src/controllers/*"],
       "@core/*": ["./src/core/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
@@ -26,7 +27,7 @@
       "@routers/*": ["./src/routers/*"],
       "@service/*": ["./src/service/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/api/*"],
+      "@utils/*": ["./src/utils/*"],
       "@public/*": ["./public/*"]
     }
   },

@@ -7,14 +7,18 @@ import {
   InputProps,
 } from '@components/Input';
 import './AuthForm.scss';
-import { useId } from 'react';
+import { FormEvent, useId } from 'react';
 
 export type AuthFormProps = {
   authType: 'signup' | 'signin';
+  handleSubmit: (
+    event: FormEvent<HTMLFormElement>
+  ) => void;
 };
 
 export const AuthForm = ({
   authType,
+  handleSubmit,
 }: AuthFormProps) => {
   const title =
     authType === 'signin'
@@ -99,10 +103,7 @@ export const AuthForm = ({
     <div className="authBoxWrapper">
       <form
         className="authBox"
-        onSubmit={event => {
-          event.preventDefault();
-          console.log();
-        }}>
+        onSubmit={handleSubmit}>
         <h1 className="authBoxHeader">{title}</h1>
         {inputs.map(inputProps => (
           <Input

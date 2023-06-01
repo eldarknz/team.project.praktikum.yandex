@@ -1,5 +1,5 @@
 export const AccountPage = () => {
-  document.title = 'Профиль'
+  document.title = 'Профиль';
 
-  return <div>Account page</div>
-}
+  return <div>Profile</div>;
+};

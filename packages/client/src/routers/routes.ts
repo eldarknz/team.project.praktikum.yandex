@@ -1,5 +1,3 @@
-import End from '@pages/End/End';
-import Start from '@pages/Start/Start';
 import { lazy, ComponentType } from 'react';
 
 const HomePage = lazy(
@@ -26,6 +24,8 @@ const SignUpPage = lazy(
 const Error404Page = lazy(
   () => import('@pages/Error404')
 );
+const End = lazy(() => import('@pages/End'));
+const Start = lazy(() => import('@pages/Start'));
 
 export enum Layout {
   Default,

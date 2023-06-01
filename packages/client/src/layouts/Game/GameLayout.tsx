@@ -4,7 +4,7 @@ import { PageLoader } from '@components/PageLoader';
 import { Link, Outlet } from 'react-router-dom';
 import { ROUTES } from '@routers/routes';
 import { ReactComponent as HomeSVG } from '@assets/svg/colored/home-icon.svg';
-import { ReactComponent as LiderBoardSVG } from '@assets/svg/colored/liderboard-icon.svg';
+import { ReactComponent as LiderboardSVG } from '@assets/svg/colored/liderboard-icon.svg';
 import { ReactComponent as ProfileSVG } from '@assets/svg/colored/profile-icon.svg';
 import { ReactComponent as SettingsSVG } from '@assets/svg/colored/settings-icon.svg';
 
@@ -19,7 +19,7 @@ export function GameLayout() {
           <ProfileSVG />
         </Link>
         <Link to={ROUTES.Leaderboard.path}>
-          <LiderBoardSVG />
+          <LiderboardSVG />
         </Link>
         <Link to={ROUTES.Forum.path}>
           <SettingsSVG />

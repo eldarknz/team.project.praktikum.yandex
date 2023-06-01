@@ -38,7 +38,7 @@ export type RouteItem = {
   layout: Layout;
 };
 
-export const ROUTES: Record<string, RouteItem> = {
+export const ROUTES = {
   Home: {
     path: '/',
     isPrivate: false,

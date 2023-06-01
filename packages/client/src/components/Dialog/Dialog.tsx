@@ -39,7 +39,7 @@ export const Dialog = ({
     }
   }, [localOpen]);
 
-  const closeDialogOnOverlayClock: React.MouseEventHandler =
+  const closeDialogOnOverlayClick: React.MouseEventHandler =
     useCallback(e => {
       const element = e.target as HTMLElement;
 
@@ -52,7 +52,7 @@ export const Dialog = ({
 
   return createPortal(
     <div
-      onClick={closeDialogOnOverlayClock}
+      onClick={closeDialogOnOverlayClick}
       className={cn({
         dialog: true,
         [OVERLAY_CLASS]: true,

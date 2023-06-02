@@ -31,7 +31,10 @@
       "@public/*": ["./public/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "./typed.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

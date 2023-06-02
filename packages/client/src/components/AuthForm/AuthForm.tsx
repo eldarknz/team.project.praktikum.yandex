@@ -8,6 +8,7 @@ import {
 } from '@components/Input';
 import './AuthForm.scss';
 import { FormEvent, useId } from 'react';
+import { ROUTES } from '@routers/routes';
 
 export type AuthFormProps = {
   authType: 'signup' | 'signin';
@@ -41,6 +42,12 @@ export const AuthForm = ({
     {
       children: 'Войти',
       id: useId(),
+    },
+    {
+      children: 'Еще не зарегистрированы?',
+      id: useId(),
+      to: ROUTES.SignUp.path,
+      view: 'subButton',
     },
   ];
 
@@ -85,7 +92,8 @@ export const AuthForm = ({
     {
       children: 'Уже есть аккаунт?',
       id: useId(),
-      href: '/sign-in',
+      to: ROUTES.SignIn.path,
+      view: 'subButton',
     },
   ];
 

@@ -15,6 +15,7 @@ $verPadding: 16px;
     border-radius: $baseBorderRadius;
     box-shadow: $baseBoxShadow;
     padding: 0;
+    margin: 0 auto;
   }
 
   .dialog__header {
@@ -28,7 +29,7 @@ $verPadding: 16px;
   }
 
   &.dialog--open {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
   }

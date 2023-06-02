@@ -1,0 +1,39 @@
+@import '@styles/variables.scss';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  width: 500px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%;
+  background: $neutral90;
+  margin-bottom: 20px;
+}
+
+.userName {
+  color: $baseBlack;
+}
+
+.links {
+  margin-top: 40px;
+}
+
+.linkItem {
+  border-bottom: none;
+}

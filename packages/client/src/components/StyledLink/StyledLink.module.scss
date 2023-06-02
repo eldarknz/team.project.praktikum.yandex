@@ -1,0 +1,13 @@
+@import '@styles/variables';
+
+$linkColor: $primaryColor;
+$linkHoverColor: darken($linkColor, 20%);
+
+.styledLink {
+  color: $linkColor;
+  text-decoration: none;
+}
+
+.styledLink:hover {
+  color: $linkHoverColor;
+}

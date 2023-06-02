@@ -1,59 +1,25 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Account.module.scss';
+import { useEffect, useState } from 'react';
 
-const viewer = {
-  firstName: 'Вова Маяковский',
-  email: 'mayak@yandex.ru',
-  login: 'Mayak',
-  secondName: 'Вова',
-  phone: '+7 (909) 967 30 30',
-};
+import { useInjection } from '@hooks/useInjection';
+import { GetViewerResponse } from '@service/ViewerService';
+
+import { Account, LoadingState } from './view';
 
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const items = useMemo(
-    () => [
-      { title: 'Почта', value: viewer.email },
-      { title: 'Логин', value: viewer.login },
-      { title: 'Имя', value: viewer.firstName },
-      {
-        title: 'Фамилия',
-        value: viewer.secondName,
-      },
-      { title: 'Телефон', value: viewer.phone },
-    ],
-    []
-  );
+  const { viewerService } = useInjection();
+  const [viewer, setViewer] = useState<
+    undefined | GetViewerResponse
+  >();
 
-  return (
-    <div className={styles.page}>
-      <div className={styles.avatar}></div>
-      <h4 className={styles.userName}>
-        {viewer.firstName} {viewer.secondName}
-      </h4>
+  useEffect(() => {
+    viewerService.getViewer().then(setViewer);
+  }, []);
 
-      <ul className={styles.list}>
-        {items.map(({ title, value }) => (
-          <li
-            key={title}
-            className={styles.listItem}>
-            <div
-              className={styles.listItem__title}>
-              {title}
-            </div>
+  if (!viewer) {
+    return <LoadingState />;
+  }
 
-            <div
-              className={styles.listItem__value}>
-              {value}
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <Link to={'/'}>Изменить данные</Link>
-      <Link to={'/'}>Изменить пароль</Link>
-    </div>
-  );
+  return <Account viewer={viewer} />;
 };

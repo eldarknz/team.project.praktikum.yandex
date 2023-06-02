@@ -6,6 +6,12 @@ import {
 import './Button.scss';
 import { Link } from 'react-router-dom';
 
+/*
+Button can be a link:
+› If 'to' passed, it will render <Link /> from React Router
+› If 'href' passed, it will become a regular <a /> tag
+*/
+
 export type ButtonProps = {
   className?: string;
   type?:
@@ -14,32 +20,30 @@ export type ButtonProps = {
     | 'button'
     | undefined;
   href?: string;
+  to?: string;
   Component?: ElementType;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement> &
+  AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const Button = ({
   children,
   href,
-  type = href ? undefined : 'button',
-  className = href
+  to,
+  type = href || to ? undefined : 'button',
+  className = href || to
     ? 'basicButton basicButton--link'
     : 'basicButton',
-  Component = href ? Link : 'button',
+  Component = to ? Link : href ? 'a' : 'button',
   ...otherProps
 }: ButtonProps) => {
-  if (href) {
-    const hrefProps = {
-      [typeof Component === 'string'
-        ? 'href'
-        : 'to']: href,
-    };
-
+  if (href || to) {
     return (
       <Component
         className={className}
         type={type}
-        {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}
-        {...hrefProps}>
+        to={to}
+        href={href}
+        {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {children}
       </Component>
     );

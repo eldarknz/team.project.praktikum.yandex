@@ -4,6 +4,7 @@ import {
   ElementType,
 } from 'react';
 import './Button.scss';
+import { Link } from 'react-router-dom';
 
 export type ButtonProps = {
   className?: string;
@@ -23,7 +24,7 @@ export const Button = ({
   className = href
     ? 'basicButton basicButton--link'
     : 'basicButton',
-  Component = href ? 'a' : 'button',
+  Component = href ? Link : 'button',
   ...otherProps
 }: ButtonProps) => {
   if (href) {

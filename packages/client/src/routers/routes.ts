@@ -1,5 +1,8 @@
 import { lazy, ComponentType } from 'react';
 
+const NavigationPage = lazy(
+  () => import('@pages/Navigation')
+);
 const HomePage = lazy(
   () => import('@pages/Home')
 );
@@ -42,8 +45,14 @@ export type RouteItem = {
 };
 
 export const ROUTES = {
-  Home: {
+  Navigation: {
     path: '/',
+    isPrivate: false,
+    component: NavigationPage,
+    layout: Layout.Default,
+  },
+  Home: {
+    path: '/home',
     isPrivate: false,
     component: HomePage,
     layout: Layout.Default,

@@ -1,41 +1,26 @@
 @import '@styles/variables.scss';
 
-.container{
-    min-height: 100vh;
-    min-width: 100vw;
-    padding: 20px;
-    background: url('@assets/png/background.png') no-repeat center / cover;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
+.container {
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 20px;
+  background: url('@assets/png/background.png')
+    no-repeat center / cover;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
 }
 
-.card{
-    max-width: 345px;
-    margin: auto 0;
-    width: 100%;
-    padding: 20px;
-    background: $darkPurple;
-    border: 1px solid $purple;
-    border-radius: 10px;
-    color: $white;
-    text-align: center;
-}
-
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-end;
-    max-width: 100vw;
-    flex-wrap: wrap;
-    gap: 20px;
-
-    svg{
-        width: 60px;
-        height: 60px;
-        display: block;
-    }
+.card {
+  max-width: 345px;
+  margin: auto 0;
+  width: 100%;
+  padding: 20px;
+  background: $darkPurple;
+  border: 1px solid $purple;
+  border-radius: 10px;
+  color: $white;
+  text-align: center;
 }

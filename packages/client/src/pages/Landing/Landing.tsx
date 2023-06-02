@@ -1,20 +1,39 @@
 import React from 'react';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/Button';
 import { ROUTES } from '@routers/routes';
+import backgroundImage from '@assets/png/background.png';
 
 export const LandingPage = () => {
-  const signInPath = ROUTES.SignIn.path;
-  const signUpPath = ROUTES.SignUp.path;
+  const navigate = useNavigate();
 
-  const handleSignInClick = () => {
-    document.location = signInPath;
+  const handleSignInClick = useCallback(
+    () => navigate(ROUTES.SignIn.path),
+    [navigate]
+  );
+  const handleSignUnClick = useCallback(
+    () => navigate(ROUTES.SignUp.path),
+    [navigate]
+  );
+
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
   };
 
   return (
-    <div className="landing">
+    <div
+      className="landing"
+      style={backgroundStyle}>
       <div className="landing--buttons-auth">
-        <Button href={signInPath}>Войти</Button>
-        <Button href={signUpPath}>
+        <Button
+          className="basicButton basicButton--link"
+          onClick={handleSignInClick}>
+          Войти
+        </Button>
+        <Button
+          className="basicButton basicButton--link"
+          onClick={handleSignUnClick}>
           Зарегистрироваться
         </Button>
       </div>

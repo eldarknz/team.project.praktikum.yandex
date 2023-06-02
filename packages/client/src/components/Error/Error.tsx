@@ -1,4 +1,6 @@
 import React from 'react';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Error.scss';
 import { Button } from '@components/Button';
 import { ROUTES } from '@routers/routes';
@@ -14,13 +16,20 @@ export const Error = ({
   error,
   title,
 }: Props) => {
-  const homePath = ROUTES.Home.path;
+  const navigate = useNavigate();
+
+  const handleHomeClick = useCallback(
+    () => navigate(ROUTES.Home.path),
+    [navigate]
+  );
 
   return (
     <div className="error">
       <h1 className="error--name">{error}</h1>
       <h2 className="error--title">{title}</h2>
-      <Button href={homePath}>
+      <Button
+        className="basicButton basicButton--link"
+        onClick={handleHomeClick}>
         Назад к игре
       </Button>
     </div>

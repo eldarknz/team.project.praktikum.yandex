@@ -2,11 +2,12 @@
 
 $primaryColor: #3369f3;
 $baseBlack: #1e1e1e;
+$neutral90: hsl(0, 0%, 90%);
 $neutral60: hsl(0, 0%, 60%);
 $danger: hsl(0, 100%, 55%);
 $gray: #d6d6d6;
 $purple: #564282;
-$darkPurple: #191C2C;
+$darkPurple: #191c2c;
 $white: #fff;
 
 $bodyFontFamily: 'Inter';
@@ -14,6 +15,7 @@ $baseFontStyle: normal;
 $baseFontWeight: 500;
 $baseBoxShadow: 0px 0px 6px rgba($baseBlack, 0.2);
 $baseBorderRadius: 12px;
+$baseBorder: 1px solid $neutral90;
 
 $dialogMinWidth: 300px;
 

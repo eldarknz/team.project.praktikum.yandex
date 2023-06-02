@@ -27,7 +27,8 @@
       "@service/*": ["./src/service/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/api/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@context/*": ["./context/*"]
     }
   },
   "include": [

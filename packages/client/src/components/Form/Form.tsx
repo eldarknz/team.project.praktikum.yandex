@@ -6,20 +6,19 @@ import {
   useState,
 } from 'react';
 
-import { isEmpty } from '@utils/isEmpty';
-
+import { FormContext } from './context';
+import { fillObject, initState } from './utils';
 import {
-  FormContext,
-  FormErrors,
+  useValidate,
+  useRegisterField,
+} from './hooks';
+import {
   FormState,
-  FormValidators,
   FormSubmitHandler,
-  Validator,
-} from './FormContext';
+} from './types';
 
-export interface FormProps<
-  TValues extends Record<string, any>
-> extends Omit<
+export interface FormProps<TValues extends object>
+  extends Omit<
     HTMLProps<HTMLFormElement>,
     'onSubmit'
   > {
@@ -28,31 +27,7 @@ export interface FormProps<
   onReset?: () => void;
 }
 
-function initState<
-  TValues extends Record<string, any>
->(initialValues: TValues): FormState<TValues> {
-  return {
-    values: {
-      ...initialValues,
-    },
-    validators: {} as FormValidators<TValues>,
-    errors: {} as FormErrors<TValues>,
-  };
-}
-
-const fillObject = (
-  object: Record<string, unknown>,
-  value: unknown
-): Record<string, unknown> => {
-  return Object.keys(object).reduce(
-    (acc, key) => ({ ...acc, [key]: value }),
-    { ...object }
-  );
-};
-
-export function Form<
-  TValues extends Record<string, any>
->({
+export function Form<TValues extends object>({
   onSubmit,
   onReset,
   initialValues = {} as TValues,
@@ -64,50 +39,16 @@ export function Form<
   const [onClearHandlers, setOnClearHandlers] =
     useState<(() => void)[]>([]);
 
-  const validate = useCallback(() => {
-    const { validators } = formState;
-
-    // always reset form errors
-    // in case there was form errors from backend
-    setFormState(state => ({
-      ...state,
-      errors: {} as FormErrors<TValues>,
-    }));
-
-    if (isEmpty(validators)) {
-      return true;
+  const registerField = useRegisterField<TValues>(
+    {
+      onClearHandlesChange: setOnClearHandlers,
+      onFormStateChange: setFormState,
     }
-
-    const formErrors = Object.entries(
-      validators
-    ).reduce((errors, [name, validators]) => {
-      const { values } = formState;
-      const messages = (
-        validators as Validator<TValues>[]
-      ).reduce((result, validator) => {
-        const value = values[name];
-        const err = validator(value, values);
-        return [...result, err];
-      }, [] as ReturnType<Validator<TValues>>[]);
-
-      if (messages[0]) {
-        errors[name] = messages[0];
-      }
-
-      return errors;
-    }, {} as Record<string, string>);
-
-    if (isEmpty(formErrors)) {
-      return true;
-    }
-
-    setFormState(state => ({
-      ...state,
-      errors: formErrors as any,
-    }));
-
-    return false;
-  }, [formState]);
+  );
+  const validate = useValidate<TValues>({
+    formState,
+    onFormStateChange: setFormState,
+  });
 
   const handleReset: FormEventHandler =
     useCallback(e => {
@@ -119,73 +60,8 @@ export function Form<
         onReset();
       }
     }, []);
-
-  const registerField = useCallback(
-    ({
-      name,
-      validators,
-      value,
-      onClearForm,
-    }: {
-      name: string;
-      validators: Validator<TValues>[];
-      value: any;
-      onClearForm: () => void;
-    }) => {
-      // register field
-      setOnClearHandlers([
-        ...onClearHandlers,
-        onClearForm,
-      ]);
-
-      setFormState(state => {
-        return {
-          ...state,
-          validators: {
-            ...state.validators,
-            [name]: validators || [],
-          },
-          errors: {
-            ...state.errors,
-            [name]: null,
-          },
-          values: {
-            ...state.values,
-            [name]: value,
-          },
-        } as FormState<TValues>;
-      });
-
-      // unregister field
-      return () => {
-        setOnClearHandlers(
-          onClearHandlers.filter(
-            h => h !== onClearForm
-          )
-        );
-
-        setFormState(state => {
-          const { values, errors, validators } = {
-            ...state,
-          };
-
-          delete values[name];
-          delete errors[name];
-          delete validators[name];
-
-          return {
-            values,
-            errors,
-            validators,
-          };
-        });
-      };
-    },
-    []
-  );
-
   const setFieldValue = useCallback(
-    (name: string, value: any) => {
+    (name: string, value: unknown) => {
       setFormState({
         ...formState,
         values: {
@@ -197,7 +73,7 @@ export function Form<
     [formState]
   );
 
-  const clearForm = useCallback(() => {
+  const cleanForm = useCallback(() => {
     setFormState({
       ...formState,
       values: fillObject(formState.values, ''),
@@ -212,13 +88,13 @@ export function Form<
       ...formState,
       registerField,
       setFieldValue,
-      clearForm,
+      cleanForm,
     }),
     [
       formState,
       registerField,
       setFieldValue,
-      clearForm,
+      cleanForm,
     ]
   );
 
@@ -230,7 +106,7 @@ export function Form<
         if (validate()) {
           onSubmit({
             values: { ...formState.values },
-            clearForm,
+            cleanForm,
           });
         }
       },
@@ -238,7 +114,7 @@ export function Form<
         formState.values,
         onSubmit,
         validate,
-        clearForm,
+        cleanForm,
       ]
     );
 

@@ -10,7 +10,7 @@ import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
 import { useDialog } from '@hooks/useDialog';
 import { Form } from '@components/Form';
-import { FormSubmitHandler } from '@components/Form/FormContext';
+import { FormSubmitHandler } from '@components/Form';
 
 import styles from './PasswordEditor.module.scss';
 

@@ -50,49 +50,49 @@ export const Account = ({
   const updateViewerHandler = useEditUser();
   const updateViewer: UserEditorProps['onSubmit'] =
     useCallback(
-      ({ values, clearForm }) =>
+      ({ values, cleanForm }) =>
         updateViewerHandler({
           values,
           onSuccess: () => {
-            clearForm();
+            cleanForm();
             closeUserEditor();
           },
           onError: () =>
             alert('Cannot update user'),
         }),
-      []
+      [updateViewerHandler]
     );
 
   const updateAvatarHandler = useEditAvatar();
   const updateAvatar: AvatarEditorProps['onSubmit'] =
     useCallback(
-      ({ values, clearForm }) =>
+      ({ values, cleanForm }) =>
         updateAvatarHandler({
           values,
           onSuccess: () => {
-            clearForm();
+            cleanForm();
             closeAvatarEditor();
           },
           onError: () =>
             alert('Cannot update user'),
         }),
-      []
+      [updateAvatarHandler]
     );
 
   const updatePasswordHandler = useEditPassword();
   const updatePassword: PasswordEditorProps['onSubmit'] =
     useCallback(
-      ({ values, clearForm }) =>
+      ({ values, cleanForm }) =>
         updatePasswordHandler({
           values,
           onSuccess: () => {
-            clearForm();
+            cleanForm();
             closePasswordEditor();
           },
           onError: () =>
             alert('Cannot update user'),
         }),
-      []
+      [updatePasswordHandler]
     );
 
   return (

@@ -13,7 +13,7 @@ import { useDialog } from '@hooks/useDialog';
 import {
   FormSubmitHandler,
   FormContextState,
-} from '@components/Form/FormContext';
+} from '@components/Form';
 
 import { ViewerModel } from '@pages/Account/models';
 

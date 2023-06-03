@@ -103,6 +103,7 @@ export const AuthForm = ({
       name: 'password_confirm',
       type: 'password',
       labelText: 'Еще раз пароль',
+      errorText: 'Пароли не совпадают',
       validator: validate.passwordConfirm,
     },
   ];

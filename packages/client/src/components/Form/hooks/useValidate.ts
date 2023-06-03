@@ -6,7 +6,7 @@ import {
   FormErrors,
   FormState,
   Validator,
-} from './types';
+} from '../types';
 
 export const useValidate = <
   TValues extends object

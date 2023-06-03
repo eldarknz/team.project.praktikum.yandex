@@ -1,1 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+
 $primaryColor: #3369f3;
+$baseBlack: #1e1e1e;
+$neutral60: hsl(0, 0%, 60%);
+$danger: hsl(0, 100%, 55%);
+$shadowLight: 0 0 6px 0 rgb(0 0 0 / 14%);
+$gray: #d6d6d6;
+$purple: #564282;
+$darkPurple: #191C2C;
+$white: #fff;
+$bodyFontFamily: 'Inter';
+$baseFontStyle: normal;
+$baseFontWeight: 500;
+$baseBoxShadow: 0px 0px 6px rgba($baseBlack, 0.2);
+$baseBorderRadius: 12px;
+$dialogMinWidth: 300px;
+
+@mixin h1 {
+  font-size: 40px;
+  line-height: 40px;
+}
+
+@mixin h2 {
+  font-size: 20px;
+  line-height: 20px;
+}

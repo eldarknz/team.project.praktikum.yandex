@@ -1,6 +1,14 @@
+@import '@styles/variables';
+
 .spinner {
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dialog {
+  background: $darkPurple;
+  box-shadow: $primaryShadow !important;
+  color: $white;
 }

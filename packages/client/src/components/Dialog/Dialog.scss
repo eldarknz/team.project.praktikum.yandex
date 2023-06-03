@@ -1,4 +1,5 @@
 @import '@styles/variables.scss';
+@import '@styles/animations.scss';
 
 $horPadding: 16px;
 $verPadding: 16px;
@@ -32,6 +33,20 @@ $verPadding: 16px;
     display: flex !important;
     align-items: center;
     justify-content: center;
+  }
+
+  // Animations
+  animation: $slideOutAnimation;
+  .dialog__content {
+    animation: $fadeOutAnimation;
+  }
+
+  &.dialog--open {
+    animation: $fadeInAnimation;
+
+    .dialog__content {
+      animation: $slideInAnimation;
+    }
   }
 }
 

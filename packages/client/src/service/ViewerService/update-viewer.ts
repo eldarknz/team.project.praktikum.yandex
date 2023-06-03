@@ -18,6 +18,8 @@ export interface UpdateViewerResponse {
 export const updateViewer = (
   data: UpdateViewerRequest
 ) => {
+  console.log(data);
+
   if (Math.random() < 0.1) {
     throw new Error('Error!!!');
   }

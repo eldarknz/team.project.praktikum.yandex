@@ -1,23 +1,23 @@
 import { useCallback } from 'react';
 
 import { useInjection } from '@hooks/useInjection';
-import { UpdateViewerRequest } from '@service/ViewerService';
+import { UpdateAvatarRequest } from '@service/ViewerService';
 
-export const useEditUser = () => {
+export const useEditAvatar = () => {
   const { viewerService } = useInjection();
 
-  const callback = useCallback(
+  const editAvatar = useCallback(
     async ({
       onSuccess,
       onError,
       values,
     }: {
-      values: UpdateViewerRequest;
+      values: UpdateAvatarRequest;
       onSuccess: () => void;
       onError: () => void;
     }) => {
       try {
-        await viewerService.updateViewer(values);
+        await viewerService.updateAvatar(values);
 
         onSuccess();
       } catch {
@@ -27,5 +27,5 @@ export const useEditUser = () => {
     [viewerService]
   );
 
-  return callback;
+  return editAvatar;
 };

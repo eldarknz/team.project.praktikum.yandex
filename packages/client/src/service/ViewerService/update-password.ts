@@ -5,9 +5,10 @@ export interface UpdatePasswordRequest {
 }
 
 export const updatePassword = (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   data: UpdatePasswordRequest
 ) => {
+  console.log(data);
+
   if (Math.random() < 0.1) {
     throw new Error('Error!!!');
   }

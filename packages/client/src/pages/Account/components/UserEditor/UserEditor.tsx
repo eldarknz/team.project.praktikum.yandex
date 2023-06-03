@@ -1,16 +1,19 @@
 import {
-  FormEventHandler,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
-import { Spinner } from '@components/Spinner';
 import { Input } from '@components/Input';
-import { InputControl } from '@components/InputControl';
+import { Form } from '@components/Form';
 import { useDialog } from '@hooks/useDialog';
+import {
+  FormSubmitHandler,
+  FormContextState,
+} from '@components/Form/FormContext';
 
 import { ViewerModel } from '@pages/Account/models';
 
@@ -18,17 +21,18 @@ import styles from './UserEditor.module.scss';
 
 export type UserEditorForm = ViewerModel;
 
+export type UserFormContext =
+  FormContextState<UserEditorForm>;
+
 export interface UserEditorProps {
   viewer: ViewerModel;
-  onSubmit: (
-    values: UserEditorForm
-  ) => Promise<void>;
+  onSubmit: FormSubmitHandler<UserEditorForm>;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
+// TODO: добавить валидацию
 
 export const UserEditor = ({
-  viewer,
   isOpen: initialIsOpen,
   onSubmit,
   onOpenChange,
@@ -45,101 +49,64 @@ export const UserEditor = ({
     onOpenChange(isOpen);
   }, [isOpen, onOpenChange]);
 
-  const values: UserEditorForm =
-    {} as UserEditorForm;
-
-  const handleSubmit: FormEventHandler =
+  const handleSubmit: FormSubmitHandler<UserEditorForm> =
     useCallback(
-      async e => {
-        // TODO: добавить валидацию
-        e.preventDefault();
-
+      async data => {
         setSubmitting(true);
-
-        onSubmit(values).then(() =>
-          setSubmitting(false)
-        );
+        await onSubmit(data);
+        setSubmitting(false);
       },
       [onSubmit]
     );
 
+  const fields = useMemo(
+    () => [
+      {
+        label: 'E-mail',
+        name: 'email',
+      },
+      {
+        label: 'Логин',
+        name: 'login',
+      },
+      {
+        label: 'Имя',
+        name: 'name',
+      },
+      {
+        label: 'Фамилия',
+        name: 'secondName',
+      },
+      {
+        label: 'Телефон',
+        name: 'phone',
+      },
+    ],
+    []
+  );
+
   return (
     <Dialog
-      title="Редактировать данные пользователя"
+      title="Редактировать данные"
       isOpen={isOpen}
-      onOpenChange={setDialogState}>
-      <form onSubmit={handleSubmit}>
-        <InputControl
-          labelText="Имя"
-          labelId="name">
+      onOpenChange={setDialogState}
+      contentClass={styles.dialog}>
+      <Form onSubmit={handleSubmit}>
+        {fields.map(({ label, name }) => (
           <Input
-            name="firstName"
-            id="name"
-            value={viewer.firstName}
-            onChange={() => {
-              //
-            }}
+            key={name}
+            labelText={label}
+            name={name}
           />
-        </InputControl>
-        <InputControl
-          labelText="Фамилия"
-          labelId="secondName">
-          <Input
-            name="secondName"
-            id="secondName"
-            value={viewer.secondName}
-            onChange={() => {
-              //
-            }}
-          />
-        </InputControl>
-        <InputControl
-          labelText="E-mail"
-          labelId="email">
-          <Input
-            name="email"
-            id="email"
-            value={viewer.email}
-            onChange={() => {
-              //
-            }}
-          />
-        </InputControl>
-        <InputControl
-          labelText="Телефон"
-          labelId="phone">
-          <Input
-            name="phone"
-            id="phone"
-            value={viewer.phone}
-            onChange={() => {
-              //
-            }}
-          />
-        </InputControl>
-        <InputControl
-          labelText="Логин"
-          labelId="login">
-          <Input
-            name="login"
-            id="login"
-            value={viewer.login}
-            onChange={() => {
-              //
-            }}
-          />
-        </InputControl>
+        ))}
 
-        {isSubmitting ? (
-          <div className={styles.spinner}>
-            <Spinner />
-          </div>
-        ) : (
-          <Button type="submit">
-            Редактировать
-          </Button>
-        )}
-      </form>
+        <Button
+          type="submit"
+          loading={isSubmitting}
+          disabled={isSubmitting}>
+          Редактировать
+        </Button>
+      </Form>
     </Dialog>
   );
 };

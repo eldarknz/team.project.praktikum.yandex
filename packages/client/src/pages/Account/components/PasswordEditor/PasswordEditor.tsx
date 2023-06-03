@@ -1,16 +1,16 @@
 import {
-  FormEventHandler,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
-import { Spinner } from '@components/Spinner';
 import { Input } from '@components/Input';
-import { InputControl } from '@components/InputControl';
 import { useDialog } from '@hooks/useDialog';
+import { Form } from '@components/Form';
+import { FormSubmitHandler } from '@components/Form/FormContext';
 
 import styles from './PasswordEditor.module.scss';
 
@@ -21,12 +21,11 @@ export type PasswordEditorForm = {
 };
 
 export interface PasswordEditorProps {
-  onSubmit: (
-    values: PasswordEditorForm
-  ) => Promise<void>;
+  onSubmit: FormSubmitHandler<PasswordEditorForm>;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
+// TODO: добавить валидацию
 
 export const PasswordEditor = ({
   isOpen: initialIsOpen,
@@ -45,65 +44,57 @@ export const PasswordEditor = ({
     onOpenChange(isOpen);
   }, [isOpen, onOpenChange]);
 
-  const values: PasswordEditorForm =
-    {} as PasswordEditorForm;
-
-  const handleSubmit: FormEventHandler =
+  const handleSubmit: FormSubmitHandler<PasswordEditorForm> =
     useCallback(
-      async e => {
-        // TODO: добавить валидацию
-        e.preventDefault();
-
+      async data => {
         setSubmitting(true);
-
-        onSubmit(values).then(() =>
-          setSubmitting(false)
-        );
+        await onSubmit(data);
+        setSubmitting(false);
       },
       [onSubmit]
     );
+
+  const fields = useMemo(
+    () => [
+      {
+        label: 'Старый пароль',
+        name: 'oldPassword',
+      },
+      {
+        label: 'Новый пароль',
+        name: 'newPassword',
+      },
+      {
+        label: 'Повторите новый пароль',
+        name: 'repeatNewPassword',
+      },
+    ],
+    []
+  );
 
   return (
     <Dialog
       title="Редактировать пароль"
       isOpen={isOpen}
-      onOpenChange={setDialogState}>
-      <form onSubmit={handleSubmit}>
-        <InputControl
-          labelText="Старый пароль"
-          labelId="oldPassword">
+      onOpenChange={setDialogState}
+      contentClass={styles.dialog}>
+      <Form<PasswordEditorForm>
+        onSubmit={handleSubmit}>
+        {fields.map(({ label, name }) => (
           <Input
-            name="oldPassword"
-            id="oldPassword"
+            key={name}
+            name={name}
+            labelText={label}
           />
-        </InputControl>
-        <InputControl
-          labelText="Новый пароль"
-          labelId="newPassword">
-          <Input
-            name="newPassword"
-            id="newPassword"
-          />
-        </InputControl>
-        <InputControl
-          labelText="Повторите новый пароль"
-          labelId="repeatNewPassword">
-          <Input
-            name="repeatNewPassword"
-            id="repeatNewPassword"
-          />
-        </InputControl>
+        ))}
 
-        {isSubmitting ? (
-          <div className={styles.spinner}>
-            <Spinner />
-          </div>
-        ) : (
-          <Button type="submit">
-            Редактировать
-          </Button>
-        )}
-      </form>
+        <Button
+          type="submit"
+          loading={isSubmitting}
+          disabled={isSubmitting}>
+          Редактировать
+        </Button>
+      </Form>
     </Dialog>
   );
 };

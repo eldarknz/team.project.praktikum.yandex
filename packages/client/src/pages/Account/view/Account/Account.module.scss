@@ -19,15 +19,20 @@
 }
 
 .avatar {
-  height: 128px;
-  width: 128px;
-  border-radius: 50%;
-  background: $neutral90;
+  height: 200px;
+  width: 200px;
+  border-radius: $baseBorderRadius;
+  box-shadow: $secondaryShadow;
+  background: $gradient;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .userName {
-  color: $baseBlack;
+  color: $white;
+  font-size: 20px;
 }
 
 .links {

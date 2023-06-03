@@ -26,7 +26,7 @@
       "@routers/*": ["./src/routers/*"],
       "@service/*": ["./src/service/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/api/*"],
+      "@utils/*": ["./src/utils/*"],
       "@public/*": ["./public/*"],
       "@context/*": ["./context/*"]
     }

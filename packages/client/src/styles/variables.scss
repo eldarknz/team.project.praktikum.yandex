@@ -1,14 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
 
-$primaryColor: #3369f3;
 $baseBlack: #1e1e1e;
 $neutral90: hsl(0, 0%, 90%);
 $neutral60: hsl(0, 0%, 60%);
 $danger: hsl(0, 100%, 55%);
 $gray: #d6d6d6;
 $purple: #564282;
+$blue: #36a4e3;
 $darkPurple: #191c2c;
 $white: #fff;
+$backgroundImg: url('@assets/png/background.png')
+  no-repeat center / cover;
+$gradient: linear-gradient(
+  63deg,
+  rgba($purple, 1) 0%,
+  rgba($blue, 1) 100%
+);
+
+$primaryColor: $purple;
+$secondaryColor: $blue;
+$primaryShadow: 0px 0px 12px
+  rgba($primaryColor, 0.5);
+$secondaryShadow: 0px 0px 12px
+  rgba($secondaryColor, 0.5);
 
 $bodyFontFamily: 'Inter';
 $baseFontStyle: normal;

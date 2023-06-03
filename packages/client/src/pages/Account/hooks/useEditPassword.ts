@@ -1,18 +1,21 @@
-import { useInjection } from '@hooks/useInjection';
-import { UpdatePasswordRequest } from '@service/ViewerService';
 import { useCallback } from 'react';
 
-export const useEditPassword = ({
-  onSuccess,
-  onError,
-}: {
-  onSuccess: () => void;
-  onError: () => void;
-}) => {
+import { useInjection } from '@hooks/useInjection';
+import { UpdatePasswordRequest } from '@service/ViewerService';
+
+export const useEditPassword = () => {
   const { viewerService } = useInjection();
 
   const callback = useCallback(
-    async (values: UpdatePasswordRequest) => {
+    async ({
+      onSuccess,
+      onError,
+      values,
+    }: {
+      values: UpdatePasswordRequest;
+      onSuccess: () => void;
+      onError: () => void;
+    }) => {
       try {
         await viewerService.updatePassword(
           values
@@ -23,7 +26,7 @@ export const useEditPassword = ({
         onError();
       }
     },
-    [onSuccess, onError, viewerService]
+    [viewerService]
   );
 
   return callback;

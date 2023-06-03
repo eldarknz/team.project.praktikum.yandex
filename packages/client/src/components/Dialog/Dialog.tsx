@@ -58,15 +58,15 @@ export const Dialog = ({
         [OVERLAY_CLASS]: true,
         'dialog--open': localOpen,
       })}>
-      <dialog className="dialog__content">
+      <dialog
+        className={cn(
+          'dialog__content',
+          contentClass
+        )}>
         <div className="dialog__header">
           {title}
         </div>
-        <div
-          className={cn(
-            'dialog__body',
-            contentClass
-          )}>
+        <div className="dialog__body">
           {children}
         </div>
       </dialog>

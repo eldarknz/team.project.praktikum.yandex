@@ -4,6 +4,7 @@ import { useInjection } from '@hooks/useInjection';
 import { GetViewerResponse } from '@service/ViewerService';
 
 import { Account, LoadingState } from './view';
+import style from './Account.module.scss';
 
 export const AccountPage = () => {
   document.title = 'Профиль';
@@ -18,8 +19,16 @@ export const AccountPage = () => {
   }, []);
 
   if (!viewer) {
-    return <LoadingState />;
+    return (
+      <div className={style.page}>
+        <LoadingState />
+      </div>
+    );
   }
 
-  return <Account viewer={viewer} />;
+  return (
+    <div className={style.page}>
+      <Account viewer={viewer} />
+    </div>
+  );
 };

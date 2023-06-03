@@ -8,7 +8,6 @@
 
 .listItem,
 .linkItem {
-  border-bottom: $baseBorder;
   display: flex;
   height: 48px;
   min-height: 48px;
@@ -19,7 +18,7 @@
 }
 
 .listItem__title {
-  color: $baseBlack;
+  color: $white;
 }
 
 .listItem__value {

@@ -28,6 +28,27 @@ class Validate {
       content
     );
   };
+
+  public login = (content: string): boolean => {
+    return (
+      !/^\d+$/.test(content) &&
+      /^[a-zA-Z0-9][a-zA-Z0-9_-]{2,19}$/.test(
+        content
+      )
+    );
+  };
+
+  public passwordConfirm = (
+    content: string
+  ): boolean => {
+    const password = (
+      document.querySelector(
+        '[name="password"]'
+      ) as HTMLInputElement
+    ).value;
+
+    return password === content;
+  };
 }
 
 export const validate = new Validate();

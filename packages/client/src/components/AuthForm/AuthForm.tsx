@@ -29,6 +29,9 @@ export const AuthForm = ({
     {
       name: 'login',
       labelText: 'Логин',
+      errorText:
+        'Кажется, вы ввели неверный логин',
+      validator: validate.login,
     },
     {
       name: 'password',

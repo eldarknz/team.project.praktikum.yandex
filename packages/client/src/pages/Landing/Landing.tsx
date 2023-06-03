@@ -24,7 +24,7 @@ export const LandingPage = () => {
     <div
       className="landing"
       style={backgroundStyle}>
-      <div className="landing--buttons-auth">
+      <div className="landing__buttonsAuth">
         <Button
           className="basicButton basicButton--link"
           onClick={handleSignInClick}>
@@ -36,8 +36,8 @@ export const LandingPage = () => {
           Зарегистрироваться
         </Button>
       </div>
-      <div className="landing--content">
-        <h1 className="landing--content---title">
+      <div className="landing__content">
+        <h1 className="landing__content__title">
           Добро пожаловать в theTeam
         </h1>
         <Button onClick={handleSignInClick}>

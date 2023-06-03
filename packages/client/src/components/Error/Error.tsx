@@ -24,8 +24,8 @@ export const Error = ({
 
   return (
     <div className="error">
-      <h1 className="error--name">{error}</h1>
-      <h2 className="error--title">{title}</h2>
+      <h1 className="error__name">{error}</h1>
+      <h2 className="error__title">{title}</h2>
       <Button
         className="basicButton basicButton--link"
         onClick={handleHomeClick}>

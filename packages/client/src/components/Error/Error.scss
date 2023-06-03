@@ -9,13 +9,13 @@
   justify-content: center;
   color: $baseBlack;
 
-  &--name {
+  &__name {
     @include h1;
     margin-top: 0;
     margin-bottom: 20px;
   }
 
-  &--title {
+  &__title {
     @include h2;
     margin-top: 0;
     margin-bottom: 70px;

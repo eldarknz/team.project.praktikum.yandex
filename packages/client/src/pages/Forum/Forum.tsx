@@ -1,5 +1,5 @@
 export const ForumPage = () => {
-  document.title = 'Форум'
+  document.title = 'Форум';
 
-  return <div>Forum page</div>
-}
+  return <div>Forum page</div>;
+};

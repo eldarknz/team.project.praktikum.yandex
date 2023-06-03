@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Router } from '@routers/Router';
 import { viewerService } from '@service/ViewerService';
-import { DependencyInjection } from '@/context/DependencyInjection';
+import { DependencyInjection } from '@context/DependencyInjection';
 
 import './styles/index.scss';
 

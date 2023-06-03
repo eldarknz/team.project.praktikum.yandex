@@ -29,6 +29,10 @@ export default defineConfig({
         __dirname,
         './src/components'
       ),
+      '@controllers': path.resolve(
+        __dirname,
+        './src/controllers'
+      ),
       '@core': path.resolve(
         __dirname,
         './src/core'

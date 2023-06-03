@@ -31,7 +31,14 @@ $baseBoxShadow: 0px 0px 6px rgba($baseBlack, 0.2);
 $baseBorderRadius: 12px;
 $baseBorder: 1px solid $neutral90;
 
+// Dialog
 $dialogMinWidth: 300px;
+$dialogShadow: $primaryShadow;
+
+// Card
+$cardShadow: $primaryShadow;
+$cardBackgroundColor: $darkPurple;
+$cardBorderRadius: $baseBorderRadius;
 
 @mixin h1 {
   font-size: 40px;

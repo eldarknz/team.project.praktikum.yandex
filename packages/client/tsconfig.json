@@ -28,13 +28,10 @@
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
       "@public/*": ["./public/*"],
-      "@context/*": ["./context/*"]
+      "@context/*": ["./src/context/*"]
     }
   },
-  "include": [
-    "src",
-    "./typed.d.ts"
-  ],
+  "include": ["src", "./typed.d.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

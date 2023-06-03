@@ -1,21 +1,32 @@
 @import '@styles/variables.scss';
 
 .basicButton {
+  display: block;
   background-color: $primaryColor;
   color: $baseWhite;
+  border: none;
   border-radius: 8px;
   text-align: center;
   padding: 0.7rem;
-  border: none;
   margin-top: 1rem;
   width: 100%;
   text-decoration: none;
   cursor: pointer;
 
-  &--link {
-    display: inline-block;
+  &.subButton {
     background-color: unset;
     color: $primaryColor;
+  }
+
+  &--link {
+    display: inline;
+    background-color: unset;
+    color: $primaryColor;
+    text-align: center;
+    padding: 0;
+    margin-top: 0;
+    width: 100%;
+    text-decoration: none;
   }
 
   &:disabled {

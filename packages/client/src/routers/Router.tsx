@@ -1,11 +1,9 @@
 import { Fragment, ComponentType } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import { PrivateRoute } from '@routers/PrivateRoute';
 import { DefaultLayout } from '@layouts/Default';
 import { AuthLayout } from '@layouts/Auth';
 import { ErrorLayout } from '@layouts/Error';
-
 import {
   Layout,
   RouteItem,

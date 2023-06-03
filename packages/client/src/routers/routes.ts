@@ -24,6 +24,7 @@ const SignUpPage = lazy(
 const Error404Page = lazy(
   () => import('@pages/Error404')
 );
+
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));
 
@@ -41,7 +42,7 @@ export type RouteItem = {
   layout: Layout;
 };
 
-export const ROUTES: Record<string, RouteItem> = {
+export const ROUTES = {
   Home: {
     path: '/',
     isPrivate: false,

@@ -94,6 +94,7 @@ export const AuthForm = ({
     {
       name: 'password',
       type: 'password',
+      id: 'signUpPassword',
       labelText: 'Пароль',
       errorText:
         'Требования: от 7 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
@@ -104,7 +105,15 @@ export const AuthForm = ({
       type: 'password',
       labelText: 'Еще раз пароль',
       errorText: 'Пароли не совпадают',
-      validator: validate.passwordConfirm,
+      validator: (content: string): boolean => {
+        const password = (
+          document.querySelector(
+            '#signUpPassword'
+          ) as HTMLInputElement
+        ).value;
+
+        return password === content;
+      },
     },
   ];
 

@@ -37,18 +37,6 @@ class Validate {
       )
     );
   };
-
-  public passwordConfirm = (
-    content: string
-  ): boolean => {
-    const password = (
-      document.querySelector(
-        '[name="password"]'
-      ) as HTMLInputElement
-    ).value;
-
-    return password === content;
-  };
 }
 
 export const validate = new Validate();

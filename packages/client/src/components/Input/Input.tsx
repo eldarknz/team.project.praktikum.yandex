@@ -52,7 +52,7 @@ export const Input = ({
         }
       }
     },
-    []
+    [validator, error]
   );
 
   const handleChange = useCallback(
@@ -71,7 +71,7 @@ export const Input = ({
         }
       }
     },
-    []
+    [validator, error]
   );
 
   return (

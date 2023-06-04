@@ -12,23 +12,29 @@ class AuthController {
   }
 
   signup(data: ISignupData) {
-    this.api
+    return this.api
       .signup(data)
       .then(response => response.json())
-      .then(console.log)
+      .then(json => {
+        console.log(json);
+        return json;
+      })
       .catch(console.log);
   }
 
   signin(data: ISigninData) {
-    this.api
+    return this.api
       .signin(data)
       .then(response => response.json())
-      .then(console.log)
+      .then(json => {
+        console.log(json);
+        return json;
+      })
       .catch(console.log);
   }
 
   logout() {
-    this.api
+    return this.api
       .logout()
       .then(console.log)
       .catch(err => {

@@ -1,3 +1,5 @@
+import { BaseAPI } from './BaseAPI';
+
 export interface ISignupData {
   [key: string]: string;
   first_name: string;
@@ -14,35 +16,26 @@ export interface ISigninData {
   password: string;
 }
 
-export class AuthAPI {
-  static API_URL =
-    'https://ya-praktikum.tech/api/v2/auth';
-
+export class AuthAPI extends BaseAPI {
   public signup(data: ISignupData) {
-    return fetch(AuthAPI.API_URL + '/signup', {
+    return fetch(this.API_URL + '/signup', {
       method: 'POST',
-      headers: {
-        'Content-Type':
-          'application/json;charset=utf-8',
-      },
+      headers: this.HEADERS.JSON,
       body: JSON.stringify(data),
     });
   }
 
   public signin(data: ISigninData) {
     console.log('outcoming signin data', data);
-    return fetch(AuthAPI.API_URL + '/signin', {
+    return fetch(this.API_URL + '/signin', {
       method: 'POST',
-      headers: {
-        'Content-Type':
-          'application/json;charset=utf-8',
-      },
+      headers: this.HEADERS.JSON,
       body: JSON.stringify(data),
     });
   }
 
   public logout() {
-    return fetch(AuthAPI.API_URL + '/logout', {
+    return fetch(this.API_URL + '/logout', {
       method: 'POST',
     });
   }

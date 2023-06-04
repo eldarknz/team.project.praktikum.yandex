@@ -11,21 +11,27 @@ import {
   FormEvent,
   useCallback,
   useId,
+  useState,
 } from 'react';
 import { ROUTES } from '@routers/routes';
 import { validate } from '@service/Validate';
+import { authController } from '@controllers/AuthController';
+import {
+  ISigninData,
+  ISignupData,
+} from '@api/AuthAPI';
 
 export type AuthFormProps = {
   authType: 'signup' | 'signin';
-  handleSubmit: (
-    event: FormEvent<HTMLFormElement>
-  ) => void;
 };
 
 export const AuthForm = ({
   authType,
-  handleSubmit,
 }: AuthFormProps) => {
+  const [authError, setAuthError] = useState<
+    string | null
+  >(null);
+
   const validateConfirmPassword = useCallback(
     (content: string): boolean => {
       const password = (
@@ -39,6 +45,60 @@ export const AuthForm = ({
     []
   );
 
+  const handleSignInSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const formData = new FormData(
+        event.target as HTMLFormElement
+      );
+
+      const data: Record<string, string> = {};
+
+      formData.forEach((value, key) => {
+        data[key] = value.toString();
+      });
+
+      authController
+        .signin(data as ISigninData)
+        .then(value => {
+          if (value.reason) {
+            setAuthError(value.reason);
+          } else {
+            setAuthError(null);
+          }
+        });
+    },
+    []
+  );
+
+  const handleSignUpSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const formData = new FormData(
+        event.target as HTMLFormElement
+      );
+
+      const data: Record<string, string> = {};
+
+      formData.forEach((value, key) => {
+        data[key] = value.toString();
+      });
+
+      authController
+        .signup(data as ISignupData)
+        .then(value => {
+          if (value.reason) {
+            setAuthError(value.reason);
+          } else {
+            setAuthError(null);
+          }
+        });
+    },
+    []
+  );
+
   const title =
     authType === 'signin'
       ? 'Авторизация'
@@ -48,7 +108,8 @@ export const AuthForm = ({
     {
       name: 'login',
       labelText: 'Логин',
-      errorText: validate.errorMessages.login,
+      errorText:
+        'Кажется, вы неверно ввели логин :(',
       validator: validate.login,
     },
     {
@@ -142,18 +203,30 @@ export const AuthForm = ({
       ? signInButtons
       : signUpButtons;
 
+  const handleSubmit =
+    authType === 'signin'
+      ? handleSignInSubmit
+      : handleSignUpSubmit;
+
   return (
     <div className="authBoxWrapper">
       <form
         className="authBox"
         onSubmit={handleSubmit}>
         <h1 className="authBoxHeader">{title}</h1>
+
         {inputs.map(inputProps => (
           <Input
             key={inputProps.name}
             {...inputProps}
           />
         ))}
+
+        {authError && (
+          <div className="authBoxError">
+            {authError}
+          </div>
+        )}
 
         {buttons.map(buttonProps => (
           <Button

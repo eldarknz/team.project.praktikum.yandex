@@ -3,6 +3,7 @@ import {
   ChangeEvent,
   FocusEvent,
   InputHTMLAttributes,
+  useCallback,
   useId,
   useState,
 } from 'react';
@@ -35,41 +36,43 @@ export const Input = ({
     'baseInput--error': error,
   });
 
-  const handleBlur = (
-    event: FocusEvent<HTMLInputElement>
-  ) => {
-    const { value } = event.target;
-
-    if (validator) {
-      const isCorrect = validator(value);
-
-      if (!isCorrect && value.length > 0) {
-        setError(
-          errorText ? errorText : 'Ошибка'
-        );
-      } else {
-        setError(null);
-      }
-    }
-  };
-
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    if (error && validator) {
+  const handleBlur = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
       const { value } = event.target;
 
-      const isCorrectEmail = validator(value);
+      if (validator) {
+        const isCorrect = validator(value);
 
-      if (!isCorrectEmail && value.length > 0) {
-        setError(
-          errorText ? errorText : 'Ошибка'
-        );
-      } else {
-        setError(null);
+        if (!isCorrect && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
       }
-    }
-  };
+    },
+    []
+  );
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (error && validator) {
+        const { value } = event.target;
+
+        const isCorrectEmail = validator(value);
+
+        if (!isCorrectEmail && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
+      }
+    },
+    []
+  );
 
   return (
     <InputControl

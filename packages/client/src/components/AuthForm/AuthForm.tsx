@@ -7,7 +7,11 @@ import {
   InputProps,
 } from '@components/Input';
 import './AuthForm.scss';
-import { FormEvent, useId } from 'react';
+import {
+  FormEvent,
+  useCallback,
+  useId,
+} from 'react';
 import { ROUTES } from '@routers/routes';
 import { validate } from '@service/Validate';
 
@@ -22,6 +26,19 @@ export const AuthForm = ({
   authType,
   handleSubmit,
 }: AuthFormProps) => {
+  const validateConfirmPassword = useCallback(
+    (content: string): boolean => {
+      const password = (
+        document.querySelector(
+          '#signUpPassword'
+        ) as HTMLInputElement
+      ).value;
+
+      return password === content;
+    },
+    []
+  );
+
   const title =
     authType === 'signin'
       ? 'Авторизация'
@@ -31,8 +48,7 @@ export const AuthForm = ({
     {
       name: 'login',
       labelText: 'Логин',
-      errorText:
-        'Требования к логину: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
+      errorText: validate.errorMessages.login,
       validator: validate.login,
     },
     {
@@ -59,36 +75,31 @@ export const AuthForm = ({
     {
       name: 'email',
       labelText: 'Почта',
-      errorText:
-        'Кажется, вы ошиблись в адресе 😱 Пожалуйста, перепроверьте еще раз!',
+      errorText: validate.errorMessages.email,
       validator: validate.email,
     },
     {
       name: 'login',
       labelText: 'Логин',
-      errorText:
-        'Требования к логину: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
+      errorText: validate.errorMessages.login,
       validator: validate.login,
     },
     {
       name: 'first_name',
       labelText: 'Имя',
-      errorText:
-        'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+      errorText: validate.errorMessages.name,
       validator: validate.name,
     },
     {
       name: 'second_name',
       labelText: 'Фамилия',
-      errorText:
-        'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+      errorText: validate.errorMessages.name,
       validator: validate.name,
     },
     {
       name: 'phone',
       labelText: 'Телефон',
-      errorText:
-        'Требования: от 10 до 15 символов, состоит из цифр, может начинается с плюса',
+      errorText: validate.errorMessages.phone,
       validator: validate.phone,
     },
     {
@@ -96,8 +107,7 @@ export const AuthForm = ({
       type: 'password',
       id: 'signUpPassword',
       labelText: 'Пароль',
-      errorText:
-        'Требования: от 7 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
+      errorText: validate.errorMessages.password,
       validator: validate.password,
     },
     {
@@ -105,15 +115,7 @@ export const AuthForm = ({
       type: 'password',
       labelText: 'Еще раз пароль',
       errorText: 'Пароли не совпадают',
-      validator: (content: string): boolean => {
-        const password = (
-          document.querySelector(
-            '#signUpPassword'
-          ) as HTMLInputElement
-        ).value;
-
-        return password === content;
-      },
+      validator: validateConfirmPassword,
     },
   ];
 

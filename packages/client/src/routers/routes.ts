@@ -25,10 +25,14 @@ const Error404Page = lazy(
   () => import('@pages/Error404')
 );
 
+const End = lazy(() => import('@pages/End'));
+const Start = lazy(() => import('@pages/Start'));
+
 export enum Layout {
   Default,
   Auth,
   Error,
+  Game,
 }
 
 export type RouteItem = {
@@ -38,7 +42,7 @@ export type RouteItem = {
   layout: Layout;
 };
 
-export const ROUTES: Record<string, RouteItem> = {
+export const ROUTES = {
   Home: {
     path: '/',
     isPrivate: false,
@@ -80,6 +84,18 @@ export const ROUTES: Record<string, RouteItem> = {
     isPrivate: false,
     component: LeaderboardPage,
     layout: Layout.Default,
+  },
+  Start: {
+    path: '/start',
+    isPrivate: true,
+    component: Start,
+    layout: Layout.Game,
+  },
+  End: {
+    path: '/end',
+    isPrivate: true,
+    component: End,
+    layout: Layout.Game,
   },
   Error404: {
     path: '*',

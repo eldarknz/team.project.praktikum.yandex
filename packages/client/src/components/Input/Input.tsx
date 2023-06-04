@@ -3,6 +3,7 @@ import {
   ChangeEvent,
   FocusEvent,
   InputHTMLAttributes,
+  useCallback,
   useId,
   useState,
 } from 'react';
@@ -34,6 +35,44 @@ export const Input = ({
   const inputClassNames = cn(inputClassName, {
     'baseInput--error': error,
   });
+
+  const handleBlur = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+
+      if (validator) {
+        const isCorrect = validator(value);
+
+        if (!isCorrect && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
+      }
+    },
+    [validator, error]
+  );
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (error && validator) {
+        const { value } = event.target;
+
+        const isCorrectEmail = validator(value);
+
+        if (!isCorrectEmail && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
+      }
+    },
+    [validator, error]
+  );
 
   const handleBlur = (
     event: FocusEvent<HTMLInputElement>

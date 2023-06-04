@@ -9,23 +9,19 @@
   justify-content: center;
   color: $baseBlack;
 
-  &--name {
+  &__name {
     @include h1;
     margin-top: 0;
     margin-bottom: 20px;
   }
 
-  &--title {
+  &__title {
     @include h2;
     margin-top: 0;
     margin-bottom: 70px;
   }
 
-  &--button {
-    color: $primaryColor;
+  & .basicButton {
     margin: 0;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
   }
 }

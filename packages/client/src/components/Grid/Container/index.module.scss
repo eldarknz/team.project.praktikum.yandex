@@ -1,3 +1,4 @@
+@import '@styles/variables.scss';
 @import "../styles/vars.scss";
 
 .component,
@@ -10,8 +11,8 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: calc(var(--spacing-1) * 2);
-    padding-right: calc(var(--spacing-1) * 2);
+    padding-left: calc($spacing-1 * 2);
+    padding-right: calc($spacing-1 * 2);
 
     &.gutter-0 {
         padding-left: 0;
@@ -21,8 +22,8 @@
     @for $i from 8 to 25 {
         @if $i % 8 == 0 {
             &.gutter-#{$i} {
-                padding-left: calc(var(--spacing-1) * #{$i});
-                padding-right: calc(var(--spacing-1) * #{$i});
+                padding-left: calc($spacing-1 * #{$i});
+                padding-right: calc($spacing-1 * #{$i});
             }
         }
     }

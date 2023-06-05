@@ -26,7 +26,6 @@ export class AuthAPI extends BaseAPI {
   }
 
   public signin(data: ISigninData) {
-    console.log('outcoming signin data', data);
     return fetch(this.API_URL + '/signin', {
       method: 'POST',
       headers: this.HEADERS.JSON,

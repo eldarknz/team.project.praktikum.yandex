@@ -62,7 +62,7 @@ export const AuthForm = ({
       authController
         .signin(data as ISigninData)
         .then(value => {
-          if (value.reason) {
+          if (value && value.reason) {
             setAuthError(value.reason);
           } else {
             setAuthError(null);
@@ -89,7 +89,7 @@ export const AuthForm = ({
       authController
         .signup(data as ISignupData)
         .then(value => {
-          if (value.reason) {
+          if (value && value.reason) {
             setAuthError(value.reason);
           } else {
             setAuthError(null);

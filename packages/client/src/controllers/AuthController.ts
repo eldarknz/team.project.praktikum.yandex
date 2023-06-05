@@ -14,23 +14,39 @@ class AuthController {
   signup(data: ISignupData) {
     return this.api
       .signup(data)
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          console.log(
+            'Ура, вы зарегистрированы!'
+          );
+        }
+        return response.json();
+      })
       .then(json => {
         console.log(json);
         return json;
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log('Ошибка регистрации', err);
+        return err;
+      });
   }
 
   signin(data: ISigninData) {
     return this.api
       .signin(data)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        return json;
+      .then(response => {
+        if (response.ok) {
+          console.log('Ура, вы авторизованы!');
+          return;
+        } else {
+          return response.json();
+        }
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log('Ошибка авторизации:', err);
+        return err;
+      });
   }
 
   logout() {
@@ -38,7 +54,7 @@ class AuthController {
       .logout()
       .then(console.log)
       .catch(err => {
-        console.log('logout err', err);
+        console.log('Ошибка логаута', err);
       });
   }
 }

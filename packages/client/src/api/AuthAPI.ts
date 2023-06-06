@@ -1,4 +1,4 @@
-import { BaseAPI } from './BaseAPI';
+import { API_URL, HEADERS } from './constants';
 
 export interface ISignupData {
   [key: string]: string;
@@ -16,25 +16,25 @@ export interface ISigninData {
   password: string;
 }
 
-export class AuthAPI extends BaseAPI {
+export class AuthAPI {
   public signup(data: ISignupData) {
-    return fetch(this.API_URL + '/signup', {
+    return fetch(API_URL + '/signup', {
       method: 'POST',
-      headers: this.HEADERS.JSON,
+      headers: HEADERS.JSON,
       body: JSON.stringify(data),
     });
   }
 
   public signin(data: ISigninData) {
-    return fetch(this.API_URL + '/signin', {
+    return fetch(API_URL + '/signin', {
       method: 'POST',
-      headers: this.HEADERS.JSON,
+      headers: HEADERS.JSON,
       body: JSON.stringify(data),
     });
   }
 
   public logout() {
-    return fetch(this.API_URL + '/logout', {
+    return fetch(API_URL + '/logout', {
       method: 'POST',
     });
   }

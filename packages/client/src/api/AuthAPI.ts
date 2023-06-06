@@ -1,4 +1,5 @@
-import { API_URL, HEADERS } from './constants';
+import { HTTPTransport } from '@core/HTTPTransport';
+import { API_URL } from './constants';
 
 export interface ISignupData {
   [key: string]: string;
@@ -17,25 +18,29 @@ export interface ISigninData {
 }
 
 export class AuthAPI {
+  private http: HTTPTransport;
+
+  constructor() {
+    this.http = new HTTPTransport();
+  }
+
   public signup(data: ISignupData) {
-    return fetch(API_URL + '/signup', {
-      method: 'POST',
-      headers: HEADERS.JSON,
+    return this.http.post({
+      url: API_URL + '/signup',
       body: JSON.stringify(data),
     });
   }
 
   public signin(data: ISigninData) {
-    return fetch(API_URL + '/signin', {
-      method: 'POST',
-      headers: HEADERS.JSON,
+    return this.http.post({
+      url: API_URL + '/signin',
       body: JSON.stringify(data),
     });
   }
 
   public logout() {
-    return fetch(API_URL + '/logout', {
-      method: 'POST',
+    return this.http.post({
+      url: API_URL + '/logout',
     });
   }
 }

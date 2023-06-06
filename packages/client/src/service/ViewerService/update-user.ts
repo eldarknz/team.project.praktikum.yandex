@@ -1,4 +1,4 @@
-export interface UpdateViewerRequest {
+export interface UpdateUserRequest {
   firstName: string;
   secondName: string;
   login: string;
@@ -6,7 +6,7 @@ export interface UpdateViewerRequest {
   phone: string;
 }
 
-export interface UpdateViewerResponse {
+export interface UpdateUserResponse {
   id: number;
   firstName: string;
   secondName: string;
@@ -15,8 +15,8 @@ export interface UpdateViewerResponse {
   phone: string;
 }
 
-export const updateViewer = (
-  data: UpdateViewerRequest
+export const updateUser = (
+  data: UpdateUserRequest
 ) => {
   console.log(data);
 
@@ -24,12 +24,12 @@ export const updateViewer = (
     throw new Error('Error!!!');
   }
 
-  const response: UpdateViewerResponse = {
+  const response: UpdateUserResponse = {
     id: 666,
     ...data,
   };
 
-  return new Promise<UpdateViewerResponse>(
+  return new Promise<UpdateUserResponse>(
     resolve =>
       setTimeout(() => resolve(response), 1000)
   );

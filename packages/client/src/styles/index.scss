@@ -1,5 +1,30 @@
 @import './variables';
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-color $scrollbar-track-bg;
+}
+
+*::-webkit-scrollbar {
+  width: $spacing-1;
+}
+
+*::-webkit-scrollbar-track {
+  background: $scrollbar-track-bg;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+  border-radius: 0;
+  border: 0;
+}
+
 body {
   font-family: $bodyFontFamily;
   font-style: $baseFontStyle;
@@ -10,12 +35,6 @@ html,
 body,
 #root {
   height: 100%;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 .landing {

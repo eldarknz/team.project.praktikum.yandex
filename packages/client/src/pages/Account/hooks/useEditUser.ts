@@ -17,7 +17,7 @@ export const useEditUser = () => {
       onError: () => void;
     }) => {
       try {
-        await viewerService.updateViewer(values);
+        await viewerService.updateUser(values);
 
         onSuccess();
       } catch {

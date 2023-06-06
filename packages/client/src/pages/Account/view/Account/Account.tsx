@@ -48,7 +48,7 @@ export const Account = ({
   } = useDialog();
 
   const updateViewerHandler = useEditUser();
-  const updateViewer: UserEditorProps['onSubmit'] =
+  const updateUser: UserEditorProps['onSubmit'] =
     useCallback(
       ({ values, cleanForm }) =>
         updateViewerHandler({
@@ -58,7 +58,7 @@ export const Account = ({
             closeUserEditor();
           },
           onError: () =>
-            alert('Cannot update user'),
+            console.error('Cannot update user'),
         }),
       [updateViewerHandler]
     );
@@ -74,7 +74,7 @@ export const Account = ({
             closeAvatarEditor();
           },
           onError: () =>
-            alert('Cannot update user'),
+            console.error('Cannot update user'),
         }),
       [updateAvatarHandler]
     );
@@ -90,7 +90,7 @@ export const Account = ({
             closePasswordEditor();
           },
           onError: () =>
-            alert('Cannot update user'),
+            console.error('Cannot update user'),
         }),
       [updatePasswordHandler]
     );
@@ -100,7 +100,7 @@ export const Account = ({
       <UserEditor
         viewer={viewer}
         isOpen={isUserEditorOpen}
-        onSubmit={updateViewer}
+        onSubmit={updateUser}
         onOpenChange={setUserEditorState}
       />
 

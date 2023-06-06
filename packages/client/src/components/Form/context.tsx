@@ -1,16 +1,15 @@
 import { createContext, useContext } from 'react';
 
-import { FormState, Validator } from './types';
+import { RegisterFieldArgs } from '@components/Form/hooks';
+
+import { FormState } from './types';
 
 export interface FormContextState<
   TValues extends object
 > extends FormState<TValues> {
-  registerField: (data: {
-    name: string;
-    value: unknown;
-    validators: Validator<TValues>[];
-    onClearForm: () => void;
-  }) => () => void;
+  registerField: (
+    data: RegisterFieldArgs<TValues>
+  ) => () => void;
   setFieldValue: (
     name: string,
     value: unknown
@@ -25,15 +24,9 @@ export const FormContext = createContext<
   values: {},
   validators: {},
   errors: {},
-  registerField: () => {
-    //
-  },
-  setFieldValue: () => {
-    //
-  },
-  cleanForm: () => {
-    //
-  },
+  registerField: () => null,
+  setFieldValue: () => null,
+  cleanForm: () => null,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as unknown as FormContextState<any>);
 

@@ -4,6 +4,15 @@ import { FormState, Validator } from '../types';
 
 type CleanHandler = () => void;
 
+export interface RegisterFieldArgs<
+  TValues extends object
+> {
+  name: string;
+  validators: Validator<TValues>[];
+  value: unknown;
+  onClearForm: () => void;
+}
+
 export const useRegisterField = <
   TValues extends object
 >({
@@ -25,12 +34,7 @@ export const useRegisterField = <
       validators,
       value,
       onClearForm,
-    }: {
-      name: string;
-      validators: Validator<TValues>[];
-      value: unknown;
-      onClearForm: () => void;
-    }) => {
+    }: RegisterFieldArgs<TValues>) => {
       // register field
       onClearHandlesChange(handlers => [
         ...handlers,
@@ -62,9 +66,8 @@ export const useRegisterField = <
         );
 
         onFormStateChange(state => {
-          const { values, errors, validators } = {
-            ...state,
-          };
+          const { values, errors, validators } =
+            state;
 
           delete (
             values as Record<string, unknown>

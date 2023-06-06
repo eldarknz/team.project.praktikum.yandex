@@ -1,4 +1,6 @@
-export const isEmpty = (value: unknown) => {
+export const isEmpty = (
+  value: unknown
+): boolean => {
   if (!value) {
     return true;
   }

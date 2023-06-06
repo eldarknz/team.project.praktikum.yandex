@@ -1,0 +1,44 @@
+@import '@styles/variables.scss';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  width: 500px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  height: 200px;
+  width: 200px;
+  border-radius: $baseBorderRadius;
+  box-shadow: $secondaryShadow;
+  background: $gradient;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userName {
+  color: $white;
+  font-size: 20px;
+}
+
+.links {
+  margin-top: 40px;
+}
+
+.linkItem {
+  border-bottom: none;
+}

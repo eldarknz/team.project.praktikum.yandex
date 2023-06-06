@@ -7,6 +7,8 @@ import './Button.scss';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
+import { Spinner } from '@components/Spinner';
+
 /*
 Button can be a link:
 › If 'to' passed, it will render <Link /> from React Router
@@ -19,6 +21,7 @@ Views available:
 */
 
 export type ButtonProps = {
+  loading?: boolean;
   className?: string;
   type?:
     | 'submit'
@@ -33,6 +36,7 @@ export type ButtonProps = {
   AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const Button = ({
+  loading,
   children,
   href,
   to,
@@ -42,6 +46,7 @@ export const Button = ({
     basicButton: true,
     subButton: view === 'subButton',
     'basicButton--link': view === 'link',
+    'button--loading': loading,
   }),
   Component = to ? Link : href ? 'a' : 'button',
   ...otherProps
@@ -54,7 +59,12 @@ export const Button = ({
         to={to}
         href={href}
         {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}>
-        {children}
+        <div className="button__content">
+          {children}
+        </div>
+        <div className="button__spinner">
+          {loading ? <Spinner /> : null}
+        </div>
       </Component>
     );
   }
@@ -63,7 +73,12 @@ export const Button = ({
     <Component
       className={className}
       {...otherProps}>
-      {children}
+      <div className="button__content">
+        {children}
+      </div>
+      <div className="button__spinner">
+        {loading ? <Spinner /> : null}
+      </div>
     </Component>
   );
 };

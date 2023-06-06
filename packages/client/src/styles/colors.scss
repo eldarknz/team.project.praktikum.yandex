@@ -1,7 +1,7 @@
 /* Grayscale pallete */
-$white: #FFFFFF;
-$gray-100: #FDFDFD;
-$gray-200: #F6F6F6;
+$white: #ffffff;
+$gray-100: #fdfdfd;
+$gray-200: #f6f6f6;
 $gray-300: #f1f1f1;
 $gray-400: #e9e9e9;
 $gray-500: #e0e0e0;
@@ -11,15 +11,24 @@ $gray-800: #9f9f9f;
 $gray-900: #6b6b6b;
 
 $black: #0c1729;
-$gray: #D6D6D6;
+$gray: #d6d6d6;
 $neutral60: hsl(0, 0%, 60%);
-$baseBlack: #1E1E1E;
+$baseBlack: #1e1e1e;
+$blue: #36a4e3;
+$purple: #564282;
+$darkPurple: #191c2c;
 
 /* Multicolor pallete */
-$primaryColor: #3369f3;
+$primaryColor: $purple;
 $danger: hsl(0, 100%, 55%);
-$purple: #564282;
-$darkPurple: #191C2C;
+$secondaryColor: $blue;
+
+/* Gradients */
+$gradient: linear-gradient(
+  63deg,
+  rgba($purple, 1) 0%,
+  rgba($blue, 1) 100%
+);
 
 /* Avatar */
 $avatar-background: $gray-300;

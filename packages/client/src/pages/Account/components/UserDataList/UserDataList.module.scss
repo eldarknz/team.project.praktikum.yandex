@@ -1,0 +1,26 @@
+@import '@styles/variables.scss';
+
+.list {
+  margin-top: 40px;
+  list-style: none;
+  width: 100%;
+}
+
+.listItem,
+.linkItem {
+  display: flex;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listItem__title {
+  color: $white;
+}
+
+.listItem__value {
+  color: $neutral60;
+}

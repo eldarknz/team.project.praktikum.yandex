@@ -1,4 +1,5 @@
 @import '@styles/variables.scss';
+@import '@styles/animations.scss';
 
 $horPadding: 16px;
 $verPadding: 16px;
@@ -15,6 +16,7 @@ $verPadding: 16px;
     border-radius: $baseBorderRadius;
     box-shadow: $baseBoxShadow;
     padding: 0;
+    margin: 0 auto;
   }
 
   .dialog__header {
@@ -28,9 +30,23 @@ $verPadding: 16px;
   }
 
   &.dialog--open {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+  }
+
+  // Animations
+  animation: $slideOutAnimation;
+  .dialog__content {
+    animation: $fadeOutAnimation;
+  }
+
+  &.dialog--open {
+    animation: $fadeInAnimation;
+
+    .dialog__content {
+      animation: $slideInAnimation;
+    }
   }
 }
 

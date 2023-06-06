@@ -1,10 +1,30 @@
 import createImage from '../../utils/createImage';
-import { Player } from './Player';
 import spriteStandRight from '@assets/png/spriteStandRight.png';
 import spriteStandLeft from '@assets/png/spriteStandLeft.png';
 import spriteRunRight from '@assets/png/spriteRunRight.png';
 import spriteRunLeft from '@assets/png/spriteRunLeft.png';
 import { GAME_GRAVITY } from '@pages/Game/Game';
+
+const FRAMECUT_FOR_STAND = 59;
+const FRAMECUT_FOR_RUN = 29;
+const BOTTOM_OFFSET = 60;
+
+type PlayerPosition = {
+  x: number;
+  y: number;
+};
+
+type Sprites = {
+  stand: Sprite;
+  run: Sprite;
+};
+
+type Sprite = {
+  right: HTMLImageElement;
+  left: HTMLImageElement;
+  crop: number;
+  width: number;
+};
 
 export type PlayerImplProps = {
   scrollOffset: number;
@@ -12,19 +32,17 @@ export type PlayerImplProps = {
   context: CanvasRenderingContext2D | null;
 };
 
-export default class PlayerImpl
-  implements Player
-{
-  position: Player['position'];
-  velocity: Player['position'];
-  width: Player['width'];
-  height: Player['height'];
-  speed: Player['speed'];
-  frames: Player['frames'];
-  crop: Player['crop'];
-  image: Player['image'];
-  currentSprite: Player['image'];
-  sprites: Player['sprites'];
+export default class PlayerImpl {
+  position: PlayerPosition;
+  velocity: PlayerPosition;
+  width: number;
+  height: number;
+  speed: number;
+  frames: number;
+  crop: number;
+  image: HTMLImageElement;
+  currentSprite: HTMLImageElement;
+  sprites: Sprites;
   readonly canvas?: HTMLCanvasElement;
   scrollOffset: number;
   readonly context: CanvasRenderingContext2D | null;
@@ -40,7 +58,7 @@ export default class PlayerImpl
       x: 100,
       y: 100,
     };
-    this.speed = 10;
+    this.speed = 14;
     this.width = 66;
     this.height = 150;
     this.frames = 0;
@@ -87,7 +105,7 @@ export default class PlayerImpl
   update() {
     this.frames++;
     if (
-      this.frames > 59 &&
+      this.frames > FRAMECUT_FOR_STAND &&
       (this.currentSprite ===
         this.sprites.stand.left ||
         this.currentSprite ===
@@ -95,7 +113,7 @@ export default class PlayerImpl
     ) {
       this.frames = 0;
     } else if (
-      this.frames > 29 &&
+      this.frames > FRAMECUT_FOR_RUN &&
       (this.currentSprite ===
         this.sprites.run.left ||
         this.currentSprite ===
@@ -106,7 +124,8 @@ export default class PlayerImpl
     const check =
       this.scrollOffset > 0
         ? this.canvas?.height || 0
-        : (this.canvas?.height || 0) - 60;
+        : (this.canvas?.height || 0) -
+          BOTTOM_OFFSET;
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
     const val =

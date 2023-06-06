@@ -1,26 +1,20 @@
 import GenericObjectImpl from '@core/GenericObject/GenericObjectImpl';
 import PlayerImpl from '@core/Player/PlayerImpl';
 import { Keys } from '@pages/Game/types';
-import createImage from '../../utils/createImage';
-import platformSrc from '@assets/png/platform.png';
-import hillsSrc from '@assets/png/hills.png';
-import diamandSrc from '@assets/png/diamand.png';
-import smPlatformSrc from '@assets/png/platformSmallTall.png';
 import { getMovePlayerCondition } from '../../utils/getMovePlayerCondition';
 import { ROUTES } from '@routers/routes';
 import { NavigateFunction } from 'react-router-dom';
-
-const platform = createImage(platformSrc);
-const hills = createImage(hillsSrc);
-const smPlatform = createImage(smPlatformSrc);
-const diamand = createImage(diamandSrc);
-diamand.width = 50;
+import { getFirstLevel } from './getFirstLevel';
 
 export type GameLogicProps = {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   navigate: NavigateFunction;
 };
+
+const PLATFORM_SPEED = 5;
+const MAX_LEFT_PLAYER_POSITION = 100;
+const MAX_RIGHT_PLAYER_POSITION = 400;
 
 export class GameLogic {
   id = 0;
@@ -29,8 +23,9 @@ export class GameLogic {
   navigate: NavigateFunction;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
+  finishPoint: number | undefined;
   player: PlayerImpl | undefined;
-  platforms: GenericObjectImpl[] = [];
+  finishObject: GenericObjectImpl | undefined;
   genericObjects: GenericObjectImpl[] = [];
   keys: Keys = {
     right: {
@@ -58,85 +53,16 @@ export class GameLogic {
         canvas: this.canvas,
         context: this.context,
       });
-      this.platforms = [
-        new GenericObjectImpl({
-          context: this.context,
-          x: 0,
-          y: this.canvas.height - 60,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 1000,
-          y: this.canvas.height - 240,
-          image: smPlatform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 1000,
-          y: this.canvas.height - 60,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 1500,
-          y: this.canvas.height - 400,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 2200,
-          y: this.canvas.height - 400,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 3200,
-          y: this.canvas.height - 60,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 4000,
-          y: this.canvas.height - 200,
-          image: smPlatform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 4400,
-          y: this.canvas.height - 400,
-          image: smPlatform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 4800,
-          y: this.canvas.height - 600,
-          image: smPlatform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 5089,
-          y: this.canvas.height - 600,
-          image: platform,
-        }),
-        new GenericObjectImpl({
-          context: this.context,
-          x: 5450,
-          y: this.canvas.height - 750,
-          image: diamand,
-        }),
-      ];
-      this.genericObjects = [
-        new GenericObjectImpl({
-          context: this.context,
-          x: -1,
-          y:
-            this.canvas.height -
-            hills.height +
-            20,
-          image: hills,
-        }),
-      ];
+      const { elements, finishPoint } =
+        getFirstLevel(
+          this.context,
+          this.canvas.height
+        );
+      this.finishPoint = finishPoint;
+      this.genericObjects = elements;
+      this.finishObject = elements.find(
+        i => i.type === 'finish'
+      );
     }
   };
 
@@ -144,37 +70,28 @@ export class GameLogic {
     if (!this.player) {
       return;
     }
-    this.id = window.requestAnimationFrame(
-      this.animate
-    );
-    this.context.clearRect(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    );
+    this._refreshAnim();
     this.genericObjects.forEach(genericObject => {
       genericObject.draw();
     });
-    this.platforms.forEach(platform =>
-      platform.draw()
-    );
     this.player.update();
     this.player.velocity.x = this.keys.right
       .presed
-      ? 5
+      ? PLATFORM_SPEED
       : this.keys.left.presed
-      ? -5
+      ? -PLATFORM_SPEED
       : 0;
 
     if (
       this.keys.right.presed &&
-      this.player.position.x <= 400
+      this.player.position.x <=
+        MAX_RIGHT_PLAYER_POSITION
     ) {
       this.player.velocity.x = this.player.speed;
     } else if (
       (this.keys.left.presed &&
-        this.player.position.x > 100) ||
+        this.player.position.x >
+          MAX_LEFT_PLAYER_POSITION) ||
       (this.keys.left.presed &&
         this.scrollOffset === 0 &&
         this.player.position.x > 0)
@@ -182,75 +99,48 @@ export class GameLogic {
       this.player.velocity.x = -this.player.speed;
     } else {
       this.player.velocity.x = 0;
-      this.scrollOffset = this.keys.right.presed
-        ? this.scrollOffset + this.player.speed
-        : this.keys.left.presed &&
-          this.scrollOffset > 0
-        ? this.scrollOffset - this.player.speed
-        : this.scrollOffset;
-      this.player.scrollOffset =
-        this.scrollOffset;
-      this.platforms.forEach(platform => {
-        if (this.keys.right.presed) {
-          platform.position.x -=
-            this.player!.speed;
-        } else if (
-          this.keys.left.presed &&
-          this.scrollOffset > 0
-        ) {
-          platform.position.x +=
-            this.player!.speed;
-        }
-      });
+      this._updateLevelProgress();
 
-      this.genericObjects.forEach(
-        genericObject => {
-          if (this.keys.right.presed) {
-            genericObject.position.x -=
-              this.player!.speed * 0.66;
-          } else if (
-            this.keys.left.presed &&
-            this.scrollOffset > 0
-          ) {
-            genericObject.position.x +=
-              this.player!.speed * 0.66;
-          }
-        }
+      this.genericObjects.forEach(genericObject =>
+        this._moveObject(genericObject)
       );
     }
 
-    this.platforms.forEach(platform => {
-      if (!this.player) {
-        return;
-      }
-      const { player } = this;
-      if (
-        player.position.y + player.height <=
-          platform.position.y &&
-        player.position.y +
-          player.height +
-          player.velocity.y >=
-          platform.position.y &&
-        player.position.x + player.width >=
-          platform.position.x &&
-        player.position.x + player.width >=
-          platform.position.x &&
-        player.position.x <=
-          platform.position.x + platform.width
-      ) {
-        this.player.velocity.y = 0;
-      }
-    });
+    this.genericObjects
+      .filter(i => i.type === 'platform')
+      .forEach(platform => {
+        if (!this.player) {
+          return;
+        }
+        const { x, y } = platform.position;
+        const {
+          height,
+          width,
+          velocity,
+          position,
+        } = this.player;
+        if (
+          position.y + height <= y &&
+          position.y + height + velocity.y >= y &&
+          position.x + width >= x &&
+          position.x + width >= x &&
+          position.x <= x + platform.width
+        ) {
+          velocity.y = 0;
+        }
+      });
 
     getMovePlayerCondition(
       this.keys,
       this.player,
       this.currentKey
     );
-    if (this.scrollOffset > 5000) {
+    if (this._getWinCondition()) {
       this.cancelAnimate();
-      this.navigate(`${ROUTES.End.path}?win=1`);
       this.init();
+      this.navigate(ROUTES.End.path, {
+        state: { win: true },
+      });
     }
 
     if (
@@ -259,8 +149,8 @@ export class GameLogic {
       this.scrollOffset > 0
     ) {
       this.cancelAnimate();
-      this.navigate(ROUTES.End.path);
       this.init();
+      this.navigate(ROUTES.End.path);
     }
   };
   //@typescript-eslint/no-explicit-any
@@ -295,6 +185,76 @@ export class GameLogic {
         }
         break;
       }
+    }
+  };
+
+  private _refreshAnim = () => {
+    this.id = window.requestAnimationFrame(
+      this.animate
+    );
+    this.context.clearRect(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
+  };
+
+  private _updateLevelProgress = () => {
+    if (!this.player) {
+      return;
+    }
+    const { speed } = this.player;
+    this.scrollOffset = this.keys.right.presed
+      ? this.scrollOffset + speed
+      : this.keys.left.presed &&
+        this.scrollOffset > 0
+      ? this.scrollOffset - speed
+      : this.scrollOffset;
+    this.player.scrollOffset = this.scrollOffset;
+  };
+
+  private _getWinCondition = () => {
+    const {
+      player,
+      finishObject,
+      finishPoint,
+      scrollOffset,
+    } = this;
+    if (player && finishObject && finishPoint) {
+      const rightFinishCrossing =
+        scrollOffset <=
+        finishPoint + finishObject.width;
+      const leftFinishCrossing =
+        scrollOffset > finishPoint;
+      const bottomFinishCrossing =
+        player.position.y <=
+        finishObject.position.y +
+          finishObject.height;
+      const topFinishCrossing =
+        player.position.y >=
+        finishObject.position.y - player.height;
+      return (
+        leftFinishCrossing &&
+        bottomFinishCrossing &&
+        rightFinishCrossing &&
+        topFinishCrossing
+      );
+    }
+  };
+
+  private _moveObject = (
+    item: GenericObjectImpl
+  ) => {
+    if (this.keys.right.presed) {
+      item.position.x -=
+        this.player!.speed * item.speedKoef;
+    } else if (
+      this.keys.left.presed &&
+      this.scrollOffset > 0
+    ) {
+      item.position.x +=
+        this.player!.speed * item.speedKoef;
     }
   };
 

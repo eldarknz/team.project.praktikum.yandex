@@ -1,54 +1,47 @@
 import { Keys } from '../pages/Game/types';
 import PlayerImpl from '../core/Player/PlayerImpl';
 
+type Flow = 'right' | 'left';
+type Action = 'stand' | 'run';
+
 export const getMovePlayerCondition = (
   keys: Keys,
   player: PlayerImpl,
   currentKey: string
 ) => {
-  if (
-    keys.right.presed &&
-    currentKey === 'right' &&
-    player.currentSprite !==
-      player.sprites.run.right
-  ) {
+  const moveTo = (flow: Flow, action: Action) => {
     player.currentSprite =
-      player.sprites.run.right;
+      player.sprites[action][flow];
     player.frames = 1;
-    player.crop = player.sprites.run.crop;
-    player.width = player.sprites.run.width;
+    player.crop = player.sprites[action].crop;
+    player.width = player.sprites[action].width;
+  };
+  const getMoveToCondition = (
+    flow: Flow,
+    action: Action,
+    reverse?: boolean
+  ) => {
+    const isPressed = reverse
+      ? !keys[flow].presed
+      : keys[flow].presed;
+    return (
+      isPressed &&
+      currentKey === flow &&
+      player.currentSprite !==
+        player.sprites[action][flow]
+    );
+  };
+  if (getMoveToCondition('right', 'run')) {
+    moveTo('right', 'run');
+  } else if (getMoveToCondition('left', 'run')) {
+    moveTo('left', 'run');
   } else if (
-    keys.left.presed &&
-    currentKey === 'left' &&
-    player.currentSprite !==
-      player.sprites.run.left
+    getMoveToCondition('right', 'stand', true)
   ) {
-    player.currentSprite =
-      player.sprites.run.left;
-    player.frames = 1;
-    player.crop = player.sprites.run.crop;
-    player.width = player.sprites.run.width;
+    moveTo('right', 'stand');
   } else if (
-    !keys.right.presed &&
-    currentKey === 'right' &&
-    player.currentSprite !==
-      player.sprites.stand.right
+    getMoveToCondition('left', 'stand', true)
   ) {
-    player.currentSprite =
-      player.sprites.stand.right;
-    player.frames = 1;
-    player.crop = player.sprites.stand.crop;
-    player.width = player.sprites.stand.width;
-  } else if (
-    !keys.left.presed &&
-    currentKey === 'left' &&
-    player.currentSprite !==
-      player.sprites.stand.left
-  ) {
-    player.currentSprite =
-      player.sprites.stand.left;
-    player.frames = 1;
-    player.crop = player.sprites.stand.crop;
-    player.width = player.sprites.stand.width;
+    moveTo('left', 'stand');
   }
 };

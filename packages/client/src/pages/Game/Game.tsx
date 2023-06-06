@@ -7,7 +7,8 @@ import GameView from './view/GameView';
 import { useNavigate } from 'react-router-dom';
 import { GameLogic } from '@core/GameLogic/GameLogic';
 
-export const GAME_GRAVITY = 1;
+export const GAME_GRAVITY = 1.7;
+const HEADER_HEIGHT = 120;
 
 export const GamePage = () => {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -19,7 +20,7 @@ export const GamePage = () => {
     if (ref.current) {
       ref.current.width = window.innerWidth;
       ref.current.height =
-        window.innerHeight - 120;
+        window.innerHeight - HEADER_HEIGHT;
       const logic = new GameLogic({
         canvas: ref.current,
         context: ref.current.getContext('2d')!,

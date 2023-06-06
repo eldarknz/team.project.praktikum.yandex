@@ -1,4 +1,12 @@
-import GenericObject from './GenericObject';
+type Position = {
+  x: number;
+  y: number;
+};
+
+type GenericObjectKind =
+  | 'platform'
+  | 'decoration'
+  | 'finish';
 
 export type GenericObjectImplProps = {
   context: CanvasRenderingContext2D | null;
@@ -7,16 +15,18 @@ export type GenericObjectImplProps = {
   image: HTMLImageElement;
   width?: number;
   height?: number;
+  speedKoef?: number;
+  type?: GenericObjectKind;
 };
 
-export default class GenericObjectImpl
-  implements GenericObject
-{
+export default class GenericObjectImpl {
   readonly context: CanvasRenderingContext2D | null;
-  image: GenericObject['image'];
-  width: GenericObject['width'];
-  height: GenericObject['height'];
-  position: GenericObject['position'];
+  image: HTMLImageElement;
+  width: number;
+  height: number;
+  position: Position;
+  speedKoef = 1;
+  type: GenericObjectKind;
   constructor({
     context,
     x,
@@ -24,6 +34,8 @@ export default class GenericObjectImpl
     image,
     width,
     height,
+    speedKoef,
+    type = 'platform',
   }: GenericObjectImplProps) {
     this.context = context;
     this.position = {
@@ -33,6 +45,8 @@ export default class GenericObjectImpl
     this.image = image;
     this.width = width || image.width;
     this.height = height || image.height;
+    this.speedKoef = speedKoef || 1;
+    this.type = type;
   }
 
   draw() {

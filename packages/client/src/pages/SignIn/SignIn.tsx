@@ -1,5 +1,5 @@
 export const SignInPage = () => {
-  document.title = 'Вход'
+  document.title = 'Вход';
 
-  return <div>SignInPage</div>
-}
+  return <div>SignInPage</div>;
+};

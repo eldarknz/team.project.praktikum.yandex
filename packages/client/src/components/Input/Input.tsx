@@ -4,6 +4,8 @@ import {
   InputHTMLAttributes,
   useCallback,
   useEffect,
+  ChangeEvent,
+  FocusEvent,
   useId,
   useState,
 } from 'react';
@@ -15,22 +17,68 @@ export type InputProps = {
   inputClassName?: string;
   name: string;
   type?: 'text' | 'password' | 'file' | 'hidden';
-  error?: string | boolean;
+  errorText?: string;
   labelText?: string;
+  validator?: (content: string) => boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = ({
   inputClassName = 'baseInput',
-  error,
+  errorText,
   type = 'text',
   labelText,
   name,
   value = '',
   onChange,
+  validator,
   ...otherProps
 }: InputProps) => {
+  const [error, setError] = useState<
+    string | null
+  >(null);
+
   const inputId = labelText ? useId() : undefined;
-  const inputClassNames = cn(inputClassName);
+  const inputClassNames = cn(inputClassName, {
+    'baseInput--error': error,
+  });
+
+  const handleBlur = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+
+      if (validator) {
+        const isCorrect = validator(value);
+
+        if (!isCorrect && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
+      }
+    },
+    [validator, error]
+  );
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (error && validator) {
+        const { value } = event.target;
+
+        const isCorrectEmail = validator(value);
+
+        if (!isCorrectEmail && value.length > 0) {
+          setError(
+            errorText ? errorText : 'Ошибка'
+          );
+        } else {
+          setError(null);
+        }
+      }
+    },
+    [validator, error]
+  );
 
   const { registerField, setFieldValue } =
     useFormContext();
@@ -71,6 +119,8 @@ export const Input = ({
       <input
         id={inputId}
         type={type}
+        onBlur={handleBlur}
+        onChange={handleChange}
         className={inputClassNames}
         name={name}
         onChange={handleInput}

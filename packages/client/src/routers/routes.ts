@@ -24,6 +24,7 @@ const SignUpPage = lazy(
 const Error404Page = lazy(
   () => import('@pages/Error404')
 );
+
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));
 

@@ -1,5 +1,30 @@
 @import './variables';
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-color $scrollbar-track-bg;
+}
+
+*::-webkit-scrollbar {
+  width: $spacing-1;
+}
+
+*::-webkit-scrollbar-track {
+  background: $scrollbar-track-bg;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color;
+  border-radius: 0;
+  border: 0;
+}
+
 body {
   font-family: $bodyFontFamily;
   font-style: $baseFontStyle;
@@ -12,12 +37,39 @@ body,
   height: 100%;
 }
 
-:root {
-  font-family: Arial, Helvetica, sans-serif;
-}
+.landing {
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  &__buttonsAuth {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+
+    & .basicButton--link {
+      margin-right: 24px;
+      margin-top: 24px;
+      width: auto;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__title {
+      @include h1;
+      color: $white;
+    }
+
+    & .basicButton {
+      width: 280px;
+    }
+  }
 }

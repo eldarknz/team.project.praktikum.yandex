@@ -4,8 +4,7 @@
   min-height: 100vh;
   min-width: 100vw;
   padding: 20px;
-  background: url('@assets/png/background.png')
-    no-repeat center / cover;
+  background: $backgroundImg;
   display: flex;
   align-items: center;
   flex-direction: column;

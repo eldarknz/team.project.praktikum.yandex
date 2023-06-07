@@ -1,0 +1,7 @@
+@import '@styles/variables';
+
+.card {
+  border-radius: $cardBorderRadius;
+  background: $cardBackgroundColor;
+  box-shadow: $cardShadow !important;
+}

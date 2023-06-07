@@ -24,7 +24,9 @@ export const FormContext = createContext<
   values: {},
   validators: {},
   errors: {},
-  registerField: () => null,
+  registerField: () => {
+    return () => null;
+  },
   setFieldValue: () => null,
   cleanForm: () => null,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

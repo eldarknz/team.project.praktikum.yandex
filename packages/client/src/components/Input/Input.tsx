@@ -83,7 +83,7 @@ export const Input = ({
       e => {
         const { value } = e.target;
 
-        if (error && validator) {
+        if (errorText && validator) {
           const isCorrectEmail = validator(value);
 
           if (
@@ -105,7 +105,7 @@ export const Input = ({
           onChange(e);
         }
       },
-      [setFieldValue, validator, error]
+      [setFieldValue, validator, errorText]
     );
 
   return (

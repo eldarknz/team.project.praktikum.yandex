@@ -26,21 +26,21 @@ export class AuthAPI {
 
   public signup(data: ISignupData) {
     return this.http.post({
-      url: API_URL + '/signup',
+      url: API_URL + '/auth/signup',
       body: JSON.stringify(data),
     });
   }
 
   public signin(data: ISigninData) {
     return this.http.post({
-      url: API_URL + '/signin',
+      url: API_URL + '/auth/signin',
       body: JSON.stringify(data),
     });
   }
 
   public logout() {
     return this.http.post({
-      url: API_URL + '/logout',
+      url: API_URL + '/auth/logout',
     });
   }
 }

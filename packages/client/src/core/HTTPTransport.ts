@@ -30,22 +30,26 @@ class HTTPTransport {
       body: body ? JSON.stringify(body) : null,
     })
       .then(async response => {
-        if (response.ok) {
-          const contentType =
-            response.headers.get('content-type');
+        const contentType = response.headers.get(
+          'content-type'
+        );
 
-          if (
-            contentType?.includes(
-              'application/json'
-            )
-          ) {
-            return response.json();
-          } else {
-            return response.text();
-          }
+        if (
+          contentType?.includes(
+            'application/json'
+          )
+        ) {
+          return response.json();
+        } else {
+          return response.text();
         }
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log(
+          'Ошибка в HTTPTransport.post:',
+          err
+        );
+      });
   }
 
   public get<TResponse>({

@@ -1,4 +1,4 @@
-import { HTTPTransport } from '@core/HTTPTransport';
+import { http } from '@core/HTTPTransport';
 import { API_URL } from './constants';
 
 export interface ISignupData {
@@ -17,24 +17,45 @@ export interface ISigninData {
   password: string;
 }
 
+export interface AuthError {
+  error?: string;
+  reason: string;
+}
+
+export interface SignUpSuccess {
+  id: number;
+}
+
+export type SignUpResponse =
+  | SignUpSuccess
+  | AuthError;
+
+export type SigninResponse = AuthError | string;
+
 export class AuthAPI {
-  private http: HTTPTransport;
+  private http;
 
   constructor() {
-    this.http = new HTTPTransport();
+    this.http = http;
   }
 
   public signup(data: ISignupData) {
-    return this.http.post({
+    return this.http.post<
+      ISignupData,
+      SignUpResponse
+    >({
       url: `${API_URL}/auth/signup`,
-      body: JSON.stringify(data),
+      body: data,
     });
   }
 
   public signin(data: ISigninData) {
-    return this.http.post({
+    return this.http.post<
+      ISigninData,
+      SigninResponse
+    >({
       url: `${API_URL}/auth/signin`,
-      body: JSON.stringify(data),
+      body: data,
     });
   }
 

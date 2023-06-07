@@ -1,3 +1,6 @@
+import { HTTPTransport } from '@core/HTTPTransport';
+import { API_URL } from './constants';
+
 export interface ISignupData {
   [key: string]: string;
   first_name: string;
@@ -15,35 +18,29 @@ export interface ISigninData {
 }
 
 export class AuthAPI {
-  static API_URL =
-    'https://ya-praktikum.tech/api/v2/auth';
+  private http: HTTPTransport;
+
+  constructor() {
+    this.http = new HTTPTransport();
+  }
 
   public signup(data: ISignupData) {
-    return fetch(AuthAPI.API_URL + '/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type':
-          'application/json;charset=utf-8',
-      },
+    return this.http.post({
+      url: `${API_URL}/auth/signup`,
       body: JSON.stringify(data),
     });
   }
 
   public signin(data: ISigninData) {
-    console.log('outcoming signin data', data);
-    return fetch(AuthAPI.API_URL + '/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type':
-          'application/json;charset=utf-8',
-      },
+    return this.http.post({
+      url: `${API_URL}/auth/signin`,
       body: JSON.stringify(data),
     });
   }
 
   public logout() {
-    return fetch(AuthAPI.API_URL + '/logout', {
-      method: 'POST',
+    return this.http.post({
+      url: `${API_URL}/auth/logout`,
     });
   }
 }

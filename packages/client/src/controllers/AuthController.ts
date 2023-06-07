@@ -12,27 +12,49 @@ class AuthController {
   }
 
   signup(data: ISignupData) {
-    this.api
+    return this.api
       .signup(data)
-      .then(response => response.json())
-      .then(console.log)
-      .catch(console.log);
+      .then(response => {
+        if (response.ok) {
+          console.log(
+            'Ура, вы зарегистрированы!'
+          );
+        }
+        return response.json();
+      })
+      .then(json => {
+        console.log(json);
+        return json;
+      })
+      .catch(err => {
+        console.log('Ошибка регистрации', err);
+        return err;
+      });
   }
 
   signin(data: ISigninData) {
-    this.api
+    return this.api
       .signin(data)
-      .then(response => response.json())
-      .then(console.log)
-      .catch(console.log);
+      .then(response => {
+        if (response.ok) {
+          console.log('Ура, вы авторизованы!');
+          return;
+        } else {
+          return response.json();
+        }
+      })
+      .catch(err => {
+        console.log('Ошибка авторизации:', err);
+        return err;
+      });
   }
 
   logout() {
-    this.api
+    return this.api
       .logout()
       .then(console.log)
       .catch(err => {
-        console.log('logout err', err);
+        console.log('Ошибка логаута', err);
       });
   }
 }

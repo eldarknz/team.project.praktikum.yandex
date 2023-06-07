@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useInjection } from '@hooks/useInjection';
-import { UpdateViewerRequest } from '@service/ViewerService';
+import { UpdateUserRequest } from '@service/ViewerService';
 
 export const useEditUser = () => {
   const { viewerService } = useInjection();
@@ -12,7 +12,7 @@ export const useEditUser = () => {
       onError,
       values,
     }: {
-      values: UpdateViewerRequest;
+      values: UpdateUserRequest;
       onSuccess: () => void;
       onError: () => void;
     }) => {

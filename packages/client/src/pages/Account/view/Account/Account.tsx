@@ -47,11 +47,11 @@ export const Account = ({
     setState: setAvatarEditorState,
   } = useDialog();
 
-  const updateViewerHandler = useEditUser();
+  const updateUserHandler = useEditUser();
   const updateUser: UserEditorProps['onSubmit'] =
     useCallback(
       ({ values, cleanForm }) =>
-        updateViewerHandler({
+        updateUserHandler({
           values,
           onSuccess: () => {
             cleanForm();
@@ -60,7 +60,7 @@ export const Account = ({
           onError: () =>
             console.error('Cannot update user'),
         }),
-      [updateViewerHandler]
+      [updateUserHandler]
     );
 
   const updateAvatarHandler = useEditAvatar();

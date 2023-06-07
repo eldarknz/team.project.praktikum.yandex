@@ -3,7 +3,7 @@ const HEADERS = {
     'Content-Type':
       'application/json;charset=utf-8',
   },
-};
+} as const;
 
 const METHODS = {
   POST: 'POST',
@@ -18,17 +18,34 @@ type PostProps<T> = {
   headers?: keyof typeof HEADERS;
 };
 
-export class HTTPTransport {
+class HTTPTransport {
   public post<TBody, TResponse>({
     url,
     body,
     headers = 'JSON',
-  }: PostProps<TBody>): Promise<TResponse> {
+  }: PostProps<TBody>): Promise<TResponse | null> {
     return fetch(url, {
       method: METHODS.POST,
       headers: HEADERS[headers],
       body: body ? JSON.stringify(body) : null,
-    }).then(response => response.json());
+    })
+      .then(async response => {
+        if (response.ok) {
+          const contentType =
+            response.headers.get('content-type');
+
+          if (
+            contentType?.includes(
+              'application/json'
+            )
+          ) {
+            return response.json();
+          } else {
+            return response.text();
+          }
+        }
+      })
+      .catch(console.log);
   }
 
   public get<TResponse>({
@@ -41,3 +58,5 @@ export class HTTPTransport {
     );
   }
 }
+
+export const http = new HTTPTransport();

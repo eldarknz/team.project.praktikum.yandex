@@ -1,16 +1,15 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Navbar } from '@components/Navbar';
+
 import { PageLoader } from '@components/PageLoader';
 import { PageErrorBoundary } from '@components/PageErrorBoundary';
-import './Auth.scss';
 
-export const AuthLayout = () => {
+import style from './Empty.module.scss';
+
+export const EmptyLayout = () => {
   return (
-    <div className="auth-layout">
-      <Navbar />
-
-      <main className="auth-layout__main">
+    <div className={style.layout}>
+      <main>
         <PageErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Outlet />

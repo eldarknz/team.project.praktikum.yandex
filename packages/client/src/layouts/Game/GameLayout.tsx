@@ -7,7 +7,7 @@ import { Navbar } from '@components/Navbar';
 export function GameLayout() {
   return (
     <div className={styles.container}>
-      <Navbar />
+      <Navbar view="icons" />
 
       <div className={styles.card}>
         <Suspense fallback={<PageLoader />}>

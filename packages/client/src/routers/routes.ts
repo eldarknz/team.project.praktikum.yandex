@@ -1,10 +1,7 @@
 import { lazy, ComponentType } from 'react';
 
-const NavigationPage = lazy(
-  () => import('@pages/Navigation')
-);
-const HomePage = lazy(
-  () => import('@pages/Home')
+const LandingPage = lazy(
+  () => import('@pages/Landing')
 );
 const AccountPage = lazy(
   () => import('@pages/Account')
@@ -36,6 +33,7 @@ export enum Layout {
   Auth,
   Error,
   Game,
+  Empty,
 }
 
 export type RouteItem = {
@@ -46,17 +44,11 @@ export type RouteItem = {
 };
 
 export const ROUTES = {
-  Navigation: {
+  Home: {
     path: '/',
     isPrivate: false,
-    component: NavigationPage,
-    layout: Layout.Default,
-  },
-  Home: {
-    path: '/home',
-    isPrivate: false,
-    component: HomePage,
-    layout: Layout.Default,
+    component: LandingPage,
+    layout: Layout.Empty,
   },
   Forum: {
     path: '/forum',

@@ -1,5 +1,7 @@
-export const SignInPage = () => {
-  document.title = 'Вход'
+import { AuthForm } from '@components/AuthForm';
 
-  return <div>SignInPage</div>
-}
+export const SignInPage = () => {
+  document.title = 'Вход';
+
+  return <AuthForm authType="signin" />;
+};

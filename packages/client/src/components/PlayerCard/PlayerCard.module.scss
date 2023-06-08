@@ -1,0 +1,38 @@
+@import '@styles/variables.scss';
+
+.playerCard {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: $spacing-2;
+    background-color: $white;
+    border: $border;
+
+    & .playerCardCol {
+        min-width: auto;
+        flex-grow: 1;
+
+        &:first-child {
+            min-width: 15%;
+            max-width: 15%;
+        }
+    
+        &:last-child {
+            text-align: right;
+            min-width: 30%;
+            max-width: 30%;
+            flex-grow: 1;
+        }
+    }
+}
+
+.playerInfo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: $spacing-2;
+}
+
+.playerScore {
+    margin-left: auto;
+}

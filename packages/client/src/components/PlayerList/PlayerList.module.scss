@@ -1,0 +1,35 @@
+@import '@styles/variables.scss';
+
+.playListHeader {
+    display: flex;
+    align-items: center;
+    background-color: $gray-400;
+    padding: $spacing-2;
+
+    & .playListHeaderCol {
+        min-width: auto;
+        flex-grow: 1;
+
+        &:first-child {
+            min-width: 15%;
+            max-width: 15%;
+        }
+    
+        &:last-child {
+            text-align: right;
+            min-width: 30%;
+            max-width: 30%;
+            flex-grow: 1;
+        }
+    }
+
+}
+
+.playListBody {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 348px);
+    padding-top: $spacing-2;
+    gap: $spacing-2;
+    overflow: auto;
+}

@@ -1,5 +1,5 @@
 export const HomePage = () => {
-  document.title = 'Давай сыграем в игру'
+  document.title = 'Давай сыграем в игру';
 
-  return <div>Home page</div>
-}
+  return <div>Home page</div>;
+};

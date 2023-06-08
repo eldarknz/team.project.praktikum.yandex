@@ -1,5 +1,7 @@
-export const LeaderboardPage = () => {
-  document.title = 'Leaderboard'
+import { Leaderboard } from '@layouts/Leaderboard';
 
-  return <div>Leaderboard page</div>
-}
+export const LeaderboardPage = () => {
+  document.title = 'Leaderboard';
+
+  return <Leaderboard />;
+};

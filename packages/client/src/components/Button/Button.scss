@@ -3,14 +3,15 @@
 .basicButton {
   display: block;
   background-color: $primaryColor;
-  color: #fff;
+  color: $white;
   border: none;
   border-radius: 8px;
   text-align: center;
-  padding: 0.7rem;
   margin-top: 1rem;
   width: 100%;
   text-decoration: none;
+  cursor: pointer;
+  position: relative;
 
   &.subButton {
     background-color: unset;
@@ -30,5 +31,30 @@
 
   &:disabled {
     background-color: $neutral60;
+  }
+
+  .button__content {
+    padding: 0.7rem;
+  }
+
+  &.button--loading {
+    .button__content {
+      opacity: 0;
+    }
+  }
+
+  .button__spinner {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+
+    .spinner {
+      border-color: $white;
+      border-bottom-color: transparent;
+    }
   }
 }

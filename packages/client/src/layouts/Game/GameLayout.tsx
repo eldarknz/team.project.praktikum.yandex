@@ -1,7 +1,14 @@
-import { Suspense } from 'react';
+import {
+  PropsWithChildren,
+  Suspense,
+} from 'react';
 import styles from './GameLayout.module.scss';
 import { PageLoader } from '@components/PageLoader';
-import { Link, Outlet } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
 import { ROUTES } from '@routers/routes';
 import { ReactComponent as HomeSVG } from '@assets/svg/colored/home-icon.svg';
 import { ReactComponent as LiderboardSVG } from '@assets/svg/colored/liderboard-icon.svg';
@@ -25,11 +32,26 @@ export function GameLayout() {
           <SettingsSVG />
         </Link>
       </div>
-      <div className={styles.card}>
+      <Container>
         <Suspense fallback={<PageLoader />}>
           <Outlet />
         </Suspense>
-      </div>
+      </Container>
     </div>
   );
 }
+
+type ContainerProps = PropsWithChildren;
+
+const Container = ({
+  children,
+}: ContainerProps) => {
+  const location = useLocation();
+  if (location.pathname === ROUTES.Game.path) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div className={styles.card}>{children}</div>
+  );
+};

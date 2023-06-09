@@ -19,7 +19,7 @@ type PostProps<T> = {
 };
 
 class HTTPTransport {
-  public post<TBody, TResponse>({
+  public post<TResponse, TBody = unknown>({
     url,
     body,
     headers = 'JSON',

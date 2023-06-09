@@ -41,8 +41,8 @@ export class AuthAPI {
 
   public signup(data: ISignupData) {
     return this.http.post<
-      ISignupData,
-      SignUpResponse
+      SignUpResponse,
+      ISignupData
     >({
       url: `${API_URL}/auth/signup`,
       body: data,
@@ -51,8 +51,8 @@ export class AuthAPI {
 
   public signin(data: ISigninData) {
     return this.http.post<
-      ISigninData,
-      SigninResponse
+      SigninResponse,
+      ISigninData
     >({
       url: `${API_URL}/auth/signin`,
       body: data,

@@ -14,7 +14,7 @@ const LINKS = [
   },
   {
     title: 'Игра',
-    route: ROUTES.Game,
+    route: ROUTES.Start,
   },
   {
     title: 'Лидерборд',

@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-
 import { useInjection } from '@hooks/useInjection';
 import { UpdateUserRequest } from '@service/ViewerService';
 

@@ -59,7 +59,7 @@ export const ROUTES = {
     path: '/game',
     isPrivate: true,
     component: GamePage,
-    layout: Layout.Default,
+    layout: Layout.Game,
   },
   SignIn: {
     path: '/sign-in',

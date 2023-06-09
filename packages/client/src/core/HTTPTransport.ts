@@ -23,33 +23,24 @@ class HTTPTransport {
     url,
     body,
     headers = 'JSON',
-  }: PostProps<TBody>): Promise<TResponse | null> {
+  }: PostProps<TBody>): Promise<TResponse> {
     return fetch(url, {
       method: METHODS.POST,
       headers: HEADERS[headers],
       body: body ? JSON.stringify(body) : null,
-    })
-      .then(async response => {
-        const contentType = response.headers.get(
-          'content-type'
-        );
+    }).then(async response => {
+      const contentType = response.headers.get(
+        'content-type'
+      );
 
-        if (
-          contentType?.includes(
-            'application/json'
-          )
-        ) {
-          return response.json();
-        } else {
-          return response.text();
-        }
-      })
-      .catch(err => {
-        console.log(
-          'Ошибка в HTTPTransport.post:',
-          err
-        );
-      });
+      if (
+        contentType?.includes('application/json')
+      ) {
+        return response.json();
+      } else {
+        return response.text();
+      }
+    });
   }
 
   public get<TResponse>({

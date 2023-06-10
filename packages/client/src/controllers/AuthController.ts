@@ -11,19 +11,16 @@ class AuthController {
     this.api = new AuthAPI();
   }
 
-  signup(data: ISignupData) {
+  public signup(data: ISignupData) {
     return this.api
       .signup(data)
-      .then(response => {
-        if (response.ok) {
+      .then(json => {
+        if (json && 'id' in json) {
           console.log(
-            'Ура, вы зарегистрированы!'
+            'Ура, вы зарегистрированы!',
+            json
           );
         }
-        return response.json();
-      })
-      .then(json => {
-        console.log(json);
         return json;
       })
       .catch(err => {
@@ -32,16 +29,17 @@ class AuthController {
       });
   }
 
-  signin(data: ISigninData) {
+  public signin(data: ISigninData) {
     return this.api
       .signin(data)
-      .then(response => {
-        if (response.ok) {
-          console.log('Ура, вы авторизованы!');
-          return;
-        } else {
-          return response.json();
+      .then(data => {
+        if (data !== 'OK') {
+          console.log('Ошибка авторизации ой');
+
+          return data;
         }
+
+        console.log('Ура, вы авторизованы!');
       })
       .catch(err => {
         console.log('Ошибка авторизации:', err);

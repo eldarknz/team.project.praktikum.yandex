@@ -1,34 +1,57 @@
 const HEADERS = {
-  'Content-Type':
-    'application/json;charset=utf-8',
+  JSON: {
+    'Content-Type':
+      'application/json;charset=utf-8',
+  },
+} as const;
+
+const METHODS = {
+  POST: 'POST',
+  GET: 'GET',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
+} as const;
+
+type PostProps<T> = {
+  url: string;
+  body?: T;
+  headers?: keyof typeof HEADERS;
 };
 
-export class HTTPTransport {
-  post({
+class HTTPTransport {
+  public post<TResponse, TBody = unknown>({
     url,
     body,
-  }: {
-    url: string;
-    body?: BodyInit | null;
-  }) {
+    headers = 'JSON',
+  }: PostProps<TBody>): Promise<TResponse> {
     return fetch(url, {
-      method: 'POST',
-      headers: HEADERS,
-      body,
+      method: METHODS.POST,
+      headers: HEADERS[headers],
+      body: body ? JSON.stringify(body) : null,
+    }).then(async response => {
+      const contentType = response.headers.get(
+        'content-type'
+      );
+
+      if (
+        contentType?.includes('application/json')
+      ) {
+        return response.json();
+      } else {
+        return response.text();
+      }
     });
   }
 
-  get({
+  public get<TResponse>({
     url,
-    body,
   }: {
     url: string;
-    body?: BodyInit | null;
-  }) {
-    return fetch(url, {
-      method: 'GET',
-      headers: HEADERS,
-      body,
-    });
+  }): Promise<TResponse> {
+    return fetch(url).then(response =>
+      response.json()
+    );
   }
 }
+
+export const http = new HTTPTransport();

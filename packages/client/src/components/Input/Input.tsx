@@ -4,7 +4,6 @@ import {
   InputHTMLAttributes,
   useCallback,
   useEffect,
-  ChangeEvent,
   FocusEvent,
   useId,
   useState,
@@ -36,7 +35,7 @@ export const Input = ({
   const [error, setError] = useState<
     string | null
   >(null);
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const inputId = labelText ? useId() : undefined;
   const inputClassNames = cn(inputClassName, {
     'baseInput--error': error,
@@ -58,24 +57,28 @@ export const Input = ({
         }
       }
     },
-    [validator, error]
+    [validator, errorText]
   );
 
-  const { registerField, setFieldValue } =
-    useFormContext();
+  const context = useFormContext();
 
   const [localValue, setLocalValue] =
     useState(value);
 
   useEffect(() => {
-    const unregisterField = registerField({
-      name,
-      validators: [],
-      value: localValue,
-      onClearForm: () => setLocalValue(''),
-    });
+    if (!context) return;
+
+    const unregisterField = context.registerField(
+      {
+        name,
+        validators: [],
+        value: localValue,
+        onClearForm: () => setLocalValue(''),
+      }
+    );
 
     return unregisterField;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
@@ -98,14 +101,23 @@ export const Input = ({
           }
         }
 
-        setFieldValue(name, value);
+        if (context?.setFieldValue) {
+          context.setFieldValue(name, value);
+        }
+
         setLocalValue(value);
 
         if (onChange) {
           onChange(e);
         }
       },
-      [setFieldValue, validator, errorText]
+      [
+        errorText,
+        validator,
+        context,
+        onChange,
+        name,
+      ]
     );
 
   return (

@@ -1,102 +1,107 @@
-@import "../styles/vars.scss";
+@import '../styles/vars.scss';
 
 .component {
-    max-width: 100%;
-    min-height: 1px;
-    flex-basis: 0;
-    flex-grow: 1;
-    box-sizing: border-box;
+  max-width: 100%;
+  min-height: 1px;
+  flex-basis: 0;
+  flex-grow: 1;
+  box-sizing: border-box;
 }
 
 .width-auto {
-    flex: 0 0 auto;
-    width: auto;
-    max-width: none;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
 }
 
 .width-full {
-    flex-basis: 100%;
-    min-height: auto;
-    height: auto;
+  flex-basis: 100%;
+  min-height: auto;
+  height: auto;
 }
 
 .order-first {
-    order: -1;
+  order: -1;
 }
 
 .order-last {
-    order: 13;
+  order: 13;
 }
 
 @for $i from 1 to 13 {
-    .width-#{$i} {
-        flex: 0 0 calc(#{$grid-col-width} * #{$i});
-        max-width: calc(#{$grid-col-width} * #{$i});
-    }
+  .width-#{$i} {
+    flex: 0 0 calc(#{$grid-col-width} * #{$i});
+    max-width: calc(#{$grid-col-width} * #{$i});
+  }
 
-    .order-#{$i} {
-        order: #{$i};
-    }
+  .order-#{$i} {
+    order: #{$i};
+  }
 }
 
 @for $i from 1 to 12 {
-    .offset-#{$i} {
-        margin-left: calc(#{$grid-col-width} * #{$i});
-    }
+  .offset-#{$i} {
+    margin-left: calc(#{$grid-col-width} * #{$i});
+  }
 }
 
 @each $breakpoint in $grid-breakpoints {
-    $breakpoint_key: nth($breakpoint, 1);
-    $breakpoint_value: nth($breakpoint, 2);
+  $breakpoint_key: nth($breakpoint, 1);
+  $breakpoint_value: nth($breakpoint, 2);
 
-    @if $breakpoint_key == "sm" {
-        @media (max-width: calc(#{$breakpoint_value} - 1px)) {
-            @for $i from 1 to 13 {
-                .width-#{$breakpoint_key}-#{$i} {
-                    flex: 0 0 100%;
-                    max-width: 100%;
-                }
-            }
+  @if $breakpoint_key == 'sm' {
+    @media (max-width: calc(#{$breakpoint_value} - 1px)) {
+      @for $i from 1 to 13 {
+        .width-#{$breakpoint_key}-#{$i} {
+          flex: 0 0 100%;
+          max-width: 100%;
         }
+      }
+    }
+  }
+
+  @media (min-width: #{$breakpoint_value}) {
+    .width-#{$breakpoint_key}-auto {
+      flex: 0 0 auto;
+      width: auto;
+      max-width: none;
     }
 
-    @media (min-width: #{$breakpoint_value}) {
-
-        .width-#{$breakpoint_key}-auto {
-            flex: 0 0 auto;
-            width: auto;
-            max-width: none;
-        }
-
-        .width-#{$breakpoint_key}-full {
-            flex-basis: auto;
-            min-height: auto;
-            height: auto;
-        }
-
-        .order-#{$breakpoint_key}-first {
-            order: -1;
-        }
-
-        .order-#{$breakpoint_key}-last {
-            order: 13;
-        }
-
-        @for $i from 1 to 13 {
-            .width-#{$breakpoint_key}-#{$i} {
-                flex: 0 0 calc(#{$grid-col-width} * #{$i});
-                max-width: calc(#{$grid-col-width} * #{$i});
-            }
-
-            .order-#{$breakpoint_key}-#{$i} {
-                order: #{$i};
-            }
-        }
-
-        @for $i from 1 to 12 {
-            .offset-#{$breakpoint_key}-#{$i} {
-                margin-left: calc(#{$grid-col-width} * #{$i});
-            }
-        }
+    .width-#{$breakpoint_key}-full {
+      flex-basis: auto;
+      min-height: auto;
+      height: auto;
     }
+
+    .order-#{$breakpoint_key}-first {
+      order: -1;
+    }
+
+    .order-#{$breakpoint_key}-last {
+      order: 13;
+    }
+
+    @for $i from 1 to 13 {
+      .width-#{$breakpoint_key}-#{$i} {
+        flex: 0
+          0
+          calc(#{$grid-col-width} * #{$i});
+        max-width: calc(
+          #{$grid-col-width} * #{$i}
+        );
+      }
+
+      .order-#{$breakpoint_key}-#{$i} {
+        order: #{$i};
+      }
+    }
+
+    @for $i from 1 to 12 {
+      .offset-#{$breakpoint_key}-#{$i} {
+        margin-left: calc(
+          #{$grid-col-width} * #{$i}
+        );
+      }
+    }
+  }
 }

@@ -1,24 +1,24 @@
 @import '@styles/variables.scss';
 
 .leaderBoard {
-    display: block;
+  display: block;
 }
 
 .title {
-    font-size: $font-size-32;
-    font-weight: $font-weight-7;
-    line-height: 1.2;
-    margin: $spacing-4 auto;
+  font-size: $font-size-32;
+  font-weight: $font-weight-7;
+  line-height: 1.2;
+  margin: $spacing-4 auto;
 }
 
 .subTitle {
-    color: $gray-800;
-    font-size: $font-size-18;
-    font-weight: $font-weight-5;
-    line-height: 1;
-    margin-bottom: $spacing-2;
+  color: $gray-800;
+  font-size: $font-size-18;
+  font-weight: $font-weight-5;
+  line-height: 1;
+  margin-bottom: $spacing-2;
 }
 
 .searchBar {
-    margin-bottom: $spacing-4;
+  margin-bottom: $spacing-4;
 }

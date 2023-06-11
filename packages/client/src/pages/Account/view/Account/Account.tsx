@@ -60,7 +60,7 @@ export const Account = ({
           onError: () =>
             console.error('Cannot update user'),
         }),
-      [updateUserHandler]
+      [closeUserEditor, updateUserHandler]
     );
 
   const updateAvatarHandler = useEditAvatar();
@@ -76,7 +76,7 @@ export const Account = ({
           onError: () =>
             console.error('Cannot update user'),
         }),
-      [updateAvatarHandler]
+      [closeAvatarEditor, updateAvatarHandler]
     );
 
   const updatePasswordHandler = useEditPassword();
@@ -92,7 +92,7 @@ export const Account = ({
           onError: () =>
             console.error('Cannot update user'),
         }),
-      [updatePasswordHandler]
+      [closePasswordEditor, updatePasswordHandler]
     );
 
   return (

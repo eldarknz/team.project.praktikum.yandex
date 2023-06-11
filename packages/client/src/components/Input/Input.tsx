@@ -12,6 +12,7 @@ import {
 import cn from 'classnames';
 import './Input.scss';
 import { useFormContext } from '@components/Form';
+import { useMemo } from 'react';
 
 export type InputProps = {
   inputClassName?: string;
@@ -37,7 +38,11 @@ export const Input = ({
     string | null
   >(null);
 
-  const inputId = labelText ? useId() : undefined;
+  const id = useId();
+  const inputId = useMemo(
+    () => (labelText ? id : undefined),
+    [id, labelText]
+  );
   const inputClassNames = cn(inputClassName, {
     'baseInput--error': error,
   });

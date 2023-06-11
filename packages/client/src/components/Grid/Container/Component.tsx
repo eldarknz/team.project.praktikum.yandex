@@ -50,22 +50,19 @@ export const Container: React.FC<
   className,
   dataTestId,
 }) => {
-  const componentClassName = cn(
-    width
-      ? useMemo(
-          () =>
-            getClassNames(
+  const componentClassName = useMemo(
+    () =>
+      cn(
+        width
+          ? getClassNames(
               { component: width },
               styles
-            ),
-          [width]
-        )
-      : styles['component'],
-    useMemo(
-      () => getClassNames({ gutter }, styles),
-      [gutter]
-    ),
-    className
+            )
+          : styles['component'],
+        getClassNames({ gutter }, styles),
+        className
+      ),
+    [className, gutter, width]
   );
 
   return (

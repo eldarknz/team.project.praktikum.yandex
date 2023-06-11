@@ -4,20 +4,18 @@ import {
   InputHTMLAttributes,
   useCallback,
   useEffect,
-  ChangeEvent,
   FocusEvent,
   useId,
   useState,
 } from 'react';
 import cn from 'classnames';
 import './Input.scss';
-import { useFormContext } from '@components/Form';
 
 export type InputProps = {
   inputClassName?: string;
   name: string;
   type?: 'text' | 'password' | 'file' | 'hidden';
-  errorText?: string;
+  errorText?: string | null;
   labelText?: string;
   validator?: (content: string) => boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
@@ -36,7 +34,7 @@ export const Input = ({
   const [error, setError] = useState<
     string | null
   >(null);
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const inputId = labelText ? useId() : undefined;
   const inputClassNames = cn(inputClassName, {
     'baseInput--error': error,
@@ -58,25 +56,15 @@ export const Input = ({
         }
       }
     },
-    [validator, error]
+    [validator, errorText]
   );
-
-  const { registerField, setFieldValue } =
-    useFormContext();
 
   const [localValue, setLocalValue] =
     useState(value);
 
   useEffect(() => {
-    const unregisterField = registerField({
-      name,
-      validators: [],
-      value: localValue,
-      onClearForm: () => setLocalValue(''),
-    });
-
-    return unregisterField;
-  }, []);
+    setError(errorText || null);
+  }, [errorText]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
     useCallback(
@@ -98,14 +86,13 @@ export const Input = ({
           }
         }
 
-        setFieldValue(name, value);
         setLocalValue(value);
 
         if (onChange) {
           onChange(e);
         }
       },
-      [setFieldValue, validator, errorText]
+      [errorText, validator, onChange]
     );
 
   return (

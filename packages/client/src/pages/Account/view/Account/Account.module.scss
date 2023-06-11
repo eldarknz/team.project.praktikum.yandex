@@ -18,18 +18,6 @@
   justify-content: center;
 }
 
-.avatar {
-  height: 200px;
-  width: 200px;
-  border-radius: $baseBorderRadius;
-  box-shadow: $secondaryShadow;
-  background: $gradient;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .userName {
   color: $white;
   font-size: 20px;
@@ -41,4 +29,14 @@
 
 .linkItem {
   border-bottom: none;
+}
+
+.buttons {
+  width: 100%;
+  margin-top: 40px;
+
+  button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }

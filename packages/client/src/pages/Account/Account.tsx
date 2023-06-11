@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react';
-
-import { useInjection } from '@hooks/useInjection';
-import { GetViewerResponse } from '@service/ViewerService';
-
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
+import { useStore } from '../../core/StoreContext';
 
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const { viewerService } = useInjection();
-  const [viewer, setViewer] = useState<
-    undefined | GetViewerResponse
-  >();
-
-  useEffect(() => {
-    viewerService.getViewer().then(setViewer);
-  }, []);
+  const { viewer } = useStore();
 
   if (!viewer) {
     return (

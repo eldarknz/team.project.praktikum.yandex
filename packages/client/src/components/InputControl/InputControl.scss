@@ -15,4 +15,9 @@
   color: $danger;
   margin-top: 0.2rem;
   font-size: 0.9rem;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 0;
+  min-width: 100%;
 }

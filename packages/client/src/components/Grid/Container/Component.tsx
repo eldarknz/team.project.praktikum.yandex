@@ -52,7 +52,8 @@ export const Container: React.FC<
 }) => {
   const componentClassName = cn(
     width
-      ? useMemo(
+      ? // eslint-disable-next-line react-hooks/rules-of-hooks
+        useMemo(
           () =>
             getClassNames(
               { component: width },

@@ -1,13 +1,9 @@
 import { useCallback } from 'react';
 
-import { ReactComponent as UserIcon } from '@assets/svg/plain/user-icon.svg';
 import { useDialog } from '@hooks/useDialog';
 import { Button } from '@components/Button';
-import { Icon } from '@components/Icon';
+import { useControllers } from '@core/ControllersContext';
 
-import { useEditPassword } from '../../hooks/useEditPassword';
-import { useEditAvatar } from '../../hooks/useEditAvatar';
-import { useEditUser } from '../../hooks/useEditUser';
 import { ViewerModel } from '../../models';
 import {
   UserEditor,
@@ -17,6 +13,7 @@ import {
   UserEditorProps,
   AvatarEditorProps,
   PasswordEditorProps,
+  Avatar,
 } from '../../components';
 
 import styles from './Account.module.scss';
@@ -46,95 +43,99 @@ export const Account = ({
     open: openAvatarEditor,
     setState: setAvatarEditorState,
   } = useDialog();
+  const controllers = useControllers();
 
-  const updateUserHandler = useEditUser();
   const updateUser: UserEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) =>
-        updateUserHandler({
+      values => {
+        return controllers.viewer.editUser({
           values,
           onSuccess: () => {
-            cleanForm();
             closeUserEditor();
           },
           onError: () =>
-            console.error('Cannot update user'),
-        }),
-      [updateUserHandler]
+            alert('Cannot update user'),
+        });
+      },
+      [closeUserEditor, controllers.viewer]
     );
 
-  const updateAvatarHandler = useEditAvatar();
   const updateAvatar: AvatarEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) =>
-        updateAvatarHandler({
+      values => {
+        return controllers.viewer.editAvatar({
           values,
           onSuccess: () => {
-            cleanForm();
             closeAvatarEditor();
           },
           onError: () =>
-            console.error('Cannot update user'),
-        }),
-      [updateAvatarHandler]
+            alert('Cannot update avatar'),
+        });
+      },
+      [closeAvatarEditor, controllers.viewer]
     );
 
-  const updatePasswordHandler = useEditPassword();
   const updatePassword: PasswordEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) =>
-        updatePasswordHandler({
+      values => {
+        return controllers.viewer.editPassword({
           values,
           onSuccess: () => {
-            cleanForm();
             closePasswordEditor();
           },
           onError: () =>
-            console.error('Cannot update user'),
-        }),
-      [updatePasswordHandler]
+            alert('Cannot update password'),
+        });
+      },
+      [closePasswordEditor, controllers.viewer]
     );
 
   return (
     <div className={styles.page}>
-      <UserEditor
-        viewer={viewer}
-        isOpen={isUserEditorOpen}
-        onSubmit={updateUser}
-        onOpenChange={setUserEditorState}
-      />
+      {isUserEditorOpen && (
+        <UserEditor
+          viewer={viewer}
+          isOpen={isUserEditorOpen}
+          onSubmit={updateUser}
+          onOpenChange={setUserEditorState}
+        />
+      )}
 
-      <PasswordEditor
-        isOpen={isPasswordEditorOpen}
-        onSubmit={updatePassword}
-        onOpenChange={setPasswordEditorState}
-      />
+      {isPasswordEditorOpen && (
+        <PasswordEditor
+          isOpen={isPasswordEditorOpen}
+          onSubmit={updatePassword}
+          onOpenChange={setPasswordEditorState}
+        />
+      )}
 
-      <AvatarEditor
-        isOpen={isAvatarEditorOpen}
-        onSubmit={updateAvatar}
-        onOpenChange={setAvatarEditorState}
-      />
+      {isAvatarEditorOpen && (
+        <AvatarEditor
+          isOpen={isAvatarEditorOpen}
+          onSubmit={updateAvatar}
+          onOpenChange={setAvatarEditorState}
+        />
+      )}
 
       <div className={styles.content}>
-        <div className={styles.avatar}>
-          <Icon icon={<UserIcon />} size={120} />
-        </div>
+        <Avatar link={viewer.avatar} />
         <h4 className={styles.userName}>
-          {viewer.firstName} {viewer.secondName}
+          {viewer.first_name} {viewer.second_name}
         </h4>
 
         <UserDataList {...viewer} />
 
-        <Button onClick={openUserEditor}>
-          Изменить данные
-        </Button>
-        <Button onClick={openPasswordEditor}>
-          Изменить пароль
-        </Button>
-        <Button onClick={openAvatarEditor}>
-          Изменить аватар
-        </Button>
+        <div className={styles.buttons}>
+          <Button onClick={openUserEditor}>
+            Изменить данные
+          </Button>
+          <Button onClick={openPasswordEditor}>
+            Изменить пароль
+          </Button>
+          <Button onClick={openAvatarEditor}>
+            Изменить аватар
+          </Button>
+        </div>
       </div>
     </div>
   );

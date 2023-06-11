@@ -1,92 +1,91 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
-import { useDialog } from '@hooks/useDialog';
-import { Form } from '@components/Form';
-import { FormSubmitHandler } from '@components/Form';
+import { useForm } from '@core/Validation';
+import { validate } from '@service/Validate';
+import { useTextField } from '@core/Validation/useTextField';
 
 import styles from './PasswordEditor.module.scss';
 
 export type PasswordEditorForm = {
   oldPassword: string;
   newPassword: string;
-  repeatNewPassword: string;
 };
 
 export interface PasswordEditorProps {
-  onSubmit: FormSubmitHandler<PasswordEditorForm>;
+  onSubmit: (
+    values: PasswordEditorForm
+  ) => Promise<void>;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
-// TODO: добавить валидацию
-
 export const PasswordEditor = ({
-  isOpen: initialIsOpen,
+  isOpen,
   onSubmit,
   onOpenChange,
 }: PasswordEditorProps) => {
-  const { isOpen, setState: setDialogState } =
-    useDialog(initialIsOpen);
-  const [isSubmitting, setSubmitting] =
-    useState(false);
-
-  useEffect(() => {
-    setDialogState(initialIsOpen);
-  }, [initialIsOpen]);
-  useEffect(() => {
-    onOpenChange(isOpen);
-  }, [isOpen, onOpenChange]);
-
-  const handleSubmit: FormSubmitHandler<PasswordEditorForm> =
-    useCallback(
-      async data => {
-        setSubmitting(true);
-        await onSubmit(data);
-        setSubmitting(false);
-      },
-      [onSubmit]
-    );
-
-  const fields = useMemo(
-    () => [
-      {
-        label: 'Старый пароль',
-        name: 'oldPassword',
-      },
-      {
-        label: 'Новый пароль',
-        name: 'newPassword',
-      },
-      {
-        label: 'Повторите новый пароль',
-        name: 'repeatNewPassword',
-      },
+  const oldPassField = useTextField({
+    value: '',
+    name: 'oldPassword',
+    rules: [],
+  });
+  const newPassField = useTextField({
+    value: '',
+    name: 'newPassword',
+    rules: [
+      value =>
+        validate.password(value || '')
+          ? null
+          : validate.errorMessages.password,
     ],
-    []
-  );
+  });
+  const repeatPassField = useTextField({
+    value: '',
+    name: 'repeatPassword',
+    rules: [
+      value =>
+        newPassField.value === value
+          ? null
+          : 'Пароли должны совпадать',
+    ],
+  });
+
+  const { isSubmitting, formProps } = useForm({
+    fields: [
+      oldPassField,
+      newPassField,
+      repeatPassField,
+    ],
+    onSubmit: async () => {
+      await onSubmit({
+        oldPassword: oldPassField.value,
+        newPassword: newPassField.value,
+      });
+    },
+  });
 
   return (
     <Dialog
       title="Редактировать пароль"
       isOpen={isOpen}
-      onOpenChange={setDialogState}
+      onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
-      <Form<PasswordEditorForm>
-        onSubmit={handleSubmit}>
-        {fields.map(({ label, name }) => (
-          <Input
-            key={name}
-            name={name}
-            labelText={label}
-          />
-        ))}
+      <form {...formProps}>
+        <Input
+          {...oldPassField.fieldProps}
+          errorText={oldPassField.error}
+          labelText="Старый пароль"
+        />
+        <Input
+          {...newPassField.fieldProps}
+          labelText="Новый пароль"
+          errorText={newPassField.error}
+        />
+        <Input
+          {...repeatPassField.fieldProps}
+          labelText="Повторите пароль"
+          errorText={repeatPassField.error}
+        />
 
         <Button
           type="submit"
@@ -94,7 +93,7 @@ export const PasswordEditor = ({
           disabled={isSubmitting}>
           Редактировать
         </Button>
-      </Form>
+      </form>
     </Dialog>
   );
 };

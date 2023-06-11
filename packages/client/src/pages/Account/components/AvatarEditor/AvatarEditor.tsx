@@ -1,18 +1,12 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
-import { useDialog } from '@hooks/useDialog';
-import { Form } from '@components/Form';
-import { FormSubmitHandler } from '@components/Form';
 
 import styles from './AvatarEditor.module.scss';
+import {
+  useFileField,
+  useForm,
+} from '@core/Validation';
 
 export interface AvatarEditorForm {
   file: File;
@@ -20,64 +14,45 @@ export interface AvatarEditorForm {
 
 export interface AvatarEditorProps {
   isOpen: boolean;
-  onSubmit: FormSubmitHandler<AvatarEditorForm>;
+  onSubmit: (
+    value: AvatarEditorForm
+  ) => Promise<void>;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-// TODO: добавить валидацию
-
 export const AvatarEditor = ({
-  isOpen: initialIsOpen,
+  isOpen,
   onSubmit,
   onOpenChange,
 }: AvatarEditorProps) => {
-  const { isOpen, setState: setDialogState } =
-    useDialog(initialIsOpen);
-  const [isSubmitting, setSubmitting] =
-    useState(false);
-
-  useEffect(() => {
-    setDialogState(initialIsOpen);
-  }, [initialIsOpen]);
-  useEffect(() => {
-    onOpenChange(isOpen);
-  }, [isOpen, onOpenChange]);
-
-  const handleSubmit: FormSubmitHandler<AvatarEditorForm> =
-    useCallback(
-      async data => {
-        setSubmitting(true);
-        await onSubmit(data);
-        setSubmitting(false);
-      },
-      [onSubmit]
-    );
-
-  const fields = useMemo(
-    () => [
-      {
-        label: 'Новый аватар',
-        name: 'avatar',
-      },
+  const fileField = useFileField({
+    name: 'file',
+    rules: [
+      value => (value ? null : 'Выберите файл'),
     ],
-    []
-  );
+  });
+
+  const { isSubmitting, formProps } = useForm({
+    fields: [fileField],
+    onSubmit: async () => {
+      if (!fileField.value) return;
+
+      await onSubmit({ file: fileField.value });
+    },
+  });
 
   return (
     <Dialog
       title="Редактировать аватар"
       isOpen={isOpen}
-      onOpenChange={setDialogState}
+      onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
-      <Form<AvatarEditorForm>
-        onSubmit={handleSubmit}>
-        {fields.map(({ label, name }) => (
-          <Input
-            key={name}
-            name={name}
-            labelText={label}
-          />
-        ))}
+      <form {...formProps}>
+        <Input
+          {...fileField.fieldProps}
+          errorText={fileField.error}
+          labelText="Новый аватар"
+        />
 
         <Button
           type="submit"
@@ -85,7 +60,7 @@ export const AvatarEditor = ({
           disabled={isSubmitting}>
           Редактировать
         </Button>
-      </Form>
+      </form>
     </Dialog>
   );
 };

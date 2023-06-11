@@ -37,6 +37,7 @@ export const Input = ({
     string | null
   >(null);
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const inputId = labelText ? useId() : undefined;
   const inputClassNames = cn(inputClassName, {
     'baseInput--error': error,

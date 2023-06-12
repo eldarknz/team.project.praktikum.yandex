@@ -1,18 +1,18 @@
 import {
   Component,
   ErrorInfo,
-  Fragment,
   PropsWithChildren,
 } from 'react';
-import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@routers/routes';
+import { StyledLink } from '@components/StyledLink';
+
+import style from './PageErrorBoundary.module.scss';
 
 interface PageErrorBoundaryState {
   hasError: boolean;
 }
 
-// TODO: add styles to component
 export class PageErrorBoundary extends Component<
   PropsWithChildren,
   PageErrorBoundaryState
@@ -37,12 +37,12 @@ export class PageErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <Fragment>
+        <div className={style.pageErrorBoundary}>
           <h1>Something went wrong.</h1>
-          <Link to={ROUTES.Home.path}>
+          <StyledLink to={ROUTES.Home.path}>
             На главную
-          </Link>
-        </Fragment>
+          </StyledLink>
+        </div>
       );
     }
 

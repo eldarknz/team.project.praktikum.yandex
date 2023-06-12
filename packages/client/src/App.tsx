@@ -20,8 +20,6 @@ import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
 
-//TODO - add loading spinner while getting viewer
-
 const services: ServicesModel = {
   auth: new AuthAPI(),
   viewer: new ViewerAPI(),

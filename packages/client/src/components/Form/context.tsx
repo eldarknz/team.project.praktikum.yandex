@@ -25,7 +25,7 @@ export const FormContext = createContext<
   validators: {},
   errors: {},
   registerField: () => {
-    return () => null;
+    return () => () => null;
   },
   setFieldValue: () => null,
   cleanForm: () => null,

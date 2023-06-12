@@ -15,9 +15,10 @@ import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
+import { StoreModel } from '@core/StoreContext';
+import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
-import { StoreModel } from './core/StoreContext';
 
 //TODO - add loading spinner while getting viewer
 
@@ -58,7 +59,9 @@ function App() {
             </BrowserRouter>
           </ControllersProvider>
         </StoreContextProvider>
-      ) : null}
+      ) : (
+        <PageLoader withBackground />
+      )}
     </ServicesContext.Provider>
   );
 }

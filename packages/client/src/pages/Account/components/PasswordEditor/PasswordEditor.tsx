@@ -75,16 +75,19 @@ export const PasswordEditor = ({
           {...oldPassField.fieldProps}
           errorText={oldPassField.error}
           labelText="Старый пароль"
+          type="password"
         />
         <Input
           {...newPassField.fieldProps}
           labelText="Новый пароль"
           errorText={newPassField.error}
+          type="password"
         />
         <Input
           {...repeatPassField.fieldProps}
           labelText="Повторите пароль"
           errorText={repeatPassField.error}
+          type="password"
         />
 
         <Button

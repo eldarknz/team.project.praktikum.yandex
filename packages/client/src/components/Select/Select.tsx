@@ -47,7 +47,12 @@ export default function Select<T>({
         ref={ref}
         className={styles.active}
         onClick={() => setShow(prev => !prev)}>
-        {label || `${active}`}
+        {label ||
+          `${
+            typeof active === 'string'
+              ? active
+              : active.title
+          }`}
       </div>
       {show && (
         <div className={styles.list}>

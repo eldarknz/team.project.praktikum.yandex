@@ -1,23 +1,61 @@
-import { useCallback, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import StartView from './view/StartView';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@routers/routes';
+import { Levels } from '@core/GameLogic/levelsConfig';
 
-//TODO: заменить на реальный конфиг уровней
-const list = ['Первый', 'Второй'];
+export type LevelListType = {
+  title: string;
+  id: Levels;
+};
+
+const list: LevelListType[] = [
+  {
+    title: 'Первый',
+    id: 'first',
+  },
+  {
+    title: 'Второй',
+    id: 'second',
+  },
+  {
+    title: 'Третий',
+    id: 'third',
+  },
+];
 
 export default function Start() {
-  const [active, setActive] = useState(list[0]);
+  const [active, setActive] = useState(
+    list.find(
+      l =>
+        l.id === sessionStorage.getItem('level')
+    ) || list[0]
+  );
   const navigate = useNavigate();
   const handleStart = useCallback(() => {
-    navigate(ROUTES.Game.path);
-  }, [navigate]);
+    navigate(ROUTES.Game.path, {
+      state: { level: active.id },
+    });
+  }, [navigate, active]);
+
+  const updateActive = useCallback(
+    (act: LevelListType) => {
+      document.body.dataset.level = act.id;
+      sessionStorage.setItem('level', act.id);
+      setActive(act);
+    },
+    []
+  );
   return (
     <StartView
       username="User"
       onStart={handleStart}
       active={active}
-      setActive={setActive}
+      setActive={updateActive}
       list={list}
     />
   );

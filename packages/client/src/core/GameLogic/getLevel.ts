@@ -1,7 +1,6 @@
 import GenericObjectImpl from '@core/GenericObject/GenericObjectImpl';
-import {
+import levelConfig, {
   Levels,
-  getConfig,
 } from './levelsConfig';
 
 export const getLevel = (
@@ -9,7 +8,7 @@ export const getLevel = (
   level: Levels,
   baseHeight: number
 ) => {
-  const config = getConfig(baseHeight);
+  const config = new levelConfig(baseHeight);
 
   return {
     elements: config[level]().items.map(

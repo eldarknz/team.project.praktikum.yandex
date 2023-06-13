@@ -8,10 +8,8 @@ import {
 
 import { FormContext } from './context';
 import { fillObject, initState } from './utils';
-import {
-  useValidate,
-  useRegisterField,
-} from './hooks';
+import { useRegisterField } from './hooks/useRegisterField';
+import { useValidate } from './hooks/useValidate';
 import {
   FormState,
   FormSubmitHandler,

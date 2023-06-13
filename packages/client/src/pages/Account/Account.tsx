@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { useInjection } from '@hooks/useInjection';
-import { GetViewerResponse } from '@service/ViewerService';
+import { useControllers } from '@core/ControllersContext';
+import { GetViewerResponse } from '@api/ViewerAPI';
 
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
@@ -9,13 +9,16 @@ import style from './Account.module.scss';
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const { viewerService } = useInjection();
+  const controllers = useControllers();
   const [viewer, setViewer] = useState<
     undefined | GetViewerResponse
   >();
 
   useEffect(() => {
-    viewerService.getViewer().then(setViewer);
+    controllers.viewer.getViewer({
+      onSuccess: setViewer,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!viewer) {

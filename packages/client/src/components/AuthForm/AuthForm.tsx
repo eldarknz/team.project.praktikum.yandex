@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   ButtonProps,
@@ -15,7 +16,7 @@ import {
 } from 'react';
 import { ROUTES } from '@routers/routes';
 import { validate } from '@service/Validate';
-import { authController } from '@controllers/AuthController';
+import { useControllers } from '@core/ControllersContext';
 import {
   ISigninData,
   ISignupData,
@@ -28,6 +29,8 @@ export type AuthFormProps = {
 export const AuthForm = ({
   authType,
 }: AuthFormProps) => {
+  const navigate = useNavigate();
+  const controllers = useControllers();
   const [authError, setAuthError] = useState<
     string | null
   >(null);
@@ -46,7 +49,7 @@ export const AuthForm = ({
   );
 
   const handleSignInSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       const formData = new FormData(
@@ -59,21 +62,22 @@ export const AuthForm = ({
         data[key] = value.toString();
       });
 
-      authController
-        .signin(data as ISigninData)
-        .then(value => {
-          if (value?.reason) {
-            setAuthError(value.reason);
-          } else {
-            setAuthError(null);
-          }
-        });
+      await controllers.auth.signin({
+        values: data as ISigninData,
+        onSuccess: () => {
+          setAuthError(null);
+          navigate(ROUTES.Home.path);
+        },
+        onError: error => {
+          setAuthError(error.message);
+        },
+      });
     },
-    []
+    [controllers.auth, navigate]
   );
 
   const handleSignUpSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       const formData = new FormData(
@@ -86,17 +90,18 @@ export const AuthForm = ({
         data[key] = value.toString();
       });
 
-      authController
-        .signup(data as ISignupData)
-        .then(value => {
-          if (value?.reason) {
-            setAuthError(value.reason);
-          } else {
-            setAuthError(null);
-          }
-        });
+      await controllers.auth.signup({
+        values: data as ISignupData,
+        onSuccess: () => {
+          setAuthError(null);
+          navigate(ROUTES.Home.path);
+        },
+        onError: error => {
+          setAuthError(error.message);
+        },
+      });
     },
-    []
+    [controllers.auth, navigate]
   );
 
   const title =

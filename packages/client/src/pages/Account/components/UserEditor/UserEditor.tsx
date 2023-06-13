@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -9,7 +8,6 @@ import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
 import { Form } from '@components/Form';
-import { useDialog } from '@hooks/useDialog';
 import {
   FormSubmitHandler,
   FormContextState,
@@ -30,24 +28,14 @@ export interface UserEditorProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
-// TODO: добавить валидацию
 
 export const UserEditor = ({
-  isOpen: initialIsOpen,
+  isOpen,
   onSubmit,
   onOpenChange,
 }: UserEditorProps) => {
-  const { isOpen, setState: setDialogState } =
-    useDialog(initialIsOpen);
   const [isSubmitting, setSubmitting] =
     useState(false);
-
-  useEffect(() => {
-    setDialogState(initialIsOpen);
-  }, [initialIsOpen]);
-  useEffect(() => {
-    onOpenChange(isOpen);
-  }, [isOpen, onOpenChange]);
 
   const handleSubmit: FormSubmitHandler<UserEditorForm> =
     useCallback(
@@ -89,7 +77,7 @@ export const UserEditor = ({
     <Dialog
       title="Редактировать данные"
       isOpen={isOpen}
-      onOpenChange={setDialogState}
+      onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
       <Form onSubmit={handleSubmit}>
         {fields.map(({ label, name }) => (

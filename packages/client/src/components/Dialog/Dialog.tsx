@@ -37,7 +37,7 @@ export const Dialog = ({
     if (onOpenChange) {
       onOpenChange(localOpen);
     }
-  }, [localOpen]);
+  }, [localOpen, onOpenChange]);
 
   const closeDialogOnOverlayClick: React.MouseEventHandler =
     useCallback(e => {

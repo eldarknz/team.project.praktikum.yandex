@@ -1,24 +1,26 @@
 import { Suspense } from 'react';
-import {
-  NavLink,
-  Outlet,
-} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { PageLoader } from '@components/PageLoader';
-import { ROUTES } from '@routers/routes';
+import { Navbar } from '@components/Navbar';
+import { PageErrorBoundary } from '@components/PageErrorBoundary';
+
+import style from './Error.module.scss';
 
 export const ErrorLayout = () => {
   document.title = 'Ошибка 404';
 
   return (
-    <main className="error-layout">
-      <Suspense fallback={<PageLoader />}>
-        <Outlet />
-      </Suspense>
+    <div className={style.layout}>
+      <Navbar />
 
-      <NavLink to={ROUTES.Home.path}>
-        To home
-      </NavLink>
-    </main>
+      <main>
+        <PageErrorBoundary>
+          <Suspense fallback={<PageLoader />}>
+            <Outlet />
+          </Suspense>
+        </PageErrorBoundary>
+      </main>
+    </div>
   );
 };

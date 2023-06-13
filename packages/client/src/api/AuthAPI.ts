@@ -1,4 +1,4 @@
-import { http } from '@core/HTTPTransport';
+import { BaseApi } from '@api/BaseAPI';
 import { API_URL } from './constants';
 
 export interface ISignupData {
@@ -32,13 +32,7 @@ export type SignUpResponse =
 
 export type SigninResponse = AuthError | string;
 
-export class AuthAPI {
-  private http;
-
-  constructor() {
-    this.http = http;
-  }
-
+export class AuthAPI extends BaseApi {
   public signup(data: ISignupData) {
     return this.http.post<
       SignUpResponse,

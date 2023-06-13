@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -8,7 +7,6 @@ import {
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
-import { useDialog } from '@hooks/useDialog';
 import { Form } from '@components/Form';
 import { FormSubmitHandler } from '@components/Form';
 
@@ -25,24 +23,13 @@ export interface PasswordEditorProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
-// TODO: добавить валидацию
-
 export const PasswordEditor = ({
-  isOpen: initialIsOpen,
+  isOpen,
   onSubmit,
   onOpenChange,
 }: PasswordEditorProps) => {
-  const { isOpen, setState: setDialogState } =
-    useDialog(initialIsOpen);
   const [isSubmitting, setSubmitting] =
     useState(false);
-
-  useEffect(() => {
-    setDialogState(initialIsOpen);
-  }, [initialIsOpen]);
-  useEffect(() => {
-    onOpenChange(isOpen);
-  }, [isOpen, onOpenChange]);
 
   const handleSubmit: FormSubmitHandler<PasswordEditorForm> =
     useCallback(
@@ -76,7 +63,7 @@ export const PasswordEditor = ({
     <Dialog
       title="Редактировать пароль"
       isOpen={isOpen}
-      onOpenChange={setDialogState}
+      onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
       <Form<PasswordEditorForm>
         onSubmit={handleSubmit}>

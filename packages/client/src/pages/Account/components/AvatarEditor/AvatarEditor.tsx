@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -8,7 +7,6 @@ import {
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
-import { useDialog } from '@hooks/useDialog';
 import { Form } from '@components/Form';
 import { FormSubmitHandler } from '@components/Form';
 
@@ -24,24 +22,13 @@ export interface AvatarEditorProps {
   onOpenChange: (isOpen: boolean) => void;
 }
 
-// TODO: добавить валидацию
-
 export const AvatarEditor = ({
-  isOpen: initialIsOpen,
+  isOpen,
   onSubmit,
   onOpenChange,
 }: AvatarEditorProps) => {
-  const { isOpen, setState: setDialogState } =
-    useDialog(initialIsOpen);
   const [isSubmitting, setSubmitting] =
     useState(false);
-
-  useEffect(() => {
-    setDialogState(initialIsOpen);
-  }, [initialIsOpen]);
-  useEffect(() => {
-    onOpenChange(isOpen);
-  }, [isOpen, onOpenChange]);
 
   const handleSubmit: FormSubmitHandler<AvatarEditorForm> =
     useCallback(
@@ -67,7 +54,7 @@ export const AvatarEditor = ({
     <Dialog
       title="Редактировать аватар"
       isOpen={isOpen}
-      onOpenChange={setDialogState}
+      onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
       <Form<AvatarEditorForm>
         onSubmit={handleSubmit}>

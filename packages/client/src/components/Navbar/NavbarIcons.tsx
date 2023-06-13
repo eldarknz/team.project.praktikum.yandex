@@ -11,7 +11,7 @@ import { ReactComponent as SettingsSVG } from '@assets/svg/colored/settings-icon
 import style from './NavbarIcons.module.scss';
 
 export const NavbarIcons = () => {
-  const { isAuthenticated } =
+  const isAuthenticated =
     useIsViewerAuthenticated();
 
   const links = useMemo(
@@ -48,7 +48,7 @@ export const NavbarIcons = () => {
             ({ route: { isPrivate } }) =>
               !isPrivate
           ),
-    [isAuthenticated]
+    [isAuthenticated, links]
   );
 
   return (

@@ -31,7 +31,7 @@ export class PageErrorBoundary extends Component<
     info: ErrorInfo
   ) {
     console.error(error);
-    console.error(info);
+    console.error(info.componentStack);
   }
 
   render() {

@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { RegisterFieldArgs } from '@components/Form/hooks';
-
+import { RegisterFieldArgs } from './hooks/useRegisterField';
 import { FormState } from './types';
 
 export interface FormContextState<
@@ -17,24 +16,11 @@ export interface FormContextState<
   cleanForm: () => void;
 }
 
-export const FormContext = createContext<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  FormContextState<any>
->({
-  values: {},
-  validators: {},
-  errors: {},
-  registerField: () => {
-    return () => () => null;
-  },
-  setFieldValue: () => null,
-  cleanForm: () => null,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as unknown as FormContextState<any>);
+export const FormContext =
+  createContext<FormContextState<object> | null>(
+    null
+  );
 
 export const useFormContext = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return useContext<FormContextState<any>>(
-    FormContext
-  );
+  return useContext(FormContext);
 };

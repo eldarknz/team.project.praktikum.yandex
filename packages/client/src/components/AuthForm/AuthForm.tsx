@@ -21,8 +21,6 @@ import {
   ISigninData,
   ISignupData,
 } from '@api/AuthAPI';
-import { useAppDispatch } from '@service/store/hooks';
-import { setUser } from '@service/store/reducers/userSlice';
 
 export type AuthFormProps = {
   authType: 'signup' | 'signin';

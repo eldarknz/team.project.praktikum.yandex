@@ -35,7 +35,7 @@ export const UserDataList = ({
         value: phone,
       },
     ],
-    []
+    [email, login, firstName, secondName, phone]
   );
 
   return (

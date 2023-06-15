@@ -6,34 +6,17 @@ import {
 import StartView from './view/StartView';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@routers/routes';
-import { Levels } from '@core/GameLogic/levelsConfig';
-
-export type LevelListType = {
-  title: string;
-  id: Levels;
-};
-
-const list: LevelListType[] = [
-  {
-    title: 'Первый',
-    id: 'first',
-  },
-  {
-    title: 'Второй',
-    id: 'second',
-  },
-  {
-    title: 'Третий',
-    id: 'third',
-  },
-];
+import {
+  levelList,
+  LevelListType,
+} from '@core/GameLogic/getLevel';
 
 export default function Start() {
   const [active, setActive] = useState(
-    list.find(
+    levelList.find(
       l =>
         l.id === sessionStorage.getItem('level')
-    ) || list[0]
+    ) || levelList[0]
   );
   const navigate = useNavigate();
   const handleStart = useCallback(() => {
@@ -56,7 +39,7 @@ export default function Start() {
       onStart={handleStart}
       active={active}
       setActive={updateActive}
-      list={list}
+      list={levelList}
     />
   );
 }

@@ -3,7 +3,7 @@ import Select, {
 } from '@components/Select/Select';
 import styles from './StartView.module.scss';
 import { Button } from '@components/Button';
-import { LevelListType } from '../Start';
+import { LevelListType } from '@core/GameLogic/getLevel';
 
 export type StartViewProps = {
   username: string;

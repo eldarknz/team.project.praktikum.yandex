@@ -190,7 +190,7 @@ export class GameLogic {
         break;
       }
       case 87: {
-        if (this.player && this.jump < 2) {
+        if (this.player && this.jump < MAX_JUMP) {
           this.player.velocity.y -= 20;
           this.jump += 1;
         } else {

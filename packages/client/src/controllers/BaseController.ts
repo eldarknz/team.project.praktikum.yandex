@@ -1,5 +1,8 @@
 import { ServicesModel } from '@core/ServicesContext';
-import { StoreModel } from '@core/StoreContext';
+import {
+  RootState,
+  RootStore,
+} from '@service/store';
 
 export interface Handlers<T = unknown> {
   onSuccess?: (data: T) => void;
@@ -8,13 +11,15 @@ export interface Handlers<T = unknown> {
 
 export class BaseController {
   protected services: ServicesModel;
-  protected store: StoreModel;
+  protected state: RootState;
+  protected store: RootStore;
 
   constructor(
     services: ServicesModel,
-    store: StoreModel
+    store: RootStore
   ) {
     this.services = services;
     this.store = store;
+    this.state = store.getState();
   }
 }

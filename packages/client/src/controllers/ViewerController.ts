@@ -11,6 +11,7 @@ import {
   Handlers,
   BaseController,
 } from './BaseController';
+import { setUser } from '@service/store/reducers/userSlice';
 
 export interface EditAvatarRequest
   extends Handlers<UpdateAvatarResponse> {
@@ -101,7 +102,7 @@ export class ViewerController extends BaseController {
       const viewer =
         await this.services.viewer.getViewer();
 
-      this.store.setViewer(viewer);
+      this.store.dispatch(setUser(viewer));
 
       if (onSuccess) {
         onSuccess(viewer);

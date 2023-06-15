@@ -1,9 +1,9 @@
+import { store } from '@service/store';
 import {
   useMemo,
   PropsWithChildren,
   createContext,
   useState,
-  useContext,
 } from 'react';
 
 export interface Viewer {
@@ -53,5 +53,5 @@ export const StoreContextProvider = ({
 };
 
 export const useStore = () => {
-  return useContext(StoreContext);
+  return store.getState();
 };

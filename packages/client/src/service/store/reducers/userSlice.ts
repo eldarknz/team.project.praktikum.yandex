@@ -1,20 +1,24 @@
+import { Viewer } from '@core/StoreContext';
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface IUserState {
+  user: Viewer | null;
+}
+
+const initialState: IUserState = {
+  user: null,
+};
+
 export const userSlice = createSlice({
-  initialState: {
-    user: {
-      loggedIn: false,
-    },
-  },
+  initialState,
   name: 'user',
   reducers: {
-    userLogin: state => {
-      state.user.loggedIn = true;
-      console.log('Ура, вы авторизованы!');
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
   },
 });
 
-export const { userLogin } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

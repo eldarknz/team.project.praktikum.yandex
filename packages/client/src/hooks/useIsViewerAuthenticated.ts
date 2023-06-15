@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
-
-import { useStore } from '@core/StoreContext';
+import { useAppSelector } from '@service/store/hooks';
 
 export const useIsViewerAuthenticated = () => {
-  const store = useStore();
+  const userId = useAppSelector(
+    store => store.userReducer.user?.id
+  );
+  console.log('userId:', userId);
 
   const isAuthenticated = useMemo(
-    () => !!store.viewer,
-    [store.viewer]
+    () => !!userId,
+    [userId]
   );
 
   return isAuthenticated;

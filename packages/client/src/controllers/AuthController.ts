@@ -8,6 +8,8 @@ import {
   Handlers,
   BaseController,
 } from './BaseController';
+import { setUser } from '@service/store/reducers/userSlice';
+import { useAppDispatch } from '@service/store/hooks';
 
 export interface SignUpRequest
   extends Handlers<GetViewerResponse> {
@@ -32,7 +34,10 @@ export class AuthController extends BaseController {
       .then(async () => {
         const viewer =
           await this.services.viewer.getViewer();
-        this.store.setViewer(viewer);
+
+        const dispatch = useAppDispatch();
+
+        dispatch(setUser(viewer));
 
         if (onSuccess) {
           onSuccess(viewer);
@@ -56,7 +61,7 @@ export class AuthController extends BaseController {
         const viewer =
           await this.services.viewer.getViewer();
 
-        this.store.setViewer(viewer);
+        this.store.dispatch(setUser(viewer));
 
         if (onSuccess) {
           onSuccess(viewer);
@@ -76,7 +81,7 @@ export class AuthController extends BaseController {
     return this.services.auth
       .logout()
       .then(async () => {
-        this.store.setViewer(null);
+        this.store.dispatch(setUser(null));
 
         if (onSuccess) {
           onSuccess(undefined);

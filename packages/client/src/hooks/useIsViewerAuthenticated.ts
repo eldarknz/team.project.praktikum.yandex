@@ -5,7 +5,6 @@ export const useIsViewerAuthenticated = () => {
   const userId = useAppSelector(
     store => store.userReducer.user?.id
   );
-  console.log('userId:', userId);
 
   const isAuthenticated = useMemo(
     () => !!userId,

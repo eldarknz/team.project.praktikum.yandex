@@ -3,11 +3,13 @@ import { API_URL } from '@api/constants';
 
 export interface GetViewerResponse {
   id: number;
-  email: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
   login: string;
-  firstName: string;
-  secondName: string;
+  email: string;
   phone: string;
+  avatar: string;
 }
 
 export interface UpdateAvatarRequest {
@@ -16,8 +18,9 @@ export interface UpdateAvatarRequest {
 
 export interface UpdateAvatarResponse {
   id: number;
-  firstName: string;
-  secondName: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
   login: string;
   email: string;
   phone: string;
@@ -31,8 +34,9 @@ export interface UpdatePasswordRequest {
 }
 
 export interface UpdateUserRequest {
-  firstName: string;
-  secondName: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
   login: string;
   email: string;
   phone: string;
@@ -40,11 +44,13 @@ export interface UpdateUserRequest {
 
 export interface UpdateUserResponse {
   id: number;
-  firstName: string;
-  secondName: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
   login: string;
   email: string;
   phone: string;
+  avatar: string;
 }
 
 export class ViewerAPI extends BaseApi {

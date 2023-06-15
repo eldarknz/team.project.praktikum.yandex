@@ -8,8 +8,8 @@ type UserDataListProps = ViewerModel;
 export const UserDataList = ({
   email,
   login,
-  firstName,
-  secondName,
+  first_name: firstName,
+  second_name: secondName,
   phone,
 }: UserDataListProps) => {
   const items = useMemo(

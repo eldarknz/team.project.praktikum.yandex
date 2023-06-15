@@ -13,7 +13,7 @@ export default function End() {
     navigate(ROUTES.Start.path, {
       state: { level: state.level },
     });
-  }, [navigate]);
+  }, [navigate, state.level]);
   return (
     <EndView
       onRetry={handleRetry}

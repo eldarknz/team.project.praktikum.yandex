@@ -1,8 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useState } from 'react';
 import StartView from './view/StartView';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@routers/routes';

@@ -6,7 +6,7 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
   scrollbar-width: thin;
   scrollbar-color: $scrollbar-color
     $scrollbar-track-bg;
@@ -43,6 +43,8 @@ body,
   width: 100vw;
   background-size: cover;
   background-position: center;
+  display: flex;
+  flex-direction: column;
 
   &__buttonsAuth {
     width: 100%;
@@ -59,7 +61,7 @@ body,
 
   &__content {
     width: 100%;
-    height: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;

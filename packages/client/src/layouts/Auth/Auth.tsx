@@ -7,15 +7,16 @@ import './Auth.scss';
 
 export const AuthLayout = () => {
   return (
-    <PageErrorBoundary>
-      <div className="auth-layout">
-        <Navbar />
-        <main className="auth-layout__main">
+    <div className="auth-layout">
+      <Navbar />
+
+      <main className="auth-layout__main">
+        <PageErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Outlet />
           </Suspense>
-        </main>
-      </div>
-    </PageErrorBoundary>
+        </PageErrorBoundary>
+      </main>
+    </div>
   );
 };

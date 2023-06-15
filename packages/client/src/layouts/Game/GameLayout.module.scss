@@ -12,6 +12,18 @@
   position: relative;
 }
 
+[data-level='second'] {
+  .container {
+    background: $background2Img;
+  }
+}
+
+[data-level='third'] {
+  .container {
+    background: $background3Img;
+  }
+}
+
 .card {
   max-width: 345px;
   margin: auto 0;
@@ -32,10 +44,4 @@
   max-width: 100vw;
   flex-wrap: wrap;
   gap: 20px;
-
-  svg {
-    width: 60px;
-    height: 60px;
-    display: block;
-  }
 }

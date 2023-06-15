@@ -11,7 +11,7 @@ interface PrivateRouteProps {
 export const PrivateRoute = ({
   page,
 }: PrivateRouteProps) => {
-  const { isAuthenticated } =
+  const isAuthenticated =
     useIsViewerAuthenticated();
 
   if (!isAuthenticated) {

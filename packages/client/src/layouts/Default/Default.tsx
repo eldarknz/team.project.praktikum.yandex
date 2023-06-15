@@ -8,15 +8,16 @@ import './Default.scss';
 
 export const DefaultLayout = () => {
   return (
-    <PageErrorBoundary>
-      <div className="default-layout">
-        <Navbar />
-        <main className="default-layout__main">
+    <div className="default-layout">
+      <Navbar />
+
+      <main className="default-layout__main">
+        <PageErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Outlet />
           </Suspense>
-        </main>
-      </div>
-    </PageErrorBoundary>
+        </PageErrorBoundary>
+      </main>
+    </div>
   );
 };

@@ -1,61 +1,91 @@
 import {
-  AuthAPI,
-  ISigninData,
   ISignupData,
+  ISigninData,
 } from '@api/AuthAPI';
+import { GetViewerResponse } from '@api/ViewerAPI';
 
-class AuthController {
-  private api: AuthAPI;
+import {
+  Handlers,
+  BaseController,
+} from './BaseController';
 
-  constructor() {
-    this.api = new AuthAPI();
-  }
+export interface SignUpRequest
+  extends Handlers<GetViewerResponse> {
+  values: ISignupData;
+}
 
-  public signup(data: ISignupData) {
-    return this.api
-      .signup(data)
-      .then(json => {
-        if (json && 'id' in json) {
-          console.log(
-            'Ура, вы зарегистрированы!',
-            json
-          );
+export interface SignInRequest
+  extends Handlers<GetViewerResponse> {
+  values: ISigninData;
+}
+
+export type LogoutRequest = Handlers<undefined>;
+
+export class AuthController extends BaseController {
+  public async signup({
+    onError,
+    onSuccess,
+    values,
+  }: SignUpRequest) {
+    return this.services.auth
+      .signup(values)
+      .then(async () => {
+        const viewer =
+          await this.services.viewer.getViewer();
+        this.store.setViewer(viewer);
+
+        if (onSuccess) {
+          onSuccess(viewer);
         }
-        return json;
       })
       .catch(err => {
-        console.log('Ошибка регистрации', err);
-        return err;
+        if (onError) {
+          onError(err as Error);
+        }
       });
   }
 
-  public signin(data: ISigninData) {
-    return this.api
-      .signin(data)
-      .then(data => {
-        if (data !== 'OK') {
-          console.log('Ошибка авторизации ой');
+  public async signin({
+    onError,
+    onSuccess,
+    values,
+  }: SignInRequest) {
+    return this.services.auth
+      .signin(values)
+      .then(async () => {
+        const viewer =
+          await this.services.viewer.getViewer();
 
-          return data;
+        this.store.setViewer(viewer);
+
+        if (onSuccess) {
+          onSuccess(viewer);
         }
-
-        console.log('Ура, вы авторизованы!');
       })
       .catch(err => {
-        console.log('Ошибка авторизации:', err);
-        return err;
+        if (onError) {
+          onError(err as Error);
+        }
       });
   }
 
-  logout() {
-    return this.api
+  logout({
+    onError,
+    onSuccess,
+  }: LogoutRequest = {}) {
+    return this.services.auth
       .logout()
-      .then(console.log)
+      .then(async () => {
+        this.store.setViewer(null);
+
+        if (onSuccess) {
+          onSuccess(undefined);
+        }
+      })
       .catch(err => {
-        console.log('Ошибка логаута', err);
+        if (onError) {
+          onError(err as Error);
+        }
       });
   }
 }
-
-export const authController =
-  new AuthController();

@@ -69,10 +69,6 @@ export default defineConfig({
         __dirname,
         './src/public'
       ),
-      '@context': path.resolve(
-        __dirname,
-        './src/context'
-      ),
     },
   },
 });

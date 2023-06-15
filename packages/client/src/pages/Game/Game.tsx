@@ -4,7 +4,10 @@ import {
   useState,
 } from 'react';
 import GameView from './view/GameView';
-import { useNavigate } from 'react-router-dom';
+import {
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { GameLogic } from '@core/GameLogic/GameLogic';
 
 export const GAME_GRAVITY = 1.7;
@@ -15,6 +18,7 @@ export const GamePage = () => {
   const [game, setGame] =
     useState<GameLogic | null>(null);
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   useEffect(() => {
     if (ref.current) {
@@ -22,6 +26,10 @@ export const GamePage = () => {
       ref.current.height =
         window.innerHeight - HEADER_HEIGHT;
       const logic = new GameLogic({
+        level:
+          state?.level ||
+          sessionStorage.getItem('level') ||
+          'first',
         canvas: ref.current,
         context: ref.current.getContext('2d')!,
         navigate,

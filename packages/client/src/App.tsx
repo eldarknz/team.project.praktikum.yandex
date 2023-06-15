@@ -1,19 +1,66 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Router } from '@routers/Router';
-import { viewerService } from '@service/ViewerService';
-import { DependencyInjection } from '@context/DependencyInjection';
+import {
+  ServicesModel,
+  ServicesContext,
+} from '@core/ServicesContext';
+import { ControllersProvider } from '@core/ControllersContext';
+import {
+  StoreContextProvider,
+  Viewer,
+} from '@core/StoreContext';
+import { AuthController } from '@controllers/AuthController';
+import { ViewerController } from '@controllers/ViewerController';
+import { AuthAPI } from '@api/AuthAPI';
+import { ViewerAPI } from '@api/ViewerAPI';
+import { StoreModel } from '@core/StoreContext';
+import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
 
+const services: ServicesModel = {
+  auth: new AuthAPI(),
+  viewer: new ViewerAPI(),
+};
+
+const createControllers = (
+  store: StoreModel
+) => ({
+  auth: new AuthController(services, store),
+  viewer: new ViewerController(services, store),
+});
+
 function App() {
+  const [loadingViewer, setLoadingViewer] =
+    useState(true);
+  const [viewer, setViewer] =
+    useState<Viewer | null>(null);
+
+  useEffect(() => {
+    services.viewer
+      .getViewer()
+      .then(setViewer)
+      .catch(() => setViewer(null))
+      .finally(() => setLoadingViewer(false));
+  }, []);
+
   return (
-    <DependencyInjection.Provider
-      value={{ viewerService }}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </DependencyInjection.Provider>
+    <ServicesContext.Provider value={services}>
+      {!loadingViewer ? (
+        <StoreContextProvider viewer={viewer}>
+          <ControllersProvider
+            createControllers={createControllers}>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </ControllersProvider>
+        </StoreContextProvider>
+      ) : (
+        <PageLoader withBackground />
+      )}
+    </ServicesContext.Provider>
   );
 }
 

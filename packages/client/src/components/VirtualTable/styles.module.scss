@@ -1,0 +1,101 @@
+@import '@styles/variables.scss';
+
+.table,
+.tbody {
+  display: flex;
+  flex-direction: column;
+}
+
+.thead {
+  display: flex;
+  background-color: $gray-400;
+}
+
+.theadSticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tr {
+  display: flex;
+  border: $border;
+  border-top-color: transparent;
+  width: 100%;
+}
+
+.tr {
+  & .th,
+  & .td {
+    min-width: auto;
+    flex-grow: 1;
+  }
+}
+
+.th {
+  color: $color-gray-text;
+  font-size: $font-size-12;
+  line-height: $line-height-14;
+  font-weight: $font-weight-7;
+
+  & + .th {
+    padding-left: $spacing-2;
+  }
+}
+
+.td {
+  font-size: $font-size-16;
+  line-height: $line-height-16;
+
+  & + .td {
+    padding-left: $spacing-2;
+  }
+}
+
+.th,
+.td {
+  padding-top: $spacing-2;
+  padding-bottom: $spacing-2;
+  flex-grow: 1;
+
+  &:first-child {
+    padding-left: $spacing-2;
+  }
+
+  &:last-child {
+    padding-right: $spacing-2;
+  }
+
+  &:only-child {
+    padding-left: $spacing-2;
+    padding-right: $spacing-2;
+  }
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.table .details {
+  text-align: right;
+  cursor: pointer;
+  pointer-events: all;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+}
+
+.playerInfo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: $spacing-2;
+}
+
+.playerScore {
+  margin-left: auto;
+}

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import dotenv from 'dotenv';
 import path from 'path';
+import { VitePWA } from 'vite-plugin-pwa';
 
 dotenv.config();
 
@@ -11,10 +12,69 @@ export default defineConfig({
   server: {
     port: Number(process.env.CLIENT_PORT) || 3000,
   },
+  preview: {
+    port:
+      Number(process.env.CLIENT_PREVIEW_PORT) ||
+      8080,
+  },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [svgr(), react()],
+  plugins: [
+    svgr(),
+    react(),
+    VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      outDir: 'dist',
+      devOptions: {
+        enabled: true,
+      },
+      injectManifest: {
+        globPatterns: [
+          '**/*.{html,js,css,png,svg,ico}',
+        ],
+        globIgnores: [
+          'maskable-icon-192.png',
+          'icon-192.png',
+          'icon-256.png',
+          'icon-512.png',
+        ],
+      },
+      workbox: {},
+      manifest: {
+        name: "theTeam's game",
+        short_name: 'tT Game',
+        description:
+          "theTeam's game for praktikum",
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'maskable-icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: 'icon-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'icon-256.png',
+            sizes: '256x256',
+            type: 'image/png',
+          },
+          {
+            src: 'icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@api': path.resolve(

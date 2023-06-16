@@ -1,22 +1,14 @@
-import { cleanupOutdatedCaches } from 'workbox-precaching';
-
 let CACHE_NAME = 'my-pwa-cache-v1';
-
-cleanupOutdatedCaches();
 
 const urlsToCache = self.__WB_MANIFEST;
 
 self.addEventListener('install', async event => {
-  // console.log('INSTALL CACHE');
-
   // Precache urls from workbox manifest
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       cache
         .addAll(urlsToCache.map(({ url }) => url))
-        // .then(() => console.log('URLS PRECACHED'))
         .catch(err => {
-          // console.log('ERROR WHILE CACHING URLS');
           console.error(err);
 
           throw err;
@@ -26,8 +18,6 @@ self.addEventListener('install', async event => {
 });
 
 self.addEventListener('activate', event => {
-  // console.log('ACTIVATE CACHE');
-
   // Delete old caches
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -66,7 +56,6 @@ self.addEventListener('fetch', function (event) {
                   return networkResponse;
                 }
 
-                // console.log('FETCHED RESOURCE');
 
                 cache.put(
                   event.request,
@@ -77,7 +66,6 @@ self.addEventListener('fetch', function (event) {
               });
           })
           .catch(() => {
-            // console.log('CACHED RESOURCE');
 
             return caches.match(event.request);
           });

@@ -1,25 +1,13 @@
-import { useEffect, useState } from 'react';
-
-import { useControllers } from '@core/ControllersContext';
-import { GetViewerResponse } from '@api/ViewerAPI';
-
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
+import { useAppSelector } from '@service/store/hooks';
 
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const controllers = useControllers();
-  const [viewer, setViewer] = useState<
-    undefined | GetViewerResponse
-  >();
-
-  useEffect(() => {
-    controllers.viewer.getViewer({
-      onSuccess: setViewer,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const viewer = useAppSelector(
+    store => store.userReducer.user
+  );
 
   if (!viewer) {
     return (

@@ -7,14 +7,12 @@ import {
 
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
-import {
-  StoreModel,
-  useStore,
-} from './StoreContext';
+
 import {
   ServicesModel,
   useServices,
 } from './ServicesContext';
+import { RootStore, store } from '@service/store';
 
 export interface ControllersModel {
   viewer: ViewerController;
@@ -32,7 +30,7 @@ export const useControllers = () => {
 interface ControllersProviderProps
   extends PropsWithChildren {
   createControllers: (
-    state: StoreModel,
+    store: RootStore,
     services: ServicesModel
   ) => ControllersModel;
 }
@@ -42,10 +40,9 @@ export const ControllersProvider = ({
   children,
 }: ControllersProviderProps) => {
   const services = useServices();
-  const store = useStore();
   const controllers = useMemo(() => {
     return createControllers(store, services);
-  }, [createControllers, services, store]);
+  }, [createControllers, services]);
 
   return (
     <ControllersContext.Provider

@@ -1,19 +1,13 @@
+import { GetViewerResponse } from '@api/ViewerAPI';
+import { store } from '@service/store';
 import {
   useMemo,
   PropsWithChildren,
   createContext,
   useState,
-  useContext,
 } from 'react';
 
-export interface Viewer {
-  id: number;
-  firstName: string;
-  secondName: string;
-  login: string;
-  email: string;
-  phone: string;
-}
+export type Viewer = GetViewerResponse;
 
 export interface StoreModel {
   viewer: Viewer | null;
@@ -53,5 +47,5 @@ export const StoreContextProvider = ({
 };
 
 export const useStore = () => {
-  return useContext(StoreContext);
+  return store.getState();
 };

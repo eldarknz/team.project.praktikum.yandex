@@ -2,7 +2,6 @@ import 'jest-canvas-mock';
 import { GameLogic } from './GameLogic';
 import { Levels } from '@core/GameLogic/levelsConfig';
 import PlayerImpl from '@core/Player/PlayerImpl';
-import GenericObjectImpl from '@core/GenericObject/GenericObjectImpl';
 
 describe('GameLogic', () => {
   let canvas: HTMLCanvasElement;

@@ -136,13 +136,13 @@ describe('SignUp', () => {
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
-        target: { value: '1' },
+        target: { value: '123' },
       }
     );
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
-        target: { value: '2' },
+        target: { value: 'abc' },
       }
     );
 
@@ -157,10 +157,10 @@ describe('SignUp', () => {
       )
     ).toBeDefined();
     expect(
-      screen.getByText(
+      screen.queryAllByText(
         'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)'
-      )
-    ).toBeDefined();
+      ).length
+    ).toBe(2);
     expect(
       screen.getByText(
         'Требования: от 10 до 15 символов, состоит из цифр, может начинается с плюса'

@@ -1,5 +1,12 @@
-export const ForumPage = () => {
-  document.title = 'Форум';
+import { Forum } from '@layouts/Forum';
+import styles from './Forum.module.scss';
 
-  return <div>Forum page</div>;
+export const ForumPage = () => {
+  document.title = 'Forum';
+
+  return (
+    <div className={styles.page}>
+      <Forum />
+    </div>
+  );
 };

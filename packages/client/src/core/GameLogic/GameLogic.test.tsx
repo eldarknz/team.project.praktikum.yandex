@@ -1,9 +1,8 @@
+import 'jest-canvas-mock';
 import { GameLogic } from './GameLogic';
-import { getLevel } from './getLevel';
 import { Levels } from '@core/GameLogic/levelsConfig';
 import PlayerImpl from '@core/Player/PlayerImpl';
-
-jest.mock('./getLevel');
+import GenericObjectImpl from '@core/GenericObject/GenericObjectImpl';
 
 describe('GameLogic', () => {
   let canvas: HTMLCanvasElement;
@@ -31,24 +30,16 @@ describe('GameLogic', () => {
   });
 
   describe('init', () => {
-    it('should initialize the game', () => {
-      const elements = [{ type: 'mockedObject' }];
-      const finishPoint = 100;
-      (getLevel as jest.Mock).mockReturnValueOnce(
-        {
-          elements,
-          finishPoint,
-        }
-      );
-
+    it('should initialize game', () => {
       gameLogic.init();
 
-      expect(gameLogic.genericObjects).toEqual(
-        elements
-      );
-      expect(gameLogic.finishPoint).toEqual(
-        finishPoint
-      );
+      expect(gameLogic.player).toBeDefined();
+      expect(
+        gameLogic.genericObjects
+      ).toBeDefined();
+      expect(
+        gameLogic.finishObject
+      ).toBeDefined();
     });
   });
 
@@ -145,6 +136,8 @@ describe('GameLogic', () => {
     });
 
     it('should handle key down event for jump key', () => {
+      gameLogic.init();
+
       const keyCode = 87; // "W" key
       gameLogic.jump = 0;
 

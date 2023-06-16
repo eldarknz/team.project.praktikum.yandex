@@ -4,9 +4,11 @@ import { Keys } from '@pages/Game/types';
 import { getMovePlayerCondition } from '../../utils/getMovePlayerCondition';
 import { ROUTES } from '@routers/routes';
 import { NavigateFunction } from 'react-router-dom';
-import { getFirstLevel } from './getFirstLevel';
+import { getLevel } from './getLevel';
+import { Levels } from './levelsConfig';
 
 export type GameLogicProps = {
+  level: Levels;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   navigate: NavigateFunction;
@@ -15,10 +17,13 @@ export type GameLogicProps = {
 const PLATFORM_SPEED = 5;
 const MAX_LEFT_PLAYER_POSITION = 100;
 const MAX_RIGHT_PLAYER_POSITION = 400;
+const MAX_JUMP = 2;
 
 export class GameLogic {
   id = 0;
   scrollOffset = 0;
+  jump = 0;
+  level: Levels;
   currentKey = '';
   navigate: NavigateFunction;
   canvas: HTMLCanvasElement;
@@ -37,6 +42,7 @@ export class GameLogic {
   };
   constructor({
     canvas,
+    level,
     context,
     navigate,
   }: GameLogicProps) {
@@ -44,6 +50,7 @@ export class GameLogic {
     this.context = context;
     this.player = undefined;
     this.navigate = navigate;
+    this.level = level;
   }
 
   init = () => {
@@ -53,15 +60,16 @@ export class GameLogic {
         canvas: this.canvas,
         context: this.context,
       });
-      const { elements, finishPoint } =
-        getFirstLevel(
-          this.context,
-          this.canvas.height
-        );
+      const { elements, finishPoint } = getLevel(
+        this.context,
+        this.level,
+        this.canvas.height
+      );
       this.finishPoint = finishPoint;
       this.genericObjects = elements;
       this.finishObject = elements.find(
-        i => i.type === 'finish'
+        (i: GenericObjectImpl) =>
+          i.type === 'finish'
       );
     }
   };
@@ -139,7 +147,7 @@ export class GameLogic {
       this.cancelAnimate();
       this.init();
       this.navigate(ROUTES.End.path, {
-        state: { win: true },
+        state: { win: true, level: this.level },
       });
     }
 
@@ -150,7 +158,9 @@ export class GameLogic {
     ) {
       this.cancelAnimate();
       this.init();
-      this.navigate(ROUTES.End.path);
+      this.navigate(ROUTES.End.path, {
+        state: { level: this.level },
+      });
     }
   };
   //@typescript-eslint/no-explicit-any
@@ -180,8 +190,11 @@ export class GameLogic {
         break;
       }
       case 87: {
-        if (this.player) {
+        if (this.player && this.jump < MAX_JUMP) {
           this.player.velocity.y -= 20;
+          this.jump += 1;
+        } else {
+          this.jump = 0;
         }
         break;
       }

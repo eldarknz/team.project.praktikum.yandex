@@ -3,13 +3,14 @@ import Select, {
 } from '@components/Select/Select';
 import styles from './StartView.module.scss';
 import { Button } from '@components/Button';
+import { LevelListType } from '@core/GameLogic/getLevel';
 
 export type StartViewProps = {
   username: string;
   onStart: () => void;
-  active: string;
-  setActive: (v: string) => void;
-  list: string[];
+  active: LevelListType;
+  setActive: (v: LevelListType) => void;
+  list: LevelListType[];
 };
 
 export default function StartView({
@@ -25,7 +26,7 @@ export default function StartView({
       <p className={styles.text}>
         Выбери уровень и начни игру)
       </p>
-      <Select<string>
+      <Select<LevelListType>
         variant={SelectKind.Purple}
         {...rest}
       />

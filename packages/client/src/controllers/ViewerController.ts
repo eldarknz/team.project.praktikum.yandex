@@ -6,12 +6,12 @@ import {
   UpdateUserRequest,
   UpdateUserResponse,
 } from '@api/ViewerAPI';
+import { setUser } from '@service/store/reducers/userSlice';
 
 import {
   Handlers,
   BaseController,
 } from './BaseController';
-import { setUser } from '@service/store/reducers/userSlice';
 
 export interface EditAvatarRequest
   extends Handlers<UpdateAvatarResponse> {
@@ -43,6 +43,8 @@ export class ViewerController extends BaseController {
           values
         );
 
+      this.store.dispatch(setUser(response));
+
       if (onSuccess) {
         onSuccess(response);
       }
@@ -67,6 +69,8 @@ export class ViewerController extends BaseController {
         onSuccess(undefined);
       }
     } catch (error) {
+      console.error(error);
+
       if (onError) {
         onError(error as Error);
       }
@@ -84,10 +88,14 @@ export class ViewerController extends BaseController {
           values
         );
 
+      this.store.dispatch(setUser(response));
+
       if (onSuccess) {
         onSuccess(response);
       }
     } catch (error) {
+      console.error(error);
+
       if (onError) {
         onError(error as Error);
       }
@@ -108,6 +116,8 @@ export class ViewerController extends BaseController {
         onSuccess(viewer);
       }
     } catch (error) {
+      console.error(error);
+
       if (onError) {
         onError(error as Error);
       }

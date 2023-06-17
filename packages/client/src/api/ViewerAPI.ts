@@ -3,13 +3,13 @@ import { API_URL } from '@api/constants';
 
 export interface GetViewerResponse {
   id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
+  email: string | null;
+  login: string | null;
+  first_name: string | null;
+  second_name: string | null;
+  display_name: string | null;
+  phone: string | null;
+  avatar: string | null;
 }
 
 export interface UpdateAvatarRequest {
@@ -18,25 +18,24 @@ export interface UpdateAvatarRequest {
 
 export interface UpdateAvatarResponse {
   id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
+  email: string | null;
+  login: string | null;
+  first_name: string | null;
+  second_name: string | null;
+  display_name: string | null;
+  phone: string | null;
+  avatar: string | null;
 }
 
 export interface UpdatePasswordRequest {
   oldPassword: string;
   newPassword: string;
-  repeatNewPassword: string;
 }
 
 export interface UpdateUserRequest {
   first_name: string;
   second_name: string;
-  display_name: string;
+  display_name: string | null;
   login: string;
   email: string;
   phone: string;
@@ -44,13 +43,13 @@ export interface UpdateUserRequest {
 
 export interface UpdateUserResponse {
   id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
+  email: string | null;
+  login: string | null;
+  first_name: string | null;
+  second_name: string | null;
+  display_name: string | null;
+  phone: string | null;
+  avatar: string | null;
 }
 
 export class ViewerAPI extends BaseApi {
@@ -61,9 +60,13 @@ export class ViewerAPI extends BaseApi {
   };
 
   updateAvatar = (data: UpdateAvatarRequest) => {
+    const formData = new FormData();
+    formData.set('avatar', data.file);
+
     return this.http.put<UpdateAvatarResponse>({
       url: `${API_URL}/user/profile/avatar`,
-      body: data,
+      body: formData,
+      headers: 'NONE',
     });
   };
 

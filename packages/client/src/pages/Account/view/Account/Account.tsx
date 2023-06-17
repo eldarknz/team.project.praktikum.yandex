@@ -1,9 +1,7 @@
 import { useCallback } from 'react';
 
-import { ReactComponent as UserIcon } from '@assets/svg/plain/user-icon.svg';
 import { useDialog } from '@hooks/useDialog';
 import { Button } from '@components/Button';
-import { Icon } from '@components/Icon';
 import { useControllers } from '@core/ControllersContext';
 
 import { ViewerModel } from '../../models';
@@ -15,6 +13,7 @@ import {
   UserEditorProps,
   AvatarEditorProps,
   PasswordEditorProps,
+  Avatar,
 } from '../../components';
 
 import styles from './Account.module.scss';
@@ -48,11 +47,10 @@ export const Account = ({
 
   const updateUser: UserEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) => {
-        controllers.viewer.editUser({
+      values => {
+        return controllers.viewer.editUser({
           values,
           onSuccess: () => {
-            cleanForm();
             closeUserEditor();
           },
           onError: () =>
@@ -64,11 +62,10 @@ export const Account = ({
 
   const updateAvatar: AvatarEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) => {
-        controllers.viewer.editAvatar({
+      values => {
+        return controllers.viewer.editAvatar({
           values,
           onSuccess: () => {
-            cleanForm();
             closeAvatarEditor();
           },
           onError: () =>
@@ -80,11 +77,10 @@ export const Account = ({
 
   const updatePassword: PasswordEditorProps['onSubmit'] =
     useCallback(
-      ({ values, cleanForm }) => {
-        controllers.viewer.editPassword({
+      values => {
+        return controllers.viewer.editPassword({
           values,
           onSuccess: () => {
-            cleanForm();
             closePasswordEditor();
           },
           onError: () =>
@@ -96,29 +92,33 @@ export const Account = ({
 
   return (
     <div className={styles.page}>
-      <UserEditor
-        viewer={viewer}
-        isOpen={isUserEditorOpen}
-        onSubmit={updateUser}
-        onOpenChange={setUserEditorState}
-      />
+      {isUserEditorOpen && (
+        <UserEditor
+          viewer={viewer}
+          isOpen={isUserEditorOpen}
+          onSubmit={updateUser}
+          onOpenChange={setUserEditorState}
+        />
+      )}
 
-      <PasswordEditor
-        isOpen={isPasswordEditorOpen}
-        onSubmit={updatePassword}
-        onOpenChange={setPasswordEditorState}
-      />
+      {isPasswordEditorOpen && (
+        <PasswordEditor
+          isOpen={isPasswordEditorOpen}
+          onSubmit={updatePassword}
+          onOpenChange={setPasswordEditorState}
+        />
+      )}
 
-      <AvatarEditor
-        isOpen={isAvatarEditorOpen}
-        onSubmit={updateAvatar}
-        onOpenChange={setAvatarEditorState}
-      />
+      {isAvatarEditorOpen && (
+        <AvatarEditor
+          isOpen={isAvatarEditorOpen}
+          onSubmit={updateAvatar}
+          onOpenChange={setAvatarEditorState}
+        />
+      )}
 
       <div className={styles.content}>
-        <div className={styles.avatar}>
-          <Icon icon={<UserIcon />} size={120} />
-        </div>
+        <Avatar link={viewer.avatar} />
         <h4 className={styles.userName}>
           {viewer.display_name
             ? viewer.display_name

@@ -1,0 +1,20 @@
+@import '@styles/variables.scss';
+
+.avatar {
+  height: 200px;
+  width: 200px;
+  border-radius: $baseBorderRadius;
+  box-shadow: $secondaryShadow;
+  background: $gradient;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

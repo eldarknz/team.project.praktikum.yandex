@@ -10,13 +10,12 @@ import {
 } from 'react';
 import cn from 'classnames';
 import './Input.scss';
-import { useFormContext } from '@components/Form';
 
 export type InputProps = {
   inputClassName?: string;
   name: string;
   type?: 'text' | 'password' | 'file' | 'hidden';
-  errorText?: string;
+  errorText?: string | null;
   labelText?: string;
   validator?: (content: string) => boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
@@ -60,26 +59,12 @@ export const Input = ({
     [validator, errorText]
   );
 
-  const context = useFormContext();
-
   const [localValue, setLocalValue] =
     useState(value);
 
   useEffect(() => {
-    if (!context) return;
-
-    const unregisterField = context.registerField(
-      {
-        name,
-        validators: [],
-        value: localValue,
-        onClearForm: () => setLocalValue(''),
-      }
-    );
-
-    return unregisterField;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setError(errorText || null);
+  }, [errorText]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> =
     useCallback(
@@ -101,23 +86,13 @@ export const Input = ({
           }
         }
 
-        if (context?.setFieldValue) {
-          context.setFieldValue(name, value);
-        }
-
         setLocalValue(value);
 
         if (onChange) {
           onChange(e);
         }
       },
-      [
-        errorText,
-        validator,
-        context,
-        onChange,
-        name,
-      ]
+      [errorText, validator, onChange]
     );
 
   return (

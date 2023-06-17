@@ -3,6 +3,7 @@ const HEADERS = {
     'Content-Type':
       'application/json;charset=utf-8',
   },
+  NONE: {},
 } as const;
 
 const METHODS = {
@@ -46,7 +47,12 @@ class HTTPTransport {
       headers: HEADERS[headers],
       credentials: 'include',
       cache: 'no-store',
-      body: body ? JSON.stringify(body) : null,
+      body:
+        body instanceof FormData
+          ? body
+          : body
+          ? JSON.stringify(body)
+          : null,
     }).then(async response => {
       return await handleResponse(
         response,

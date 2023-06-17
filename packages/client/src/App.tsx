@@ -7,26 +7,26 @@ import {
   ServicesContext,
 } from '@core/ServicesContext';
 import { ControllersProvider } from '@core/ControllersContext';
-import {
-  StoreContextProvider,
-  Viewer,
-} from '@core/StoreContext';
+
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
-import { StoreModel } from '@core/StoreContext';
 import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
+import { RootStore } from '@service/store';
+
+import { setUser } from '@service/store/reducers/userSlice';
+import { useAppDispatch } from '@service/store/hooks';
 
 const services: ServicesModel = {
   auth: new AuthAPI(),
   viewer: new ViewerAPI(),
 };
 
-const createControllers = (
-  store: StoreModel
+export const createControllers = (
+  store: RootStore
 ) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
@@ -35,28 +35,30 @@ const createControllers = (
 function App() {
   const [loadingViewer, setLoadingViewer] =
     useState(true);
-  const [viewer, setViewer] =
-    useState<Viewer | null>(null);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     services.viewer
       .getViewer()
-      .then(setViewer)
-      .catch(() => setViewer(null))
+      .then(user => {
+        dispatch(setUser(user));
+      })
+      .catch(() => {
+        dispatch(setUser(null));
+      })
       .finally(() => setLoadingViewer(false));
-  }, []);
+  }, [dispatch]);
 
   return (
     <ServicesContext.Provider value={services}>
       {!loadingViewer ? (
-        <StoreContextProvider viewer={viewer}>
-          <ControllersProvider
-            createControllers={createControllers}>
-            <BrowserRouter>
-              <Router />
-            </BrowserRouter>
-          </ControllersProvider>
-        </StoreContextProvider>
+        <ControllersProvider
+          createControllers={createControllers}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </ControllersProvider>
       ) : (
         <PageLoader withBackground />
       )}

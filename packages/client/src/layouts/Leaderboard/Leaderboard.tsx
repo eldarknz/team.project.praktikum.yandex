@@ -1,7 +1,5 @@
-import cn from 'classnames';
 import { Grid } from '@components/Grid';
 import { Input } from '@components/Input';
-import { Table } from '@components/Table';
 import { PlayerList } from '@components/PlayerList';
 import { IPlayerCardProps } from '@components/PlayerCard';
 import styles from './Leaderboard.module.scss';

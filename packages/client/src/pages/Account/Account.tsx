@@ -1,11 +1,13 @@
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
-import { useStore } from '../../core/StoreContext';
+import { useAppSelector } from '@service/store/hooks';
 
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const { viewer } = useStore();
+  const viewer = useAppSelector(
+    store => store.userReducer.user
+  );
 
   if (!viewer) {
     return (

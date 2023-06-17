@@ -6,7 +6,6 @@ import { ROUTES } from '@routers/routes';
 import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
 import { Button } from '@components/Button';
 import { useControllers } from '@core/ControllersContext';
-
 import styles from './Navbar.module.scss';
 import { StyledLink } from '@components/StyledLink';
 

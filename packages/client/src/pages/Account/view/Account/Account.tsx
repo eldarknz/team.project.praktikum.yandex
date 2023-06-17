@@ -120,7 +120,9 @@ export const Account = ({
       <div className={styles.content}>
         <Avatar link={viewer.avatar} />
         <h4 className={styles.userName}>
-          {viewer.first_name} {viewer.second_name}
+          {viewer.display_name
+            ? viewer.display_name
+            : `${viewer.first_name} ${viewer.second_name}`}
         </h4>
 
         <UserDataList {...viewer} />

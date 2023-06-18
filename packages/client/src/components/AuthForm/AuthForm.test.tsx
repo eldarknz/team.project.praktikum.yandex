@@ -63,6 +63,36 @@ describe('SignIn', () => {
       )
     ).toBeDefined();
   });
+
+  test('sends a request with the entered signin data', async () => {
+    const signinMock = jest.fn();
+
+    renderAuthForm({ authType: 'signin' });
+
+    fireEvent.change(
+      screen.getByLabelText('Логин'),
+      {
+        target: { value: 'testuser' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Пароль'),
+      {
+        target: { value: 'testpassword' },
+      }
+    );
+
+    fireEvent.click(screen.getByText('Войти'));
+
+    expect(signinMock).toHaveBeenCalledWith({
+      values: {
+        login: 'testuser',
+        password: 'testpassword',
+      },
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
+  });
 });
 
 describe('SignUp', () => {
@@ -175,5 +205,72 @@ describe('SignUp', () => {
     expect(
       screen.getByText('Пароли не совпадают')
     ).toBeDefined();
+  });
+
+  test('sends a request with the entered signup data', async () => {
+    const signupMock = jest.fn();
+
+    renderAuthForm({ authType: 'signup' });
+
+    fireEvent.change(
+      screen.getByLabelText('Почта'),
+      {
+        target: { value: 'test@example.com' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Логин'),
+      {
+        target: { value: 'testuser' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Имя'),
+      {
+        target: { value: 'Test' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Фамилия'),
+      {
+        target: { value: 'Test' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Телефон'),
+      {
+        target: { value: '1234567890' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Пароль'),
+      {
+        target: { value: 'Testpassword1' },
+      }
+    );
+    fireEvent.change(
+      screen.getByLabelText('Еще раз пароль'),
+      {
+        target: { value: 'Testpassword1' },
+      }
+    );
+
+    fireEvent.click(
+      screen.getByText('Зарегистрироваться')
+    );
+
+    expect(signupMock).toHaveBeenCalledWith({
+      values: {
+        email: 'test@example.com',
+        login: 'testuser',
+        first_name: 'Test',
+        second_name: 'Test',
+        phone: '1234567890',
+        password: 'Testpassword1',
+        password_confirm: 'Testpassword1',
+      },
+      onSuccess: expect.any(Function),
+      onError: expect.any(Function),
+    });
   });
 });

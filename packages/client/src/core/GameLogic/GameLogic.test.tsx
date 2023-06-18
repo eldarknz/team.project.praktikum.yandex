@@ -2,6 +2,7 @@ import 'jest-canvas-mock';
 import { GameLogic } from './GameLogic';
 import { Levels } from '@core/GameLogic/levelsConfig';
 import PlayerImpl from '@core/Player/PlayerImpl';
+import { ROUTES } from '@routers/routes';
 
 describe('GameLogic', () => {
   let canvas: HTMLCanvasElement;
@@ -146,6 +147,70 @@ describe('GameLogic', () => {
         -20
       );
       expect(gameLogic.jump).toBe(1);
+    });
+  });
+
+  describe('game end', () => {
+    it('should navigate to win screen when win condition is met', () => {
+      gameLogic.player = new PlayerImpl({
+        scrollOffset: 0,
+        canvas,
+        context,
+      });
+      gameLogic.finishPoint = 5000;
+      gameLogic.keys = {
+        left: { presed: false },
+        right: { presed: false },
+      };
+      const navigateSpy = jest.spyOn(
+        gameLogic,
+        'navigate'
+      );
+
+      gameLogic.player.position.x = 5450;
+      gameLogic.player.position.y = 1224;
+      gameLogic.animate();
+
+      expect(navigateSpy).toHaveBeenCalledWith(
+        ROUTES.End.path,
+        {
+          state: {
+            win: true,
+            level: gameLogic.level,
+          },
+        }
+      );
+    });
+
+    it('should navigate to end screen when player falls off the canvas', () => {
+      gameLogic.init();
+      gameLogic.player = new PlayerImpl({
+        scrollOffset: 0,
+        canvas,
+        context,
+      });
+      gameLogic.keys = {
+        left: { presed: false },
+        right: { presed: false },
+      };
+      const navigateSpy = jest.spyOn(
+        gameLogic,
+        'navigate'
+      );
+
+      gameLogic.player.position.y =
+        gameLogic.canvas.height +
+        gameLogic.player.height;
+      gameLogic.scrollOffset = 100;
+
+      gameLogic.animate();
+
+      expect(navigateSpy).toHaveBeenCalledWith(
+        ROUTES.End.path,
+        {
+          state: { level: gameLogic.level },
+        }
+      );
     });
   });
 });

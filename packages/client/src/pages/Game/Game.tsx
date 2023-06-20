@@ -9,6 +9,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { GameLogic } from '@core/GameLogic/GameLogic';
+import { fullscreenHandler } from '@utils/fullscreen';
 
 export const GAME_GRAVITY = 1.7;
 const HEADER_HEIGHT = 120;
@@ -64,5 +65,27 @@ export const GamePage = () => {
       }
     };
   }, [game]);
+
+  useEffect(() => {
+    if (ref) {
+      const keydownHandler = fullscreenHandler(
+        ref.current
+      );
+      window.addEventListener(
+        'keydown',
+        keydownHandler
+      );
+
+      return () => {
+        if (ref) {
+          window.removeEventListener(
+            'keydown',
+            keydownHandler
+          );
+        }
+      };
+    }
+  }, [ref]);
+
   return <GameView canvasRef={ref} />;
 };

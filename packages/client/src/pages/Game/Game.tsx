@@ -77,12 +77,10 @@ export const GamePage = () => {
       );
 
       return () => {
-        if (ref) {
-          window.removeEventListener(
-            'keydown',
-            keydownHandler
-          );
-        }
+        window.removeEventListener(
+          'keydown',
+          keydownHandler
+        );
       };
     }
   }, [ref]);

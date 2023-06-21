@@ -22,9 +22,9 @@ const isFullScreen = (): boolean => {
   );
 };
 
-const exitFullScreen = (
-  DOMDocument: DocumentWithFullscreen
-) => {
+const exitFullScreen = () => {
+  const DOMDocument =
+    document as DocumentWithFullscreen;
   if (DOMDocument.exitFullscreen) {
     DOMDocument.exitFullscreen();
   } else if (DOMDocument.webkitExitFullscreen) {
@@ -50,7 +50,7 @@ export const toggleFullscreen = (
   element: DocumentElementWithFullscreen
 ) => {
   if (isFullScreen()) {
-    exitFullScreen(document);
+    exitFullScreen();
   } else {
     enterFullScreen(element);
   }

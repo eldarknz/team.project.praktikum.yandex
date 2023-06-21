@@ -4,12 +4,6 @@ interface DocumentElementWithFullscreen
   webkitRequestFullscreen?: () => void;
 }
 
-interface DocumentElementWithFullscreen
-  extends HTMLElement {
-  mozRequestFullScreen?: () => void;
-  webkitRequestFullscreen?: () => void;
-}
-
 interface DocumentWithFullscreen
   extends Document {
   mozFullScreenElement?: Element;

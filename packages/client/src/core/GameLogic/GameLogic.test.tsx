@@ -152,12 +152,12 @@ describe('GameLogic', () => {
 
   describe('game end', () => {
     it('should navigate to win screen when win condition is met', () => {
+      gameLogic.init();
       gameLogic.player = new PlayerImpl({
         scrollOffset: 0,
         canvas,
         context,
       });
-      gameLogic.finishPoint = 5000;
       gameLogic.keys = {
         left: { presed: false },
         right: { presed: false },
@@ -167,15 +167,14 @@ describe('GameLogic', () => {
         'navigate'
       );
 
-      gameLogic.player.position.x = 5450;
-      gameLogic.player.position.y = 1224;
-      gameLogic.animate();
+      gameLogic.player.position.y = 1338;
+      gameLogic.scrollOffset = 5001;
 
+      gameLogic.animate();
       expect(navigateSpy).toHaveBeenCalledWith(
         ROUTES.End.path,
         {
           state: {
-            win: true,
             level: gameLogic.level,
           },
         }

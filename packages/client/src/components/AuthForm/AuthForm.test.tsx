@@ -7,6 +7,7 @@ import {
   render,
   screen,
   fireEvent,
+  waitFor,
 } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -65,7 +66,17 @@ describe('SignIn', () => {
   });
 
   test('sends a request with the entered signin data', async () => {
-    const signinMock = jest.fn();
+    const mockControllers = {
+      auth: {
+        signin: jest.fn(),
+      },
+    };
+
+    jest.mock('@core/ControllersContext', () => ({
+      useControllers: jest.fn(
+        () => mockControllers
+      ),
+    }));
 
     renderAuthForm({ authType: 'signin' });
 
@@ -78,19 +89,23 @@ describe('SignIn', () => {
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
-        target: { value: 'testpassword' },
+        target: { value: 'Password123' },
       }
     );
 
-    fireEvent.click(screen.getByText('Войти'));
+    fireEvent.submit(screen.getByRole('button'));
 
-    expect(signinMock).toHaveBeenCalledWith({
-      values: {
-        login: 'testuser',
-        password: 'testpassword',
-      },
-      onSuccess: expect.any(Function),
-      onError: expect.any(Function),
+    await waitFor(async () => {
+      expect(
+        mockControllers.auth.signin
+      ).toHaveBeenCalledWith({
+        values: {
+          login: 'testuser',
+          password: 'Password123',
+        },
+        onSuccess: expect.any(Function),
+        onError: expect.any(Function),
+      });
     });
   });
 });
@@ -208,7 +223,17 @@ describe('SignUp', () => {
   });
 
   test('sends a request with the entered signup data', async () => {
-    const signupMock = jest.fn();
+    const mockControllers = {
+      auth: {
+        signup: jest.fn(),
+      },
+    };
+
+    jest.mock('@core/ControllersContext', () => ({
+      useControllers: jest.fn(
+        () => mockControllers
+      ),
+    }));
 
     renderAuthForm({ authType: 'signup' });
 
@@ -255,22 +280,24 @@ describe('SignUp', () => {
       }
     );
 
-    fireEvent.click(
-      screen.getByText('Зарегистрироваться')
-    );
+    fireEvent.submit(screen.getByRole('button'));
 
-    expect(signupMock).toHaveBeenCalledWith({
-      values: {
-        email: 'test@example.com',
-        login: 'testuser',
-        first_name: 'Test',
-        second_name: 'Test',
-        phone: '1234567890',
-        password: 'Testpassword1',
-        password_confirm: 'Testpassword1',
-      },
-      onSuccess: expect.any(Function),
-      onError: expect.any(Function),
+    await waitFor(async () => {
+      expect(
+        mockControllers.auth.signup
+      ).toHaveBeenCalledWith({
+        values: {
+          email: 'test@example.com',
+          login: 'testuser',
+          first_name: 'Test',
+          second_name: 'Test',
+          phone: '1234567890',
+          password: 'Testpassword1',
+          password_confirm: 'Testpassword1',
+        },
+        onSuccess: expect.any(Function),
+        onError: expect.any(Function),
+      });
     });
   });
 });

@@ -93,7 +93,7 @@ describe('SignIn', () => {
       }
     );
 
-    fireEvent.submit(screen.getByRole('button'));
+    fireEvent.click(screen.getByRole('button'));
 
     await waitFor(async () => {
       expect(
@@ -280,7 +280,7 @@ describe('SignUp', () => {
       }
     );
 
-    fireEvent.submit(screen.getByRole('button'));
+    fireEvent.click(screen.getByRole('button'));
 
     await waitFor(async () => {
       expect(

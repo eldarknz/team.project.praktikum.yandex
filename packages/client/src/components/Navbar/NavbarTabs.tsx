@@ -8,6 +8,7 @@ import { Button } from '@components/Button';
 import { useControllers } from '@core/ControllersContext';
 import styles from './Navbar.module.scss';
 import { StyledLink } from '@components/StyledLink';
+import { canShowRoute } from '../../routers/utils';
 
 export const NavbarTabs = () => {
   const isAuthenticated =
@@ -22,7 +23,7 @@ export const NavbarTabs = () => {
       },
       {
         title: 'Игра',
-        route: ROUTES.Start,
+        route: ROUTES.Game.Start,
       },
       {
         title: 'Лидерборд',
@@ -36,22 +37,13 @@ export const NavbarTabs = () => {
         title: 'Форум',
         route: ROUTES.Forum,
       },
-    ].filter(
-      ({ route }) =>
-        !route.isPrivate || isAuthenticated
-    );
+    ].filter(({ route }) => {
+      return canShowRoute({
+        route,
+        isAuthenticated,
+      });
+    });
   }, [isAuthenticated]);
-
-  const availableLinks = useMemo(
-    () =>
-      isAuthenticated
-        ? links
-        : links.filter(
-            ({ route: { isPrivate } }) =>
-              !isPrivate
-          ),
-    [isAuthenticated, links]
-  );
 
   const logout = useCallback(
     () => controllers.auth.logout(),
@@ -61,7 +53,7 @@ export const NavbarTabs = () => {
   return (
     <div className={styles.navbar}>
       <div className={styles.links}>
-        {availableLinks.map(
+        {links.map(
           ({ title, route: { path } }) => (
             <NavLink
               key={title}
@@ -85,7 +77,8 @@ export const NavbarTabs = () => {
         </div>
       ) : (
         <div className={styles.button}>
-          <StyledLink to={ROUTES.SignIn.path}>
+          <StyledLink
+            to={ROUTES.Auth.SignIn.path}>
             Войти
           </StyledLink>
         </div>

@@ -10,7 +10,7 @@ export default function End() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const handleRetry = useCallback(() => {
-    navigate(ROUTES.Start.path, {
+    navigate(ROUTES.Game.Start.path, {
       state: { level: state.level },
     });
   }, [navigate, state.level]);

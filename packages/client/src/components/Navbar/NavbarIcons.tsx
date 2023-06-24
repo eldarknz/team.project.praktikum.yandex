@@ -9,6 +9,7 @@ import { ReactComponent as ProfileSVG } from '@assets/svg/colored/profile-icon.s
 import { ReactComponent as SettingsSVG } from '@assets/svg/colored/settings-icon.svg';
 
 import style from './NavbarIcons.module.scss';
+import { canShowRoute } from '../../routers/utils';
 
 export const NavbarIcons = () => {
   const isAuthenticated =
@@ -44,10 +45,12 @@ export const NavbarIcons = () => {
     () =>
       isAuthenticated
         ? links
-        : links.filter(
-            ({ route: { isPrivate } }) =>
-              !isPrivate
-          ),
+        : links.filter(({ route }) => {
+            return canShowRoute({
+              isAuthenticated,
+              route,
+            });
+          }),
     [isAuthenticated, links]
   );
 

@@ -27,6 +27,17 @@ const renderAuthForm = (props: AuthFormProps) => {
   );
 };
 
+const mockControllers = {
+  auth: {
+    signin: jest.fn(),
+    signup: jest.fn(),
+  },
+};
+
+jest.mock('@core/ControllersContext', () => ({
+  useControllers: jest.fn(() => mockControllers),
+}));
+
 describe('SignIn', () => {
   test('renders AuthForm correctly with signin type', async () => {
     renderAuthForm({ authType: 'signin' });
@@ -66,18 +77,6 @@ describe('SignIn', () => {
   });
 
   test('sends a request with the entered signin data', async () => {
-    const mockControllers = {
-      auth: {
-        signin: jest.fn(),
-      },
-    };
-
-    jest.mock('@core/ControllersContext', () => ({
-      useControllers: jest.fn(
-        () => mockControllers
-      ),
-    }));
-
     renderAuthForm({ authType: 'signin' });
 
     fireEvent.change(
@@ -223,18 +222,6 @@ describe('SignUp', () => {
   });
 
   test('sends a request with the entered signup data', async () => {
-    const mockControllers = {
-      auth: {
-        signup: jest.fn(),
-      },
-    };
-
-    jest.mock('@core/ControllersContext', () => ({
-      useControllers: jest.fn(
-        () => mockControllers
-      ),
-    }));
-
     renderAuthForm({ authType: 'signup' });
 
     fireEvent.change(
@@ -276,7 +263,7 @@ describe('SignUp', () => {
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
-        target: { value: 'Testpassword1' },
+        target: { value: '' },
       }
     );
 
@@ -293,7 +280,7 @@ describe('SignUp', () => {
           second_name: 'Test',
           phone: '1234567890',
           password: 'Testpassword1',
-          password_confirm: 'Testpassword1',
+          password_confirm: '',
         },
         onSuccess: expect.any(Function),
         onError: expect.any(Function),

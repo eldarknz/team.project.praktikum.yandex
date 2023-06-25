@@ -39,7 +39,7 @@ export const AuthForm = ({
     (content: string): boolean => {
       const password = (
         document.querySelector(
-          '#signUpPassword'
+          'input.baseInput.baseInput--error[name="password"]'
         ) as HTMLInputElement
       ).value;
 
@@ -171,7 +171,6 @@ export const AuthForm = ({
     {
       name: 'password',
       type: 'password',
-      id: 'signUpPassword',
       labelText: 'Пароль',
       errorText: validate.errorMessages.password,
       validator: validate.password,

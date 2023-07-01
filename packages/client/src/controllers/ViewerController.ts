@@ -117,6 +117,7 @@ export class ViewerController extends BaseController {
       }
     } catch (error) {
       console.error(error);
+      this.store.dispatch(setUser(null));
 
       if (onError) {
         onError(error as Error);

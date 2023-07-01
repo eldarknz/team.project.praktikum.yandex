@@ -22,6 +22,8 @@ export interface SignInRequest
 
 export type LogoutRequest = Handlers<undefined>;
 
+const OAUTH_REDIRECT_URL = window.location.origin;
+
 export class AuthController extends BaseController {
   public async signup({
     onError,
@@ -89,5 +91,38 @@ export class AuthController extends BaseController {
           onError(err as Error);
         }
       });
+  }
+
+  public async signinWithYandex() {
+    const { service_id } =
+      await this.services.auth.getServiceId({
+        redirectUri: OAUTH_REDIRECT_URL,
+      });
+
+    window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`;
+  }
+
+  public async getUserFromOAuth() {
+    const params = new URLSearchParams(
+      window.location.search
+    );
+    const code = params.get('code');
+
+    if (!code) return;
+
+    try {
+      await this.services.auth.authWithYandex({
+        code,
+        redirectUri: OAUTH_REDIRECT_URL,
+      });
+    } catch {
+      //
+    }
+
+    window.history.replaceState(
+      null,
+      '',
+      window.location.pathname
+    );
   }
 }

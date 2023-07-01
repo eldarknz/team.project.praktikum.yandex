@@ -10,6 +10,7 @@ import {
 import './AuthForm.scss';
 import {
   FormEvent,
+  MouseEventHandler,
   useCallback,
   useId,
   useState,
@@ -104,6 +105,15 @@ export const AuthForm = ({
     [controllers.auth, navigate]
   );
 
+  const handleOAuthLogin: MouseEventHandler =
+    useCallback(
+      e => {
+        e.preventDefault();
+        controllers.auth.signinWithYandex();
+      },
+      [controllers.auth]
+    );
+
   const title =
     authType === 'signin'
       ? 'Авторизация'
@@ -127,6 +137,7 @@ export const AuthForm = ({
   const signInButtons: ButtonProps[] = [
     {
       children: 'Войти',
+      type: 'submit',
       id: useId(),
     },
     {
@@ -238,6 +249,12 @@ export const AuthForm = ({
             {...buttonProps}
           />
         ))}
+
+        <Button
+          view="subButton"
+          onClick={handleOAuthLogin}>
+          Войти с Yandex
+        </Button>
       </form>
     </div>
   );

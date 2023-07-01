@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Router } from '@routers/Router';
@@ -13,12 +13,10 @@ import { ViewerController } from '@controllers/ViewerController';
 import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
 import { PageLoader } from '@components/PageLoader';
+import { RootStore } from '@service/store';
+import { useViewerFromSession } from '@hooks/useViewerFromSession';
 
 import './styles/index.scss';
-import { RootStore } from '@service/store';
-
-import { setUser } from '@service/store/reducers/userSlice';
-import { useAppDispatch } from '@service/store/hooks';
 
 const services: ServicesModel = {
   auth: new AuthAPI(),
@@ -32,36 +30,33 @@ export const createControllers = (
   viewer: new ViewerController(services, store),
 });
 
-function App() {
-  const [loadingViewer, setLoadingViewer] =
-    useState(true);
-
-  const dispatch = useAppDispatch();
+const Content = () => {
+  const {
+    isLoading: isLoadingViewer,
+    getViewer,
+  } = useViewerFromSession();
 
   useEffect(() => {
-    services.viewer
-      .getViewer()
-      .then(user => {
-        dispatch(setUser(user));
-      })
-      .catch(() => {
-        dispatch(setUser(null));
-      })
-      .finally(() => setLoadingViewer(false));
-  }, [dispatch]);
+    getViewer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  return !isLoadingViewer ? (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  ) : (
+    <PageLoader withBackground />
+  );
+};
+
+function App() {
   return (
     <ServicesContext.Provider value={services}>
-      {!loadingViewer ? (
-        <ControllersProvider
-          createControllers={createControllers}>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
-        </ControllersProvider>
-      ) : (
-        <PageLoader withBackground />
-      )}
+      <ControllersProvider
+        createControllers={createControllers}>
+        <Content />
+      </ControllersProvider>
     </ServicesContext.Provider>
   );
 }

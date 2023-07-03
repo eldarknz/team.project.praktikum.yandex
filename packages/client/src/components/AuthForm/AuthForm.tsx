@@ -132,7 +132,7 @@ export const AuthForm = ({
     {
       children: 'Еще не зарегистрированы?',
       id: useId(),
-      to: ROUTES.SignUp.path,
+      to: ROUTES.Auth.SignUp.path,
       view: 'subButton',
     },
   ];
@@ -192,7 +192,7 @@ export const AuthForm = ({
     {
       children: 'Уже есть аккаунт?',
       id: useId(),
-      to: ROUTES.SignIn.path,
+      to: ROUTES.Auth.SignIn.path,
       view: 'subButton',
     },
   ];

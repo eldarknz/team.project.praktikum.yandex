@@ -146,7 +146,7 @@ export class GameLogic {
     if (this._getWinCondition()) {
       this.cancelAnimate();
       this.init();
-      this.navigate(ROUTES.End.path, {
+      this.navigate(ROUTES.Game.End.path, {
         state: { win: true, level: this.level },
       });
     }
@@ -158,7 +158,7 @@ export class GameLogic {
     ) {
       this.cancelAnimate();
       this.init();
-      this.navigate(ROUTES.End.path, {
+      this.navigate(ROUTES.Game.End.path, {
         state: { level: this.level },
       });
     }

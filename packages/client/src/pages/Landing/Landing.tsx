@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/Button';
 import { ROUTES } from '@routers/routes';
 import backgroundImage from '@assets/png/background.png';
-import { Navbar } from '@components/Navbar';
 import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
 
 export const LandingPage = () => {
@@ -12,7 +11,7 @@ export const LandingPage = () => {
     useIsViewerAuthenticated();
 
   const handleSignInClick = useCallback(
-    () => navigate(ROUTES.SignIn.path),
+    () => navigate(ROUTES.Auth.SignIn.path),
     [navigate]
   );
   const backgroundStyle = {
@@ -23,8 +22,6 @@ export const LandingPage = () => {
     <div
       className="landing"
       style={backgroundStyle}>
-      <Navbar />
-
       <div className="landing__content">
         <h1 className="landing__content__title">
           Добро пожаловать в theTeam

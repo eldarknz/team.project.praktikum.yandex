@@ -7,13 +7,13 @@ import { Navigate } from 'react-router-dom';
 import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
 import { ROUTES } from '@routers/routes';
 
-export const PrivateRoute = ({
+export const PublicRoute = ({
   children,
 }: PropsWithChildren) => {
   const isAuthenticated =
     useIsViewerAuthenticated();
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return <Navigate to={ROUTES.Home.path} />;
   }
 

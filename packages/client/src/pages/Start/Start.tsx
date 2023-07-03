@@ -16,7 +16,7 @@ export default function Start() {
   );
   const navigate = useNavigate();
   const handleStart = useCallback(() => {
-    navigate(ROUTES.Game.path, {
+    navigate(ROUTES.Game.Game.path, {
       state: { level: active.id },
     });
   }, [navigate, active]);

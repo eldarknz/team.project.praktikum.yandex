@@ -24,84 +24,103 @@ const SignUpPage = lazy(
 const Error404Page = lazy(
   () => import('@pages/Error404')
 );
+const Error500Page = lazy(
+  () => import('@pages/Error500')
+);
 
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));
 
 export enum Layout {
-  Default,
-  Auth,
-  Error,
-  Game,
-  Empty,
+  Default = 'Default',
+  Auth = 'Auth',
+  Error = 'Error',
+  Game = 'Game',
+  Empty = 'Empty',
 }
 
-export type RouteItem = {
-  path: string;
-  isPrivate: boolean;
-  component: ComponentType;
-  layout: Layout;
-};
+export enum RouteAccessType {
+  PublicOnly = 'public-only',
+  PrivateOnly = 'private-only',
+  Common = 'common',
+}
 
 export const ROUTES = {
+  Auth: {
+    SignIn: {
+      path: '/sign-in',
+      access: RouteAccessType.PublicOnly,
+      layout: Layout.Auth,
+      component: SignInPage,
+    },
+    SignUp: {
+      path: '/sign-up',
+      access: RouteAccessType.PublicOnly,
+      layout: Layout.Auth,
+      component: SignUpPage,
+    },
+  },
   Home: {
     path: '/',
-    isPrivate: false,
+    access: RouteAccessType.Common,
     component: LandingPage,
-    layout: Layout.Empty,
+    layout: Layout.Default,
   },
   Forum: {
     path: '/forum',
-    isPrivate: false,
+    access: RouteAccessType.Common,
     component: ForumPage,
     layout: Layout.Default,
   },
   Game: {
-    path: '/game',
-    isPrivate: true,
-    component: GamePage,
-    layout: Layout.Game,
-  },
-  SignIn: {
-    path: '/sign-in',
-    isPrivate: false,
-    component: SignInPage,
-    layout: Layout.Auth,
-  },
-  SignUp: {
-    path: '/sign-up',
-    isPrivate: false,
-    component: SignUpPage,
-    layout: Layout.Auth,
-  },
-  Account: {
-    path: '/account',
-    isPrivate: true,
-    component: AccountPage,
-    layout: Layout.Default,
+    Start: {
+      path: '/start',
+      access: RouteAccessType.PrivateOnly,
+      component: Start,
+      layout: Layout.Game,
+    },
+    Game: {
+      path: '/game',
+      access: RouteAccessType.PrivateOnly,
+      component: GamePage,
+      layout: Layout.Game,
+    },
+    End: {
+      path: '/end',
+      access: RouteAccessType.PrivateOnly,
+      component: End,
+      layout: Layout.Game,
+    },
   },
   Leaderboard: {
     path: '/leaderboard',
-    isPrivate: false,
+    access: RouteAccessType.Common,
     component: LeaderboardPage,
     layout: Layout.Default,
   },
-  Start: {
-    path: '/start',
-    isPrivate: true,
-    component: Start,
-    layout: Layout.Game,
+  Account: {
+    path: '/account',
+    access: RouteAccessType.PrivateOnly,
+    component: AccountPage,
+    layout: Layout.Default,
   },
-  End: {
-    path: '/end',
-    isPrivate: true,
-    component: End,
-    layout: Layout.Game,
+  Error500: {
+    path: 'error-500',
+    access: RouteAccessType.Common,
+    component: Error500Page,
+    layout: Layout.Error,
   },
   Error404: {
     path: '*',
-    isPrivate: false,
+    access: RouteAccessType.Common,
     component: Error404Page,
     layout: Layout.Error,
   },
+};
+
+export type RouteItem = {
+  path: string;
+  access: RouteAccessType;
+  component: ComponentType;
+  layout: Layout;
 };

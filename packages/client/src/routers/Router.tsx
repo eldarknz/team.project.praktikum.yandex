@@ -1,64 +1,125 @@
-import { Fragment, ComponentType } from 'react';
+import { ComponentType, useMemo } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { PrivateRoute } from '@routers/PrivateRoute';
+
 import { EmptyLayout } from '@layouts/Empty';
 import { DefaultLayout } from '@layouts/Default';
 import { AuthLayout } from '@layouts/Auth';
 import { ErrorLayout } from '@layouts/Error';
+import { GameLayout } from '@layouts/Game/GameLayout';
+
+import { PublicRoute } from './PublicRoute';
+import { PrivateRoute } from './PrivateRoute';
 import {
   Layout,
+  RouteAccessType,
   RouteItem,
   ROUTES,
 } from './routes';
-import { GameLayout } from '@layouts/Game/GameLayout';
+
+const flattenRoutes = (
+  obj: object
+): RouteItem[] => {
+  const arr: RouteItem[] = [];
+
+  if ('component' in obj) {
+    const route = obj as RouteItem;
+    arr.push(route);
+  } else {
+    for (const value of Object.values(obj)) {
+      arr.push(...flattenRoutes(value));
+    }
+  }
+
+  return arr;
+};
 
 const mapRoutes = (routes: RouteItem[]) => {
   return routes.map(
-    ({ path, isPrivate, component: Component }) =>
-      isPrivate ? (
+    ({ path, access, component: Component }) => {
+      if (
+        access === RouteAccessType.PrivateOnly
+      ) {
+        return (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <PrivateRoute>
+                <Component />
+              </PrivateRoute>
+            }
+          />
+        );
+      }
+
+      if (access === RouteAccessType.PublicOnly) {
+        return (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <PublicRoute>
+                <Component />
+              </PublicRoute>
+            }
+          />
+        );
+      }
+
+      return (
         <Route
           key={path}
-          element={
-            <PrivateRoute page={<Component />} />
-          }
           path={path}
-        />
-      ) : (
-        <Route
-          key={path}
           element={<Component />}
-          path={path}></Route>
-      )
+        />
+      );
+    }
   );
 };
 
 const LAYOUTS: [Layout, ComponentType][] = [
   [Layout.Default, DefaultLayout],
   [Layout.Auth, AuthLayout],
-  [Layout.Error, ErrorLayout],
   [Layout.Game, GameLayout],
   [Layout.Empty, EmptyLayout],
+  [Layout.Error, ErrorLayout],
 ];
 
 export const Router = () => {
+  const [routes] = useMemo(() => {
+    const { ...routes } = ROUTES;
+    return [routes];
+  }, []);
+
+  const flatRoutes = useMemo(
+    () =>
+      flattenRoutes(routes).reduce(
+        (acc, route: RouteItem) => {
+          if (!(route.layout in acc)) {
+            acc[route.layout] = [];
+          }
+
+          acc[route.layout].push(route);
+          return acc;
+        },
+        {} as Record<Layout, RouteItem[]>
+      ),
+    [routes]
+  );
+
   return (
-    <Fragment>
-      <Routes>
-        {LAYOUTS.map(
-          ([layoutKey, LayoutComponent]) => (
-            <Route
-              key={layoutKey}
-              element={<LayoutComponent />}>
-              {mapRoutes(
-                Object.values(ROUTES).filter(
-                  ({ layout }) =>
-                    layout === layoutKey
-                )
-              )}
-            </Route>
-          )
-        )}
-      </Routes>
-    </Fragment>
+    <Routes>
+      {LAYOUTS.map(
+        ([layoutKey, LayoutComponent]) => (
+          <Route
+            key={layoutKey}
+            element={<LayoutComponent />}>
+            {mapRoutes(
+              flatRoutes[layoutKey] || []
+            )}
+          </Route>
+        )
+      )}
+    </Routes>
   );
 };

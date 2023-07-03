@@ -37,7 +37,9 @@ const Container = ({
   children,
 }: ContainerProps) => {
   const location = useLocation();
-  if (location.pathname === ROUTES.Game.path) {
+  if (
+    location.pathname === ROUTES.Game.Game.path
+  ) {
     return <>{children}</>;
   }
 

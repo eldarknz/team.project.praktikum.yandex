@@ -2,7 +2,7 @@ import { Grid } from '@components/Grid';
 import { Input } from '@components/Input';
 import { PlayerList } from '@components/PlayerList';
 import styles from './Leaderboard.module.scss';
-import { useFetchLeaderboardData } from '@pages/Leaderboard/useFetchLeaderboardData';
+import { useFetchLeaderboardData } from './useFetchLeaderboardData';
 
 export const Leaderboard = () => {
   const playerListData =

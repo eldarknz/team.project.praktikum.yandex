@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const u=require("./AuthForm.5c97d0fe.cjs"),e=require("./ssr.ce1b3cd0.cjs");require("./Input.2441fc34.cjs");require("./Validate.d56822c5.cjs");const t=()=>(document.title="\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F",e.jsx(u.AuthForm,{authType:"signup"}));exports.default=t;

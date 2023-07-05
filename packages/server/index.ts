@@ -25,9 +25,14 @@ async function startServer() {
     'client/ssr-dist/client.cjs',
   );
 
-  app.use(express.static(distPath));
+  app.use(
+    '/assets',
+    express.static(
+      path.resolve(distPath, 'assets'),
+    ),
+  );
 
-  app.use('*', async (req, res, next) => {
+  app.use('/', async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
@@ -58,7 +63,7 @@ async function startServer() {
 
   app.listen(port, () => {
     console.log(
-      `  ➜ 🎸 Server is listening on port: ${port}`,
+      `  ➜ 🎸 Server is listening on port: ${port}. http://localhost:${port}`,
     );
   });
 }

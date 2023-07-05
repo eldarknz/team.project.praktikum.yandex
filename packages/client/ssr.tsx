@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './src/service/store';
 
 export function render(url) {
-  renderToString(
+  return renderToString(
     <StaticRouter location={url}>
       <Provider store={store}>
         <App />

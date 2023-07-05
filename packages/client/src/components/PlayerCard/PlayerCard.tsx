@@ -4,14 +4,14 @@ import styles from './PlayerCard.module.scss';
 export interface IPlayerCardProps {
   position: number;
   imgSrc?: string;
-  name: string;
+  login: string;
   score: number;
 }
 
 export const PlayerCard = ({
   position,
   imgSrc,
-  name,
+  login,
   score,
 }: IPlayerCardProps) => {
   return (
@@ -21,9 +21,9 @@ export const PlayerCard = ({
       </div>
       <div className={styles.playerCardCol}>
         <div className={styles.playerInfo}>
-          <Avatar />
+          <Avatar src={imgSrc} />
           <div className={styles.playerName}>
-            {name}
+            {login}
           </div>
         </div>
       </div>

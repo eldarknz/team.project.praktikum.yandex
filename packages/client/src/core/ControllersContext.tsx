@@ -7,6 +7,7 @@ import {
 
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
+import { LeaderboardController } from '@controllers/LeaderboardController';
 
 import {
   ServicesModel,
@@ -17,6 +18,7 @@ import { RootStore, store } from '@service/store';
 export interface ControllersModel {
   viewer: ViewerController;
   auth: AuthController;
+  lead: LeaderboardController;
 }
 
 export const ControllersContext = createContext(

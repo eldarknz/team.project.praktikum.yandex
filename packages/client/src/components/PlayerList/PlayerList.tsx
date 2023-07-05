@@ -13,9 +13,10 @@ export const PlayerList = ({
 }: IPlayerListProps) => {
   const playerList = players.map(player => (
     <PlayerCard
+      key={player.position}
       position={player.position}
       imgSrc={player.imgSrc}
-      name={player.name}
+      login={player.login}
       score={player.score}
     />
   ));

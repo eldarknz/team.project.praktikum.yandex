@@ -6,12 +6,17 @@ import { ROUTES } from '@routers/routes';
 import { NavigateFunction } from 'react-router-dom';
 import { getLevel } from './getLevel';
 import { Levels } from './levelsConfig';
+import { GetViewerResponse } from '@api/ViewerAPI';
+import { LeaderboardData } from '@api/LeaderboardAPI';
+import { ControllersModel } from '@core/ControllersContext';
 
 export type GameLogicProps = {
   level: Levels;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   navigate: NavigateFunction;
+  viewer: GetViewerResponse;
+  controllers: ControllersModel;
 };
 
 const PLATFORM_SPEED = 5;
@@ -20,6 +25,10 @@ const MAX_RIGHT_PLAYER_POSITION = 400;
 const MAX_JUMP = 2;
 
 export class GameLogic {
+  startTime = 0;
+  endTime = 0;
+  score = 0;
+
   id = 0;
   scrollOffset = 0;
   jump = 0;
@@ -40,20 +49,29 @@ export class GameLogic {
       presed: false,
     },
   };
+  viewer: GetViewerResponse;
+  controllers: ControllersModel;
+
   constructor({
     canvas,
     level,
     context,
     navigate,
+    viewer,
+    controllers,
   }: GameLogicProps) {
     this.canvas = canvas;
     this.context = context;
     this.player = undefined;
     this.navigate = navigate;
     this.level = level;
+    this.viewer = viewer;
+    this.controllers = controllers;
   }
 
   init = () => {
+    this.startTime = Date.now();
+
     {
       this.player = new PlayerImpl({
         scrollOffset: this.scrollOffset,
@@ -247,6 +265,36 @@ export class GameLogic {
       const topFinishCrossing =
         player.position.y >=
         finishObject.position.y - player.height;
+
+      if (
+        leftFinishCrossing &&
+        bottomFinishCrossing &&
+        rightFinishCrossing &&
+        topFinishCrossing
+      ) {
+        this.endTime = Date.now();
+
+        const timeElapsed =
+          this.endTime - this.startTime;
+        // За каждые 10 секунд прохождения игры 1000 очков
+        this.score = Math.floor(
+          1000 * (10000 / timeElapsed)
+        );
+
+        this.controllers.lead.addUser({
+          data: {
+            imgSrc: this.viewer.avatar,
+            login: this.viewer.login,
+            teamwork_theTeam_score: this.score,
+          } as LeaderboardData,
+          ratingFieldName:
+            'teamwork_theTeam_score',
+          teamName: '26_mf_teamwork_03_theTeam',
+        });
+
+        return true;
+      }
+
       return (
         leftFinishCrossing &&
         bottomFinishCrossing &&

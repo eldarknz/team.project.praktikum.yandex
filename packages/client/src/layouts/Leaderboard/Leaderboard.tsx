@@ -3,89 +3,66 @@ import { Input } from '@components/Input';
 import { PlayerList } from '@components/PlayerList';
 import { IPlayerCardProps } from '@components/PlayerCard';
 import styles from './Leaderboard.module.scss';
-
-const playerListData: Array<IPlayerCardProps> = [
-  {
-    position: 1,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 2,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 3,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 4,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 5,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 6,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 7,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 8,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 9,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 10,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 99,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 999,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 9999,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-];
+import { useControllers } from '@core/ControllersContext';
+import { useEffect, useState } from 'react';
+import { LeaderboardData } from '@api/LeaderboardAPI';
 
 export const Leaderboard = () => {
+  const controllers = useControllers();
+  const [playerListData, setPlayerListData] =
+    useState<IPlayerCardProps[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const dataList:
+          | { data: LeaderboardData }[]
+          | unknown = await controllers.lead.getAll(
+          {
+            ratingFieldName:
+              'teamwork_theTeam_score',
+            cursor: 0,
+            limit: 10,
+          }
+        );
+
+        if (Array.isArray(dataList)) {
+          const sortedData = dataList.sort(
+            (a, b) =>
+              b.data.teamwork_theTeam_score -
+              a.data.teamwork_theTeam_score
+          );
+
+          const updatedPlayerListData =
+            sortedData.map((item, index) => ({
+              position: index + 1,
+              imgSrc:
+                'https://ya-praktikum.tech/api/v2/resources/' +
+                item.data.imgSrc,
+              login: item.data.login,
+              score:
+                item.data.teamwork_theTeam_score,
+            }));
+
+          setPlayerListData(
+            updatedPlayerListData
+          );
+        } else {
+          console.error(
+            'Ошибка: полученные данные не являются массивом'
+          );
+        }
+      } catch (error) {
+        console.error(
+          'Ошибка при получении данных:',
+          error
+        );
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Grid.Container
       width={'full'}

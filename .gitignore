@@ -7,4 +7,4 @@ dev-dist
 tmp
 .DS_Store
 lerna-debug.log
-ssr-dist
+ssr-dist/

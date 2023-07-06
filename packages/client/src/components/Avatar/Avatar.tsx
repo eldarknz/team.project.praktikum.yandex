@@ -8,6 +8,13 @@ export interface IAvatarProps {
   className?: string;
 }
 
+type ObjectFit =
+  | 'fill'
+  | 'contain'
+  | 'cover'
+  | 'none'
+  | 'scale-down';
+
 const FONT_SIZE_FACTOR = 0.4;
 
 export const Avatar: React.FC<IAvatarProps> = ({
@@ -21,12 +28,23 @@ export const Avatar: React.FC<IAvatarProps> = ({
     width: size,
     height: size,
     fontSize: size * FONT_SIZE_FACTOR,
+    objectFit: 'cover' as ObjectFit | undefined,
   };
 
   const componentClassName = cn(
     styles.avatar,
     className
   );
+
+  if (src) {
+    return (
+      <img
+        src={src}
+        className={componentClassName}
+        style={style}
+      />
+    );
+  }
 
   return (
     <div

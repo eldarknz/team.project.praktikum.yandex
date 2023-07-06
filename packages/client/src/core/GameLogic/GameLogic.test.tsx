@@ -3,12 +3,15 @@ import { GameLogic } from './GameLogic';
 import { Levels } from '@core/GameLogic/levelsConfig';
 import PlayerImpl from '@core/Player/PlayerImpl';
 import { ROUTES } from '@routers/routes';
+import { GetViewerResponse } from '@api/ViewerAPI';
+import { ControllersModel } from '@core/ControllersContext';
 
 describe('GameLogic', () => {
   let canvas: HTMLCanvasElement;
   let context: CanvasRenderingContext2D;
   let navigate: jest.Mock;
   let gameLogic: GameLogic;
+  let controllers: ControllersModel;
 
   beforeEach(() => {
     canvas = document.createElement('canvas');
@@ -21,6 +24,8 @@ describe('GameLogic', () => {
       context,
       navigate,
       level: 'second' as Levels,
+      viewer: {} as GetViewerResponse,
+      controllers: controllers,
     };
     gameLogic = new GameLogic(props);
   });

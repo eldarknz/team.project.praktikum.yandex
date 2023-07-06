@@ -1,91 +1,13 @@
 import { Grid } from '@components/Grid';
 import { Input } from '@components/Input';
 import { PlayerList } from '@components/PlayerList';
-import { IPlayerCardProps } from '@components/PlayerCard';
 import styles from './Leaderboard.module.scss';
-
-const playerListData: Array<IPlayerCardProps> = [
-  {
-    position: 1,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 2,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 3,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 4,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 5,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 6,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 7,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 8,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 9,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 10,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 99,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 999,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-  {
-    position: 9999,
-    imgSrc: '',
-    name: 'Вася Маяковский',
-    score: 100,
-  },
-];
+import { useFetchLeaderboardData } from './useFetchLeaderboardData';
 
 export const Leaderboard = () => {
+  const playerListData =
+    useFetchLeaderboardData();
+
   return (
     <Grid.Container
       width={'full'}

@@ -10,8 +10,10 @@ import { ControllersProvider } from '@core/ControllersContext';
 
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
+import { LeaderboardController } from '@controllers/LeaderboardController';
 import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
+import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
@@ -23,6 +25,7 @@ import { useAppDispatch } from '@service/store/hooks';
 const services: ServicesModel = {
   auth: new AuthAPI(),
   viewer: new ViewerAPI(),
+  lead: new LeaderboardAPI(),
 };
 
 export const createControllers = (
@@ -30,6 +33,10 @@ export const createControllers = (
 ) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
+  lead: new LeaderboardController(
+    services,
+    store
+  ),
 });
 
 function App() {

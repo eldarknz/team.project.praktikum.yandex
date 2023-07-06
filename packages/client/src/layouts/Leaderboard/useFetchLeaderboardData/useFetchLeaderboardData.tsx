@@ -15,8 +15,6 @@ export const useFetchLeaderboardData = () => {
           | { data: LeaderboardData }[]
           | unknown = await controllers.lead.getAll(
           {
-            ratingFieldName:
-              'teamwork_theTeam_score',
             cursor: 0,
             limit: 10,
           }

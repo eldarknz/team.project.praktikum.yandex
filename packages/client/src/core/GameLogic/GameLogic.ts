@@ -283,13 +283,14 @@ export class GameLogic {
 
         this.controllers.lead.addUser({
           data: {
-            imgSrc: this.viewer.avatar,
-            login: this.viewer.login,
+            imgSrc:
+              this.viewer.avatar || undefined,
+            login:
+              this.viewer.login ||
+              this.viewer.first_name ||
+              'Неизвестный пользователь',
             teamwork_theTeam_score: this.score,
-          } as LeaderboardData,
-          ratingFieldName:
-            'teamwork_theTeam_score',
-          teamName: '26_mf_teamwork_03_theTeam',
+          },
         });
 
         return true;

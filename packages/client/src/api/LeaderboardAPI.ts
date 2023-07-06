@@ -9,12 +9,12 @@ export interface LeaderboardData {
 
 export interface LeaderboardAddUserProps {
   data: LeaderboardData;
-  ratingFieldName: string;
-  teamName: string;
+  ratingFieldName?: string;
+  teamName?: string;
 }
 
 export interface LeaderboardGetAllProps {
-  ratingFieldName: string;
+  ratingFieldName?: string;
   cursor: number;
   limit: number;
 }

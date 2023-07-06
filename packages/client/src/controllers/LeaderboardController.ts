@@ -5,11 +5,20 @@ import {
 import { BaseController } from './BaseController';
 
 export class LeaderboardController extends BaseController {
+  private readonly ratingFieldName =
+    'teamwork_theTeam_score';
+
   public async addUser(
     props: LeaderboardAddUserProps
   ) {
+    const teamName = '26_mf_teamwork_03_theTeam';
+
     return this.services.lead
-      .addUser(props)
+      .addUser({
+        ...props,
+        ratingFieldName: this.ratingFieldName,
+        teamName,
+      })
       .then(async () => {
         console.log(
           `Юзер ${props.data.login} отправил результат: ${props.data.teamwork_theTeam_score}`
@@ -27,7 +36,10 @@ export class LeaderboardController extends BaseController {
     props: LeaderboardGetAllProps
   ) {
     return this.services.lead
-      .getAll(props)
+      .getAll({
+        ...props,
+        ratingFieldName: this.ratingFieldName,
+      })
       .then(data => {
         console.log('Данные лидерборда получены');
         return data;

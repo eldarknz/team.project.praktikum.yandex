@@ -23,6 +23,9 @@ async function startServer() {
   const distPath = path.dirname(
     require.resolve('client/dist/index.html'),
   );
+  const ssrDistPath = path.dirname(
+    require.resolve('client/ssr-dist/client.cjs'),
+  );
   const srcPath = path.dirname(
     require.resolve('client'),
   );
@@ -49,6 +52,20 @@ async function startServer() {
     );
   }
 
+  let staticFiles: string[] = [];
+
+  fs.readdir(ssrDistPath, (err, files) => {
+    if (err) {
+      console.error(
+        'Ошибка при чтении папки:',
+        err,
+      );
+      return;
+    }
+
+    staticFiles = files;
+  });
+
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
@@ -56,14 +73,11 @@ async function startServer() {
       let template: string;
 
       if (!isDev()) {
-        const staticFiles = [
-          '/vite.svg',
-          '/manifest.webmanifest',
-          '/registerSW.js',
-          '/sw.js',
-        ];
-
-        if (staticFiles.includes(req.baseUrl)) {
+        if (
+          staticFiles.includes(
+            req.baseUrl.replace('/', ''),
+          )
+        ) {
           res.sendFile(
             path.resolve(
               distPath,

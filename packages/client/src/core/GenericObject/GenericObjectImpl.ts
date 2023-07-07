@@ -3,10 +3,7 @@ type Position = {
   y: number;
 };
 
-type GenericObjectKind =
-  | 'platform'
-  | 'decoration'
-  | 'finish';
+type GenericObjectKind = 'platform' | 'decoration' | 'finish';
 
 export type GenericObjectImplProps = {
   context: CanvasRenderingContext2D | null;
@@ -50,11 +47,6 @@ export default class GenericObjectImpl {
   }
 
   draw() {
-    this.context &&
-      this.context.drawImage(
-        this.image,
-        this.position.x,
-        this.position.y
-      );
+    this.context && this.context.drawImage(this.image, this.position.x, this.position.y);
   }
 }

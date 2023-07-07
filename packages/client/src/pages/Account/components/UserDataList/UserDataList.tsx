@@ -35,22 +35,16 @@ export const UserDataList = ({
         value: phone,
       },
     ],
-    [email, login, firstName, secondName, phone]
+    [email, login, firstName, secondName, phone],
   );
 
   return (
     <ul className={styles.list}>
       {items.map(({ title, value }) => (
-        <li
-          key={title}
-          className={styles.listItem}>
-          <div className={styles.listItem__title}>
-            {title}
-          </div>
+        <li key={title} className={styles.listItem}>
+          <div className={styles.listItem__title}>{title}</div>
 
-          <div className={styles.listItem__value}>
-            {value}
-          </div>
+          <div className={styles.listItem__value}>{value}</div>
         </li>
       ))}
     </ul>

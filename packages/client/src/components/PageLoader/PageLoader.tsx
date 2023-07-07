@@ -8,9 +8,7 @@ export interface PageLoaderProps {
   withBackground?: boolean;
 }
 
-export const PageLoader = ({
-  withBackground,
-}: PageLoaderProps) => {
+export const PageLoader = ({ withBackground }: PageLoaderProps) => {
   return (
     <div
       className={cn({

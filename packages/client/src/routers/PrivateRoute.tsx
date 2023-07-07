@@ -8,11 +8,8 @@ interface PrivateRouteProps {
   page: ReactNode;
 }
 
-export const PrivateRoute = ({
-  page,
-}: PrivateRouteProps) => {
-  const isAuthenticated =
-    useIsViewerAuthenticated();
+export const PrivateRoute = ({ page }: PrivateRouteProps) => {
+  const isAuthenticated = useIsViewerAuthenticated();
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.Home.path} />;

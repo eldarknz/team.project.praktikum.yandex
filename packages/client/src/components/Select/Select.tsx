@@ -21,53 +21,31 @@ export default function Select<T>({
   setActive,
   label,
   variant = SelectKind.Default,
-}: SelectProps<
-  T extends string
-    ? string
-    : T & { id: string; title: string }
->) {
+}: SelectProps<T extends string ? string : T & { id: string; title: string }>) {
   const [show, setShow] = useState(false);
   const close = () => setShow(false);
   const ref = useRef(null);
   useClickOutside(ref, close, show);
-  const classMap: Record<
-    SelectKind,
-    string | undefined
-  > = useMemo(
+  const classMap: Record<SelectKind, string | undefined> = useMemo(
     () => ({
       [SelectKind.Default]: styles.default,
       [SelectKind.Purple]: styles.purple,
     }),
-    []
+    [],
   );
   return (
-    <div
-      className={`${styles.container} ${classMap[variant]}`}>
-      <div
-        ref={ref}
-        className={styles.active}
-        onClick={() => setShow(prev => !prev)}>
-        {label ||
-          `${
-            typeof active === 'string'
-              ? active
-              : active.title
-          }`}
+    <div className={`${styles.container} ${classMap[variant]}`}>
+      <div ref={ref} className={styles.active} onClick={() => setShow(prev => !prev)}>
+        {label || `${typeof active === 'string' ? active : active.title}`}
       </div>
       {show && (
         <div className={styles.list}>
           {list.map(item => (
             <div
-              key={
-                typeof item === 'string'
-                  ? item
-                  : item.id
-              }
+              key={typeof item === 'string' ? item : item.id}
               className={styles.item}
               onClick={() => setActive(item)}>
-              {typeof item === 'string'
-                ? item
-                : item.title}
+              {typeof item === 'string' ? item : item.title}
             </div>
           ))}
         </div>

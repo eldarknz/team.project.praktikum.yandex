@@ -8,28 +8,17 @@ export interface IPlayerCardProps {
   score: number;
 }
 
-export const PlayerCard = ({
-  position,
-  imgSrc,
-  login,
-  score,
-}: IPlayerCardProps) => {
+export const PlayerCard = ({ position, imgSrc, login, score }: IPlayerCardProps) => {
   return (
     <div className={styles.playerCard}>
-      <div className={styles.playerCardCol}>
-        {position}
-      </div>
+      <div className={styles.playerCardCol}>{position}</div>
       <div className={styles.playerCardCol}>
         <div className={styles.playerInfo}>
           <Avatar src={imgSrc} />
-          <div className={styles.playerName}>
-            {login}
-          </div>
+          <div className={styles.playerName}>{login}</div>
         </div>
       </div>
-      <div className={styles.playerCardCol}>
-        {score}
-      </div>
+      <div className={styles.playerCardCol}>{score}</div>
     </div>
   );
 };

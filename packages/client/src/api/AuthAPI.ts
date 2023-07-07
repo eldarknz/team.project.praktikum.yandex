@@ -26,28 +26,20 @@ export interface SignUpSuccess {
   id: number;
 }
 
-export type SignUpResponse =
-  | SignUpSuccess
-  | AuthError;
+export type SignUpResponse = SignUpSuccess | AuthError;
 
 export type SigninResponse = AuthError | string;
 
 export class AuthAPI extends BaseApi {
   public signup(data: ISignupData) {
-    return this.http.post<
-      SignUpResponse,
-      ISignupData
-    >({
+    return this.http.post<SignUpResponse, ISignupData>({
       url: `${API_URL}/auth/signup`,
       body: data,
     });
   }
 
   public signin(data: ISigninData) {
-    return this.http.post<
-      SigninResponse,
-      ISigninData
-    >({
+    return this.http.post<SigninResponse, ISigninData>({
       url: `${API_URL}/auth/signin`,
       body: data,
     });

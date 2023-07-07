@@ -1,7 +1,6 @@
 const HEADERS = {
   JSON: {
-    'Content-Type':
-      'application/json;charset=utf-8',
+    'Content-Type': 'application/json;charset=utf-8',
   },
   NONE: {},
 } as const;
@@ -21,7 +20,7 @@ type PostProps<T> = {
 
 const handleResponse = async <T>(
   response: Response,
-  handler: (response: Response) => Promise<T> | T
+  handler: (response: Response) => Promise<T> | T,
 ) => {
   if (response.ok) {
     return handler(response);
@@ -31,7 +30,7 @@ const handleResponse = async <T>(
         (await response.json()) as {
           reason: string;
         }
-      ).reason
+      ).reason,
     );
   }
 };
@@ -47,30 +46,17 @@ class HTTPTransport {
       headers: HEADERS[headers],
       credentials: 'include',
       cache: 'no-store',
-      body:
-        body instanceof FormData
-          ? body
-          : body
-          ? JSON.stringify(body)
-          : null,
+      body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
     }).then(async response => {
-      return await handleResponse(
-        response,
-        () => {
-          const contentType =
-            response.headers.get('content-type');
+      return await handleResponse(response, () => {
+        const contentType = response.headers.get('content-type');
 
-          if (
-            contentType?.includes(
-              'application/json'
-            )
-          ) {
-            return response.json();
-          } else {
-            return response.text();
-          }
+        if (contentType?.includes('application/json')) {
+          return response.json();
+        } else {
+          return response.text();
         }
-      );
+      });
     });
   }
 
@@ -86,37 +72,23 @@ class HTTPTransport {
       cache: 'reload',
       body: body ? JSON.stringify(body) : null,
     }).then(async response => {
-      return await handleResponse(
-        response,
-        () => {
-          const contentType =
-            response.headers.get('content-type');
+      return await handleResponse(response, () => {
+        const contentType = response.headers.get('content-type');
 
-          if (
-            contentType?.includes(
-              'application/json'
-            )
-          ) {
-            return response.json();
-          } else {
-            return response.text();
-          }
+        if (contentType?.includes('application/json')) {
+          return response.json();
+        } else {
+          return response.text();
         }
-      );
+      });
     });
   }
 
-  public get<TResponse>({
-    url,
-  }: {
-    url: string;
-  }): Promise<TResponse> {
+  public get<TResponse>({ url }: { url: string }): Promise<TResponse> {
     return fetch(url, {
       credentials: 'include',
       cache: 'reload',
-    }).then(res =>
-      handleResponse(res, r => r.json())
-    );
+    }).then(res => handleResponse(res, r => r.json()));
   }
 }
 

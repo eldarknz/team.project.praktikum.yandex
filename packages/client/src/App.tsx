@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Router } from '@routers/Router';
-import {
-  ServicesModel,
-  ServicesContext,
-} from '@core/ServicesContext';
+import { ServicesModel, ServicesContext } from '@core/ServicesContext';
 import { ControllersProvider } from '@core/ControllersContext';
 
 import { AuthController } from '@controllers/AuthController';
@@ -28,20 +25,14 @@ const services: ServicesModel = {
   lead: new LeaderboardAPI(),
 };
 
-export const createControllers = (
-  store: RootStore
-) => ({
+export const createControllers = (store: RootStore) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
-  lead: new LeaderboardController(
-    services,
-    store
-  ),
+  lead: new LeaderboardController(services, store),
 });
 
 function App() {
-  const [loadingViewer, setLoadingViewer] =
-    useState(true);
+  const [loadingViewer, setLoadingViewer] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -60,8 +51,7 @@ function App() {
   return (
     <ServicesContext.Provider value={services}>
       {!loadingViewer ? (
-        <ControllersProvider
-          createControllers={createControllers}>
+        <ControllersProvider createControllers={createControllers}>
           <BrowserRouter>
             <Router />
           </BrowserRouter>

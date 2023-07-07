@@ -31,9 +31,7 @@ export const Input = ({
   validator,
   ...otherProps
 }: InputProps) => {
-  const [error, setError] = useState<
-    string | null
-  >(null);
+  const [error, setError] = useState<string | null>(null);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const inputId = labelText ? useId() : undefined;
   const inputClassNames = cn(inputClassName, {
@@ -48,58 +46,46 @@ export const Input = ({
         const isCorrect = validator(value);
 
         if (!isCorrect && value.length > 0) {
-          setError(
-            errorText ? errorText : 'Ошибка'
-          );
+          setError(errorText ? errorText : 'Ошибка');
         } else {
           setError(null);
         }
       }
     },
-    [validator, errorText]
+    [validator, errorText],
   );
 
-  const [localValue, setLocalValue] =
-    useState(value);
+  const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
     setError(errorText || null);
   }, [errorText]);
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback(
-      e => {
-        const { value } = e.target;
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      const { value } = e.target;
 
-        if (errorText && validator) {
-          const isCorrectEmail = validator(value);
+      if (errorText && validator) {
+        const isCorrectEmail = validator(value);
 
-          if (
-            !isCorrectEmail &&
-            value.length > 0
-          ) {
-            setError(
-              errorText ? errorText : 'Ошибка'
-            );
-          } else {
-            setError(null);
-          }
+        if (!isCorrectEmail && value.length > 0) {
+          setError(errorText ? errorText : 'Ошибка');
+        } else {
+          setError(null);
         }
+      }
 
-        setLocalValue(value);
+      setLocalValue(value);
 
-        if (onChange) {
-          onChange(e);
-        }
-      },
-      [errorText, validator, onChange]
-    );
+      if (onChange) {
+        onChange(e);
+      }
+    },
+    [errorText, validator, onChange],
+  );
 
   return (
-    <InputControl
-      labelId={inputId}
-      labelText={labelText}
-      error={error}>
+    <InputControl labelId={inputId} labelText={labelText} error={error}>
       <input
         id={inputId}
         type={type}

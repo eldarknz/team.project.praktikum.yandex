@@ -52,14 +52,7 @@ export class GameLogic {
   viewer: GetViewerResponse;
   controllers: ControllersModel;
 
-  constructor({
-    canvas,
-    level,
-    context,
-    navigate,
-    viewer,
-    controllers,
-  }: GameLogicProps) {
+  constructor({ canvas, level, context, navigate, viewer, controllers }: GameLogicProps) {
     this.canvas = canvas;
     this.context = context;
     this.player = undefined;
@@ -78,17 +71,10 @@ export class GameLogic {
         canvas: this.canvas,
         context: this.context,
       });
-      const { elements, finishPoint } = getLevel(
-        this.context,
-        this.level,
-        this.canvas.height
-      );
+      const { elements, finishPoint } = getLevel(this.context, this.level, this.canvas.height);
       this.finishPoint = finishPoint;
       this.genericObjects = elements;
-      this.finishObject = elements.find(
-        (i: GenericObjectImpl) =>
-          i.type === 'finish'
-      );
+      this.finishObject = elements.find((i: GenericObjectImpl) => i.type === 'finish');
     }
   };
 
@@ -101,35 +87,24 @@ export class GameLogic {
       genericObject.draw();
     });
     this.player.update();
-    this.player.velocity.x = this.keys.right
-      .presed
+    this.player.velocity.x = this.keys.right.presed
       ? PLATFORM_SPEED
       : this.keys.left.presed
       ? -PLATFORM_SPEED
       : 0;
 
-    if (
-      this.keys.right.presed &&
-      this.player.position.x <=
-        MAX_RIGHT_PLAYER_POSITION
-    ) {
+    if (this.keys.right.presed && this.player.position.x <= MAX_RIGHT_PLAYER_POSITION) {
       this.player.velocity.x = this.player.speed;
     } else if (
-      (this.keys.left.presed &&
-        this.player.position.x >
-          MAX_LEFT_PLAYER_POSITION) ||
-      (this.keys.left.presed &&
-        this.scrollOffset === 0 &&
-        this.player.position.x > 0)
+      (this.keys.left.presed && this.player.position.x > MAX_LEFT_PLAYER_POSITION) ||
+      (this.keys.left.presed && this.scrollOffset === 0 && this.player.position.x > 0)
     ) {
       this.player.velocity.x = -this.player.speed;
     } else {
       this.player.velocity.x = 0;
       this._updateLevelProgress();
 
-      this.genericObjects.forEach(genericObject =>
-        this._moveObject(genericObject)
-      );
+      this.genericObjects.forEach(genericObject => this._moveObject(genericObject));
     }
 
     this.genericObjects
@@ -139,12 +114,7 @@ export class GameLogic {
           return;
         }
         const { x, y } = platform.position;
-        const {
-          height,
-          width,
-          velocity,
-          position,
-        } = this.player;
+        const { height, width, velocity, position } = this.player;
         if (
           position.y + height <= y &&
           position.y + height + velocity.y >= y &&
@@ -156,11 +126,7 @@ export class GameLogic {
         }
       });
 
-    getMovePlayerCondition(
-      this.keys,
-      this.player,
-      this.currentKey
-    );
+    getMovePlayerCondition(this.keys, this.player, this.currentKey);
     if (this._getWinCondition()) {
       this.cancelAnimate();
       this.init();
@@ -170,8 +136,7 @@ export class GameLogic {
     }
 
     if (
-      this.player.position.y >=
-        this.canvas.height - this.player.height &&
+      this.player.position.y >= this.canvas.height - this.player.height &&
       this.scrollOffset > 0
     ) {
       this.cancelAnimate();
@@ -220,15 +185,8 @@ export class GameLogic {
   };
 
   private _refreshAnim = () => {
-    this.id = window.requestAnimationFrame(
-      this.animate
-    );
-    this.context.clearRect(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    );
+    this.id = window.requestAnimationFrame(this.animate);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   };
 
   private _updateLevelProgress = () => {
@@ -238,57 +196,32 @@ export class GameLogic {
     const { speed } = this.player;
     this.scrollOffset = this.keys.right.presed
       ? this.scrollOffset + speed
-      : this.keys.left.presed &&
-        this.scrollOffset > 0
+      : this.keys.left.presed && this.scrollOffset > 0
       ? this.scrollOffset - speed
       : this.scrollOffset;
     this.player.scrollOffset = this.scrollOffset;
   };
 
   private _getWinCondition = () => {
-    const {
-      player,
-      finishObject,
-      finishPoint,
-      scrollOffset,
-    } = this;
+    const { player, finishObject, finishPoint, scrollOffset } = this;
     if (player && finishObject && finishPoint) {
-      const rightFinishCrossing =
-        scrollOffset <=
-        finishPoint + finishObject.width;
-      const leftFinishCrossing =
-        scrollOffset > finishPoint;
+      const rightFinishCrossing = scrollOffset <= finishPoint + finishObject.width;
+      const leftFinishCrossing = scrollOffset > finishPoint;
       const bottomFinishCrossing =
-        player.position.y <=
-        finishObject.position.y +
-          finishObject.height;
-      const topFinishCrossing =
-        player.position.y >=
-        finishObject.position.y - player.height;
+        player.position.y <= finishObject.position.y + finishObject.height;
+      const topFinishCrossing = player.position.y >= finishObject.position.y - player.height;
 
-      if (
-        leftFinishCrossing &&
-        bottomFinishCrossing &&
-        rightFinishCrossing &&
-        topFinishCrossing
-      ) {
+      if (leftFinishCrossing && bottomFinishCrossing && rightFinishCrossing && topFinishCrossing) {
         this.endTime = Date.now();
 
-        const timeElapsed =
-          this.endTime - this.startTime;
+        const timeElapsed = this.endTime - this.startTime;
         // За каждые 10 секунд прохождения игры 1000 очков
-        this.score = Math.floor(
-          1000 * (10000 / timeElapsed)
-        );
+        this.score = Math.floor(1000 * (10000 / timeElapsed));
 
         this.controllers.lead.addUser({
           data: {
-            imgSrc:
-              this.viewer.avatar || undefined,
-            login:
-              this.viewer.login ||
-              this.viewer.first_name ||
-              'Неизвестный пользователь',
+            imgSrc: this.viewer.avatar || undefined,
+            login: this.viewer.login || this.viewer.first_name || 'Неизвестный пользователь',
             teamwork_theTeam_score: this.score,
           },
         });
@@ -296,30 +229,17 @@ export class GameLogic {
         return true;
       }
 
-      return (
-        leftFinishCrossing &&
-        bottomFinishCrossing &&
-        rightFinishCrossing &&
-        topFinishCrossing
-      );
+      return leftFinishCrossing && bottomFinishCrossing && rightFinishCrossing && topFinishCrossing;
     }
   };
 
-  private _moveObject = (
-    item: GenericObjectImpl
-  ) => {
+  private _moveObject = (item: GenericObjectImpl) => {
     if (this.keys.right.presed) {
-      item.position.x -=
-        this.player!.speed * item.speedKoef;
-    } else if (
-      this.keys.left.presed &&
-      this.scrollOffset > 0
-    ) {
-      item.position.x +=
-        this.player!.speed * item.speedKoef;
+      item.position.x -= this.player!.speed * item.speedKoef;
+    } else if (this.keys.left.presed && this.scrollOffset > 0) {
+      item.position.x += this.player!.speed * item.speedKoef;
     }
   };
 
-  cancelAnimate = () =>
-    window.cancelAnimationFrame(this.id);
+  cancelAnimate = () => window.cancelAnimationFrame(this.id);
 }

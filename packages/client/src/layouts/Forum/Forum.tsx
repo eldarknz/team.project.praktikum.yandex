@@ -1,7 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Button } from '@components/Button';
 import { Grid } from '@components/Grid';
 import { VirtualTable } from '@components/VirtualTable';
@@ -11,18 +8,14 @@ import { Icon } from '@components/Icon';
 import { dateConvert } from '@utils/dateConverter';
 import { useDialog } from '@hooks/useDialog';
 import { ReactComponent as MessageIcon } from '@assets/svg/plain/message-circle.svg';
-import {
-  PostCreator,
-  PostCreatorProps,
-} from './components/PostCreator/PostCreator';
+import { PostCreator, PostCreatorProps } from './components/PostCreator/PostCreator';
 import { TPostProps } from './models';
 import styles from './Forum.module.scss';
 
 const messages: TPostProps[] = [
   {
     author: 'Wrexis',
-    post_name:
-      'Star Trek Resurgence |OT| Riker will remember that.',
+    post_name: 'Star Trek Resurgence |OT| Riker will remember that.',
     message_count: 301,
     create_date: '2020-01-02T14:22:22.000Z',
     upload_date: '2020-01-02T14:22:22.000Z',
@@ -34,8 +27,7 @@ const messages: TPostProps[] = [
   },
   {
     author: 'Wrexis',
-    post_name:
-      'Star Trek Resurgence |OT| Riker will remember that.',
+    post_name: 'Star Trek Resurgence |OT| Riker will remember that.',
     message_count: 301,
     create_date: '2020-01-02T14:22:22.000Z',
     upload_date: '2020-01-02T14:22:22.000Z',
@@ -47,8 +39,7 @@ const messages: TPostProps[] = [
   },
   {
     author: 'Wrexis',
-    post_name:
-      'Star Trek Resurgence |OT| Riker will remember that.',
+    post_name: 'Star Trek Resurgence |OT| Riker will remember that.',
     message_count: 301,
     create_date: '2020-01-02T14:22:22.000Z',
     upload_date: '2020-01-02T14:22:22.000Z',
@@ -60,8 +51,7 @@ const messages: TPostProps[] = [
   },
   {
     author: 'Wrexis',
-    post_name:
-      'Star Trek Resurgence |OT| Riker will remember that.',
+    post_name: 'Star Trek Resurgence |OT| Riker will remember that.',
     message_count: 301,
     create_date: '2020-01-02T14:22:22.000Z',
     upload_date: '2020-01-02T14:22:22.000Z',
@@ -81,15 +71,12 @@ export const Forum = React.memo(() => {
     setState: setPostCreatorState,
   } = useDialog();
 
-  const updateUser: PostCreatorProps['onSubmit'] =
-    useCallback(() => {
-      closePostCreator();
-    }, [closePostCreator]);
+  const updateUser: PostCreatorProps['onSubmit'] = useCallback(() => {
+    closePostCreator();
+  }, [closePostCreator]);
 
   const onRowClick = useCallback(() => {
-    alert(
-      'Привет! Я сообщение. Скоро я начну работать.'
-    );
+    alert('Привет! Я сообщение. Скоро я начну работать.');
   }, []);
 
   const columns: IColumnProps<any>[] = useMemo(
@@ -97,22 +84,12 @@ export const Forum = React.memo(() => {
       {
         field: 'post_name',
         headerName: 'Заголовок',
-        formatter: (
-          value: string,
-          row: TPostProps
-        ) => (
+        formatter: (value: string, row: TPostProps) => (
           <div className={styles.postMainInfo}>
-            <div className={styles.postTitle}>
-              {value}
-            </div>
+            <div className={styles.postTitle}>{value}</div>
             <div className={styles.postMinor}>
-              <div className={styles.postAuthor}>
-                {row.author}
-              </div>
-              <div
-                className={styles.postStartDate}>
-                {dateConvert(row.create_date)}
-              </div>
+              <div className={styles.postAuthor}>{row.author}</div>
+              <div className={styles.postStartDate}>{dateConvert(row.create_date)}</div>
             </div>
           </div>
         ),
@@ -123,14 +100,8 @@ export const Forum = React.memo(() => {
         width: '15%',
         formatter: (value: string) => (
           <div className={styles.postMessages}>
-            <Icon
-              icon={<MessageIcon />}
-              size={18}
-            />
-            <div
-              className={styles.postMessageCount}>
-              {value}
-            </div>
+            <Icon icon={<MessageIcon />} size={18} />
+            <div className={styles.postMessageCount}>{value}</div>
           </div>
         ),
       },
@@ -139,24 +110,15 @@ export const Forum = React.memo(() => {
         headerName: 'Последнее сообщение',
         align: 'right' as TCellAlign,
         width: '30%',
-        formatter: (
-          value: string,
-          row: TPostProps
-        ) => (
+        formatter: (value: string, row: TPostProps) => (
           <div className={styles.postLatestInfo}>
-            <div
-              className={styles.postLatestDate}>
-              {dateConvert(value)}
-            </div>
-            <div
-              className={styles.postLatestUser}>
-              {row.last_message.user.login}
-            </div>
+            <div className={styles.postLatestDate}>{dateConvert(value)}</div>
+            <div className={styles.postLatestUser}>{row.last_message.user.login}</div>
           </div>
         ),
       },
     ],
-    []
+    [],
   );
 
   return (
@@ -166,20 +128,13 @@ export const Forum = React.memo(() => {
         onSubmit={updateUser}
         onOpenChange={setPostCreatorState}
       />
-      <Grid.Container
-        width={'full'}
-        className={styles.container}>
+      <Grid.Container width={'full'} className={styles.container}>
         <Grid.Row justify="center">
           <Grid.Col width={9}>
             <div className={styles.header}>
-              <h1 className={styles.title}>
-                Форум
-              </h1>
+              <h1 className={styles.title}>Форум</h1>
               <div className={styles.actions}>
-                <Button
-                  children="Создать топик"
-                  onClick={openPostCreator}
-                />
+                <Button children="Создать топик" onClick={openPostCreator} />
               </div>
             </div>
             <VirtualTable

@@ -1,38 +1,25 @@
-import {
-  ISignupData,
-  ISigninData,
-} from '@api/AuthAPI';
+import { ISignupData, ISigninData } from '@api/AuthAPI';
 import { GetViewerResponse } from '@api/ViewerAPI';
 
-import {
-  Handlers,
-  BaseController,
-} from './BaseController';
+import { Handlers, BaseController } from './BaseController';
 import { setUser } from '@service/store/reducers/userSlice';
 
-export interface SignUpRequest
-  extends Handlers<GetViewerResponse> {
+export interface SignUpRequest extends Handlers<GetViewerResponse> {
   values: ISignupData;
 }
 
-export interface SignInRequest
-  extends Handlers<GetViewerResponse> {
+export interface SignInRequest extends Handlers<GetViewerResponse> {
   values: ISigninData;
 }
 
 export type LogoutRequest = Handlers<undefined>;
 
 export class AuthController extends BaseController {
-  public async signup({
-    onError,
-    onSuccess,
-    values,
-  }: SignUpRequest) {
+  public async signup({ onError, onSuccess, values }: SignUpRequest) {
     return this.services.auth
       .signup(values)
       .then(async () => {
-        const user =
-          await this.services.viewer.getViewer();
+        const user = await this.services.viewer.getViewer();
 
         this.store.dispatch(setUser(user));
 
@@ -47,16 +34,11 @@ export class AuthController extends BaseController {
       });
   }
 
-  public async signin({
-    onError,
-    onSuccess,
-    values,
-  }: SignInRequest) {
+  public async signin({ onError, onSuccess, values }: SignInRequest) {
     return this.services.auth
       .signin(values)
       .then(async () => {
-        const user =
-          await this.services.viewer.getViewer();
+        const user = await this.services.viewer.getViewer();
 
         this.store.dispatch(setUser(user));
 
@@ -71,10 +53,7 @@ export class AuthController extends BaseController {
       });
   }
 
-  logout({
-    onError,
-    onSuccess,
-  }: LogoutRequest = {}) {
+  logout({ onError, onSuccess }: LogoutRequest = {}) {
     return this.services.auth
       .logout()
       .then(async () => {

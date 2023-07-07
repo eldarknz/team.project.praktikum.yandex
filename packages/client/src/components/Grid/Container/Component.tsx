@@ -40,9 +40,7 @@ export interface IContainerProps {
   dataTestId?: string;
 }
 
-export const Container: React.FC<
-  IContainerProps
-> = ({
+export const Container: React.FC<IContainerProps> = ({
   tag: Component = 'div',
   width,
   gutter,
@@ -53,25 +51,11 @@ export const Container: React.FC<
   const componentClassName = cn(
     width
       ? // eslint-disable-next-line react-hooks/rules-of-hooks
-        useMemo(
-          () =>
-            getClassNames(
-              { component: width },
-              styles
-            ),
-          [width]
-        )
+        useMemo(() => getClassNames({ component: width }, styles), [width])
       : styles['component'],
-    useMemo(
-      () => getClassNames({ gutter }, styles),
-      [gutter]
-    ),
-    className
+    useMemo(() => getClassNames({ gutter }, styles), [gutter]),
+    className,
   );
 
-  return (
-    <Component className={componentClassName}>
-      {children}
-    </Component>
-  );
+  return <Component className={componentClassName}>{children}</Component>;
 };

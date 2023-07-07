@@ -1,6 +1,4 @@
-export function escapeInput(
-  text: string
-): string {
+export function escapeInput(text: string): string {
   const map: { [key: string]: string } = {
     '&': '&amp;',
     '<': '&lt;',
@@ -13,9 +11,9 @@ export function escapeInput(
   return text.replace(/[&<>"'/]/g, m => map[m]);
 }
 
-export function escapeObjectValues<
-  T extends { [key: string]: string | undefined }
->(obj: T): { [key in keyof T]: string } {
+export function escapeObjectValues<T extends { [key: string]: string | undefined }>(
+  obj: T,
+): { [key in keyof T]: string } {
   const escapedObj = {} as {
     [key in keyof T]: string;
   };

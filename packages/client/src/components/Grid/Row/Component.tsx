@@ -1,11 +1,7 @@
 import cn from 'classnames';
 import React, { useMemo } from 'react';
 
-import {
-  ResponsivePropertyType,
-  AlignContentType,
-  JustifyContentType,
-} from '../typings';
+import { ResponsivePropertyType, AlignContentType, JustifyContentType } from '../typings';
 import { getClassNames } from '../utils';
 
 import styles from './index.module.css';
@@ -66,15 +62,10 @@ export const Row: React.FC<IRowProps> = ({
   const componentClassName = cn(
     styles.component,
     guttersStyles.row,
-    useMemo(
-      () =>
-        getClassNames({ gutter }, guttersStyles),
-      [gutter]
-    ),
+    useMemo(() => getClassNames({ gutter }, guttersStyles), [gutter]),
     align && globalStyles[`align-${align}`],
-    justify &&
-      globalStyles[`justify-content-${justify}`],
-    className
+    justify && globalStyles[`justify-content-${justify}`],
+    className,
   );
 
   const componentAttributes = {
@@ -82,9 +73,7 @@ export const Row: React.FC<IRowProps> = ({
   };
 
   return (
-    <Component
-      className={componentClassName}
-      {...componentAttributes}>
+    <Component className={componentClassName} {...componentAttributes}>
       {children}
     </Component>
   );

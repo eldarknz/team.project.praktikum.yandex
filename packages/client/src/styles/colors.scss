@@ -24,11 +24,7 @@ $danger: hsl(0, 100%, 55%);
 $secondaryColor: $blue;
 
 /* Gradients */
-$gradient: linear-gradient(
-  63deg,
-  rgba($purple, 1) 0%,
-  rgba($blue, 1) 100%
-);
+$gradient: linear-gradient(63deg, rgba($purple, 1) 0%, rgba($blue, 1) 100%);
 
 /* Avatar */
 $avatar-background: $gray-300;

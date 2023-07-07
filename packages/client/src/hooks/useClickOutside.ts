@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react';
 export default function useClickOutside<T>(
   elem: RefObject<T | HTMLDivElement>,
   handler: () => void,
-  attached: boolean
+  attached: boolean,
 ) {
   useEffect(() => {
     if (!attached) return;
@@ -15,15 +15,8 @@ export default function useClickOutside<T>(
       }
     };
 
-    document.addEventListener(
-      'click',
-      handleClick
-    );
+    document.addEventListener('click', handleClick);
 
-    return () =>
-      document.removeEventListener(
-        'click',
-        handleClick
-      );
+    return () => document.removeEventListener('click', handleClick);
   }, [elem, handler, attached]);
 }

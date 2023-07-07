@@ -1,8 +1,4 @@
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ElementType,
-} from 'react';
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType } from 'react';
 import './Button.scss';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
@@ -23,11 +19,7 @@ Views available:
 export type ButtonProps = {
   loading?: boolean;
   className?: string;
-  type?:
-    | 'submit'
-    | 'reset'
-    | 'button'
-    | undefined;
+  type?: 'submit' | 'reset' | 'button' | undefined;
   href?: string;
   to?: string;
   view?: 'button' | 'subButton' | 'link';
@@ -59,26 +51,16 @@ export const Button = ({
         to={to}
         href={href}
         {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}>
-        <div className="button__content">
-          {children}
-        </div>
-        <div className="button__spinner">
-          {loading ? <Spinner /> : null}
-        </div>
+        <div className="button__content">{children}</div>
+        <div className="button__spinner">{loading ? <Spinner /> : null}</div>
       </Component>
     );
   }
 
   return (
-    <Component
-      className={className}
-      {...otherProps}>
-      <div className="button__content">
-        {children}
-      </div>
-      <div className="button__spinner">
-        {loading ? <Spinner /> : null}
-      </div>
+    <Component className={className} {...otherProps}>
+      <div className="button__content">{children}</div>
+      <div className="button__spinner">{loading ? <Spinner /> : null}</div>
     </Component>
   );
 };

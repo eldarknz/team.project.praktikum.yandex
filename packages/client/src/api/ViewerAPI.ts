@@ -70,9 +70,7 @@ export class ViewerAPI extends BaseApi {
     });
   };
 
-  updatePassword = (
-    data: UpdatePasswordRequest
-  ) => {
+  updatePassword = (data: UpdatePasswordRequest) => {
     return this.http.put<null>({
       url: `${API_URL}/user/password`,
       body: data,

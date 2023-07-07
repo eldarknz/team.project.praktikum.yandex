@@ -1,29 +1,13 @@
 import { lazy, ComponentType } from 'react';
 
-const LandingPage = lazy(
-  () => import('@pages/Landing')
-);
-const AccountPage = lazy(
-  () => import('@pages/Account')
-);
-const ForumPage = lazy(
-  () => import('@pages/Forum')
-);
-const LeaderboardPage = lazy(
-  () => import('@pages/Leaderboard')
-);
-const GamePage = lazy(
-  () => import('@pages/Game')
-);
-const SignInPage = lazy(
-  () => import('@pages/SignIn')
-);
-const SignUpPage = lazy(
-  () => import('@pages/SignUp')
-);
-const Error404Page = lazy(
-  () => import('@pages/Error404')
-);
+const LandingPage = lazy(() => import('@pages/Landing'));
+const AccountPage = lazy(() => import('@pages/Account'));
+const ForumPage = lazy(() => import('@pages/Forum'));
+const LeaderboardPage = lazy(() => import('@pages/Leaderboard'));
+const GamePage = lazy(() => import('@pages/Game'));
+const SignInPage = lazy(() => import('@pages/SignIn'));
+const SignUpPage = lazy(() => import('@pages/SignUp'));
+const Error404Page = lazy(() => import('@pages/Error404'));
 
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));

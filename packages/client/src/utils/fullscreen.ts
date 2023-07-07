@@ -1,11 +1,9 @@
-interface DocumentElementWithFullscreen
-  extends HTMLElement {
+interface DocumentElementWithFullscreen extends HTMLElement {
   mozRequestFullScreen?: () => void;
   webkitRequestFullscreen?: () => void;
 }
 
-interface DocumentWithFullscreen
-  extends Document {
+interface DocumentWithFullscreen extends Document {
   mozFullScreenElement?: Element;
   webkitFullscreenElement?: Element;
   mozCancelFullScreen?: () => void;
@@ -13,8 +11,7 @@ interface DocumentWithFullscreen
 }
 
 const isFullScreen = (): boolean => {
-  const DOMDocument =
-    document as DocumentWithFullscreen;
+  const DOMDocument = document as DocumentWithFullscreen;
   return !!(
     DOMDocument.fullscreenElement ||
     DOMDocument.mozFullScreenElement ||
@@ -23,8 +20,7 @@ const isFullScreen = (): boolean => {
 };
 
 const exitFullScreen = () => {
-  const DOMDocument =
-    document as DocumentWithFullscreen;
+  const DOMDocument = document as DocumentWithFullscreen;
   if (DOMDocument.exitFullscreen) {
     DOMDocument.exitFullscreen();
   } else if (DOMDocument.webkitExitFullscreen) {
@@ -34,9 +30,7 @@ const exitFullScreen = () => {
   }
 };
 
-const enterFullScreen = (
-  element: DocumentElementWithFullscreen
-) => {
+const enterFullScreen = (element: DocumentElementWithFullscreen) => {
   if (element.requestFullscreen) {
     element.requestFullscreen();
   } else if (element.webkitRequestFullscreen) {
@@ -46,9 +40,7 @@ const enterFullScreen = (
   }
 };
 
-export const toggleFullscreen = (
-  element: DocumentElementWithFullscreen
-) => {
+export const toggleFullscreen = (element: DocumentElementWithFullscreen) => {
   if (isFullScreen()) {
     exitFullScreen();
   } else {
@@ -56,15 +48,12 @@ export const toggleFullscreen = (
   }
 };
 
-type TFullscreenHandler = (
-  canvas: HTMLCanvasElement | null
-) => EventListenerOrEventListenerObject;
+type TFullscreenHandler = (canvas: HTMLCanvasElement | null) => EventListenerOrEventListenerObject;
 
-export const fullscreenHandler: TFullscreenHandler =
-  canvas => event => {
-    const { key } = event as KeyboardEvent;
+export const fullscreenHandler: TFullscreenHandler = canvas => event => {
+  const { key } = event as KeyboardEvent;
 
-    if (key === 'Enter' && canvas) {
-      toggleFullscreen(document.documentElement);
-    }
-  };
+  if (key === 'Enter' && canvas) {
+    toggleFullscreen(document.documentElement);
+  }
+};

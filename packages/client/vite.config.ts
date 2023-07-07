@@ -27,7 +27,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',
-      outDir: 'dist',
+      outDir: 'dist/assets',
       devOptions: {
         enabled: true,
       },
@@ -79,55 +79,55 @@ export default defineConfig({
     alias: {
       '@api': path.resolve(
         __dirname,
-        './src/api'
+        './src/api',
       ),
       '@assets': path.resolve(
         __dirname,
-        './src/assets'
+        './src/assets',
       ),
       '@components': path.resolve(
         __dirname,
-        './src/components'
+        './src/components',
       ),
       '@controllers': path.resolve(
         __dirname,
-        './src/controllers'
+        './src/controllers',
       ),
       '@core': path.resolve(
         __dirname,
-        './src/core'
+        './src/core',
       ),
       '@hooks': path.resolve(
         __dirname,
-        './src/hooks'
+        './src/hooks',
       ),
       '@layouts': path.resolve(
         __dirname,
-        './src/layouts'
+        './src/layouts',
       ),
       '@pages': path.resolve(
         __dirname,
-        './src/pages'
+        './src/pages',
       ),
       '@routers': path.resolve(
         __dirname,
-        './src/routers'
+        './src/routers',
       ),
       '@service': path.resolve(
         __dirname,
-        './src/service'
+        './src/service',
       ),
       '@styles': path.resolve(
         __dirname,
-        './src/styles'
+        './src/styles',
       ),
       '@utils': path.resolve(
         __dirname,
-        './src/utils'
+        './src/utils',
       ),
       '@public': path.resolve(
         __dirname,
-        './public'
+        './public',
       ),
     },
   },

@@ -2,9 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
-// import { fileURLToPath } from 'url';
 import express from 'express';
-// import { createServer as createViteServer } from 'vite';
 
 dotenv.config();
 
@@ -12,7 +10,7 @@ async function startServer() {
   const app = express();
   app.use(cors());
   const port =
-    Number(process.env.SERVER_PORT) || 3005;
+    Number(process.env.SERVER_PORT) || 3010;
 
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
@@ -32,8 +30,9 @@ async function startServer() {
     ),
   );
 
-  app.use('/', async (req, res, next) => {
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
+    console.log('url:', url);
 
     try {
       const template = fs.readFileSync(

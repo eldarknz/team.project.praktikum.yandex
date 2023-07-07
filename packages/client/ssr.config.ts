@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import dotenv from 'dotenv';
 import * as path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -13,7 +12,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',
-      outDir: 'dist',
+      outDir: 'dist/assets',
       devOptions: {
         enabled: true,
       },

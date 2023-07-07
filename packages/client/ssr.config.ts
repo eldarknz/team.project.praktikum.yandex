@@ -12,7 +12,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',
-      outDir: 'dist/assets',
+      outDir: 'dist',
       devOptions: {
         enabled: true,
       },

@@ -52,11 +52,27 @@ async function startServer() {
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
-    console.log('url:', url);
-    console.log('base:', req.baseUrl);
-
     try {
       let template: string;
+
+      if (!isDev()) {
+        const staticFiles = [
+          '/vite.svg',
+          '/manifest.webmanifest',
+          '/registerSW.js',
+          '/sw.js',
+        ];
+
+        if (staticFiles.includes(req.baseUrl)) {
+          res.sendFile(
+            path.resolve(
+              distPath,
+              req.baseUrl.replace('/', ''),
+            ),
+          );
+          return;
+        }
+      }
 
       if (!isDev()) {
         template = fs.readFileSync(

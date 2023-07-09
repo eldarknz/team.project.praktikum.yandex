@@ -64,7 +64,8 @@
   },
   "include": [
     "src",
-    "./typed.d.ts"
+    "./typed.d.ts",
+    "./svg.d.ts",
   ],
   "references": [
     {

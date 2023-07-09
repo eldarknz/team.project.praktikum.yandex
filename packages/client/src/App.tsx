@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
 import { Router } from '@routers/Router';
 import {
   ServicesModel,
@@ -18,48 +16,44 @@ import { PageLoader } from '@components/PageLoader';
 
 import './styles/index.scss';
 import { RootStore } from '@service/store';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '@service/store/hooks';
+import { useEffect } from 'react';
+import { getUserAction } from '@service/store/asyncAction';
 
-import { setUser } from '@service/store/reducers/userSlice';
-import { useAppDispatch } from '@service/store/hooks';
-
-const services: ServicesModel = {
+export const services: ServicesModel = {
   auth: new AuthAPI(),
   viewer: new ViewerAPI(),
   lead: new LeaderboardAPI(),
 };
 
 export const createControllers = (
-  store: RootStore
+  store: RootStore,
 ) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
   lead: new LeaderboardController(
     services,
-    store
+    store,
   ),
 });
 
 function App() {
-  const [loadingViewer, setLoadingViewer] =
-    useState(true);
-
+  const { load, user } = useAppSelector(
+    state => state.userReducer,
+  );
   const dispatch = useAppDispatch();
-
   useEffect(() => {
-    services.viewer
-      .getViewer()
-      .then(user => {
-        dispatch(setUser(user));
-      })
-      .catch(() => {
-        dispatch(setUser(null));
-      })
-      .finally(() => setLoadingViewer(false));
-  }, [dispatch]);
+    user === null &&
+      load &&
+      dispatch(getUserAction());
+  }, [dispatch, load, user]);
 
   return (
     <ServicesContext.Provider value={services}>
-      {!loadingViewer ? (
+      {!load ? (
         <ControllersProvider
           createControllers={createControllers}>
           <BrowserRouter>

@@ -1,28 +1,28 @@
 import { lazy, ComponentType } from 'react';
 
 const LandingPage = lazy(
-  () => import('@pages/Landing')
+  () => import('@pages/Landing'),
 );
 const AccountPage = lazy(
-  () => import('@pages/Account')
+  () => import('@pages/Account'),
 );
 const ForumPage = lazy(
-  () => import('@pages/Forum')
+  () => import('@pages/Forum'),
 );
 const LeaderboardPage = lazy(
-  () => import('@pages/Leaderboard')
+  () => import('@pages/Leaderboard'),
 );
 const GamePage = lazy(
-  () => import('@pages/Game')
+  () => import('@pages/Game'),
 );
 const SignInPage = lazy(
-  () => import('@pages/SignIn')
+  () => import('@pages/SignIn'),
 );
 const SignUpPage = lazy(
-  () => import('@pages/SignUp')
+  () => import('@pages/SignUp'),
 );
 const Error404Page = lazy(
-  () => import('@pages/Error404')
+  () => import('@pages/Error404'),
 );
 
 const End = lazy(() => import('@pages/End'));
@@ -82,7 +82,7 @@ export const ROUTES = {
   },
   Leaderboard: {
     path: '/leaderboard',
-    isPrivate: false,
+    isPrivate: true,
     component: LeaderboardPage,
     layout: Layout.Default,
   },

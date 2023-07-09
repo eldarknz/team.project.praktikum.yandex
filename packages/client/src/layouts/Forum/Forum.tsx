@@ -88,7 +88,7 @@ export const Forum = React.memo(() => {
 
   const onRowClick = useCallback(() => {
     alert(
-      'Привет! Я сообщение. Скоро я начну работать.'
+      'Привет! Я сообщение. Скоро я начну работать.',
     );
   }, []);
 
@@ -99,7 +99,7 @@ export const Forum = React.memo(() => {
         headerName: 'Заголовок',
         formatter: (
           value: string,
-          row: TPostProps
+          row: TPostProps,
         ) => (
           <div className={styles.postMainInfo}>
             <div className={styles.postTitle}>
@@ -141,7 +141,7 @@ export const Forum = React.memo(() => {
         width: '30%',
         formatter: (
           value: string,
-          row: TPostProps
+          row: TPostProps,
         ) => (
           <div className={styles.postLatestInfo}>
             <div
@@ -156,7 +156,7 @@ export const Forum = React.memo(() => {
         ),
       },
     ],
-    []
+    [],
   );
 
   return (

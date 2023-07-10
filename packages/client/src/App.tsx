@@ -44,9 +44,9 @@ const Content = () => {
   );
   const dispatch = useAppDispatch();
   useEffect(() => {
-    user === null &&
-      load &&
+    if (user === null && load) {
       dispatch(getUserAction());
+    }
   }, [dispatch, load, user]);
 
   return !load ? (

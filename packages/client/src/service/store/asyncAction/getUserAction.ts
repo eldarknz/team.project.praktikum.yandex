@@ -10,12 +10,14 @@ export const getUserAction = createAsyncThunk(
   async (_, { dispatch }) => {
     const offLoader = () =>
       dispatch(offUserLoader());
-    await services.viewer
-      .getViewer()
-      .then(user => {
-        dispatch(setUser(user));
-      })
-      .catch(offLoader)
-      .finally(offLoader);
+    try {
+      const user =
+        await services.viewer.getViewer();
+      dispatch(setUser(user));
+      offLoader();
+    } catch (e) {
+      offLoader();
+      console.error(e);
+    }
   },
 );

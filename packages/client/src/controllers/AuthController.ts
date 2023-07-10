@@ -9,7 +9,6 @@ import {
   BaseController,
 } from './BaseController';
 import { setUser } from '@service/store/reducers/userSlice';
-import isServer from '@utils/isServerCheck';
 
 export interface SignUpRequest
   extends Handlers<GetViewerResponse> {
@@ -23,9 +22,7 @@ export interface SignInRequest
 
 export type LogoutRequest = Handlers<undefined>;
 
-const OAUTH_REDIRECT_URL = isServer
-  ? '/'
-  : window.location.origin;
+const OAUTH_REDIRECT_URL = window.location.origin;
 
 export class AuthController extends BaseController {
   public async signup({

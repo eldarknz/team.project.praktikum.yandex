@@ -82,7 +82,7 @@ export const ROUTES = {
   },
   Leaderboard: {
     path: '/leaderboard',
-    isPrivate: true,
+    isPrivate: false,
     component: LeaderboardPage,
     layout: Layout.Default,
   },

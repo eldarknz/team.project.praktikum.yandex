@@ -10,6 +10,7 @@ import {
 import './AuthForm.scss';
 import {
   FormEvent,
+  MouseEventHandler,
   useCallback,
   useId,
   useState,
@@ -39,13 +40,13 @@ export const AuthForm = ({
     (content: string): boolean => {
       const password = (
         document.querySelector(
-          'input.baseInput.baseInput--error[name="password"]'
+          'input.baseInput.baseInput--error[name="password"]',
         ) as HTMLInputElement
       ).value;
 
       return password === content;
     },
-    []
+    [],
   );
 
   const handleSignInSubmit = useCallback(
@@ -53,7 +54,7 @@ export const AuthForm = ({
       event.preventDefault();
 
       const formData = new FormData(
-        event.target as HTMLFormElement
+        event.target as HTMLFormElement,
       );
 
       const data: Record<string, string> = {};
@@ -73,7 +74,7 @@ export const AuthForm = ({
         },
       });
     },
-    [controllers.auth, navigate]
+    [controllers.auth, navigate],
   );
 
   const handleSignUpSubmit = useCallback(
@@ -81,7 +82,7 @@ export const AuthForm = ({
       event.preventDefault();
 
       const formData = new FormData(
-        event.target as HTMLFormElement
+        event.target as HTMLFormElement,
       );
 
       const data: Record<string, string> = {};
@@ -101,8 +102,17 @@ export const AuthForm = ({
         },
       });
     },
-    [controllers.auth, navigate]
+    [controllers.auth, navigate],
   );
+
+  const handleOAuthLogin: MouseEventHandler =
+    useCallback(
+      e => {
+        e.preventDefault();
+        controllers.auth.signinWithYandex();
+      },
+      [controllers.auth],
+    );
 
   const title =
     authType === 'signin'
@@ -127,6 +137,7 @@ export const AuthForm = ({
   const signInButtons: ButtonProps[] = [
     {
       children: 'Войти',
+      type: 'submit',
       id: useId(),
     },
     {
@@ -238,6 +249,12 @@ export const AuthForm = ({
             {...buttonProps}
           />
         ))}
+
+        <Button
+          view="subButton"
+          onClick={handleOAuthLogin}>
+          Войти с Yandex
+        </Button>
       </form>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from '@routers/Router';
 import {
@@ -5,7 +6,6 @@ import {
   ServicesContext,
 } from '@core/ServicesContext';
 import { ControllersProvider } from '@core/ControllersContext';
-
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
@@ -13,14 +13,12 @@ import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
-
-import './styles/index.scss';
 import { RootStore } from '@service/store';
+import './styles/index.scss';
 import {
   useAppDispatch,
   useAppSelector,
 } from '@service/store/hooks';
-import { useEffect } from 'react';
 import { getUserAction } from '@service/store/asyncAction';
 
 export const services: ServicesModel = {
@@ -40,7 +38,7 @@ export const createControllers = (
   ),
 });
 
-function App() {
+const Content = () => {
   const { load, user } = useAppSelector(
     state => state.userReducer,
   );
@@ -51,18 +49,22 @@ function App() {
       dispatch(getUserAction());
   }, [dispatch, load, user]);
 
+  return !load ? (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  ) : (
+    <PageLoader withBackground />
+  );
+};
+
+function App() {
   return (
     <ServicesContext.Provider value={services}>
-      {!load ? (
-        <ControllersProvider
-          createControllers={createControllers}>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
-        </ControllersProvider>
-      ) : (
-        <PageLoader withBackground />
-      )}
+      <ControllersProvider
+        createControllers={createControllers}>
+        <Content />
+      </ControllersProvider>
     </ServicesContext.Provider>
   );
 }

@@ -32,6 +32,19 @@ export type SignUpResponse =
 
 export type SigninResponse = AuthError | string;
 
+export interface GetServiceResponse {
+  service_id: string;
+}
+
+export interface GetServiceRequest {
+  redirectUri: string;
+}
+
+export interface AuthWithYandexRequest {
+  code: string;
+  redirectUri: string;
+}
+
 export class AuthAPI extends BaseApi {
   public signup(data: ISignupData) {
     return this.http.post<
@@ -56,6 +69,30 @@ export class AuthAPI extends BaseApi {
   public logout() {
     return this.http.post({
       url: `${API_URL}/auth/logout`,
+    });
+  }
+
+  public getServiceId({
+    redirectUri,
+  }: GetServiceRequest) {
+    return this.http.get<GetServiceResponse>({
+      url: `${API_URL}/oauth/yandex/service-id?${new URLSearchParams(
+        {
+          redirect_uri: redirectUri,
+        },
+      )}`,
+    });
+  }
+
+  public authWithYandex(
+    data: AuthWithYandexRequest,
+  ) {
+    return this.http.post({
+      url: `${API_URL}/oauth/yandex`,
+      body: {
+        code: data.code,
+        redirect_uri: data.redirectUri,
+      },
     });
   }
 }

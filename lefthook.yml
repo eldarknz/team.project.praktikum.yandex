@@ -4,3 +4,7 @@ pre-commit:
     lint:
       glob: '*.{ts,tsx}'
       run: tsc -p ./packages/client/tsconfig.json --noEmit && tsc -p ./packages/server/tsconfig.json --noEmit && yarn eslint {staged_files}
+    prettier:
+      glob: '*.{ts,tsx,css,scss}'
+      run: yarn prettier -w {staged_files}
+      stage_fixed: true

@@ -1,15 +1,15 @@
 import {
   AuthForm,
   AuthFormProps,
-} from './AuthForm';
-import { validate } from '@service/Validate';
+} from './AuthForm'
+import { validate } from '@service/Validate'
 import {
   render,
   screen,
   fireEvent,
   waitFor,
-} from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+} from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -17,86 +17,86 @@ global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve('hey'),
   }),
-);
+)
 
 const renderAuthForm = (props: AuthFormProps) => {
   return render(
     <MemoryRouter>
       <AuthForm {...props} />
     </MemoryRouter>,
-  );
-};
+  )
+}
 
 const mockControllers = {
   auth: {
     signin: jest.fn(),
     signup: jest.fn(),
   },
-};
+}
 
 jest.mock('@core/ControllersContext', () => ({
   useControllers: jest.fn(() => mockControllers),
-}));
+}))
 
 describe('SignIn', () => {
   test('renders AuthForm correctly with signin type', async () => {
-    renderAuthForm({ authType: 'signin' });
+    renderAuthForm({ authType: 'signin' })
 
     expect(
       screen.getByText('Авторизация'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Логин'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Пароль'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText('Войти'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText(
         'Еще не зарегистрированы?',
       ),
-    ).toBeDefined();
-  });
+    ).toBeDefined()
+  })
 
   test('displays error message on incorrect input', async () => {
-    renderAuthForm({ authType: 'signin' });
+    renderAuthForm({ authType: 'signin' })
 
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: '1' },
       },
-    );
+    )
 
     expect(
       screen.getByText(
         'Кажется, вы неверно ввели логин :(',
       ),
-    ).toBeDefined();
-  });
+    ).toBeDefined()
+  })
 
   test('sends a request with the entered signin data', async () => {
-    renderAuthForm({ authType: 'signin' });
+    renderAuthForm({ authType: 'signin' })
 
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: 'testuser' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: 'Password123' },
       },
-    );
+    )
 
     fireEvent.click(
       screen.getAllByRole('button')[0],
-    );
+    )
 
     await waitFor(async () => {
       expect(
@@ -108,172 +108,172 @@ describe('SignIn', () => {
         },
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
-      });
-    });
-  });
-});
+      })
+    })
+  })
+})
 
 describe('SignUp', () => {
   test('renders AuthForm correctly with signup type', async () => {
-    renderAuthForm({ authType: 'signup' });
+    renderAuthForm({ authType: 'signup' })
 
     expect(
       screen.getByText('Регистрация'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Почта'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Логин'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Имя'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Фамилия'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Телефон'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Пароль'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByLabelText('Еще раз пароль'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText('Зарегистрироваться'),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText('Уже есть аккаунт?'),
-    ).toBeDefined();
-  });
+    ).toBeDefined()
+  })
 
   test('displays error message on incorrect input', async () => {
-    renderAuthForm({ authType: 'signup' });
+    renderAuthForm({ authType: 'signup' })
 
     fireEvent.change(
       screen.getByLabelText('Почта'),
       {
         target: { value: '1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: '1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Имя'),
       {
         target: { value: '1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Фамилия'),
       {
         target: { value: '1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Телефон'),
       {
         target: { value: '1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: '123' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
         target: { value: 'abc' },
       },
-    );
+    )
 
     expect(
       screen.getByText(
         validate.errorMessages.email,
       ),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText(
         validate.errorMessages.login,
       ),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.queryAllByText(
         validate.errorMessages.name,
       ).length,
-    ).toBe(2);
+    ).toBe(2)
     expect(
       screen.getByText(
         validate.errorMessages.phone,
       ),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText(
         validate.errorMessages.password,
       ),
-    ).toBeDefined();
+    ).toBeDefined()
     expect(
       screen.getByText('Пароли не совпадают'),
-    ).toBeDefined();
-  });
+    ).toBeDefined()
+  })
 
   test('sends a request with the entered signup data', async () => {
-    renderAuthForm({ authType: 'signup' });
+    renderAuthForm({ authType: 'signup' })
 
     fireEvent.change(
       screen.getByLabelText('Почта'),
       {
         target: { value: 'test@example.com' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: 'testuser' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Имя'),
       {
         target: { value: 'Test' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Фамилия'),
       {
         target: { value: 'Test' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Телефон'),
       {
         target: { value: '1234567890' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: 'Testpassword1' },
       },
-    );
+    )
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
         target: { value: '' },
       },
-    );
+    )
 
     fireEvent.click(
       screen.getAllByRole('button')[0],
-    );
+    )
 
     await waitFor(async () => {
       expect(
@@ -290,7 +290,7 @@ describe('SignUp', () => {
         },
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
-      });
-    });
-  });
-});
+      })
+    })
+  })
+})

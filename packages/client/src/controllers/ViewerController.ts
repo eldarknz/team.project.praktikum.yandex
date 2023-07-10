@@ -40,7 +40,7 @@ export class ViewerController extends BaseController {
     try {
       const response =
         await this.services.viewer.updateAvatar(
-          values
+          values,
         );
 
       this.store.dispatch(setUser(response));
@@ -62,7 +62,7 @@ export class ViewerController extends BaseController {
   }: EditPasswordRequest): Promise<void> {
     try {
       await this.services.viewer.updatePassword(
-        values
+        values,
       );
 
       if (onSuccess) {
@@ -85,7 +85,7 @@ export class ViewerController extends BaseController {
     try {
       const response =
         await this.services.viewer.updateUser(
-          values
+          values,
         );
 
       this.store.dispatch(setUser(response));

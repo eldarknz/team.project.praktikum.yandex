@@ -104,7 +104,7 @@ export class AuthController extends BaseController {
 
   public async getUserFromOAuth() {
     const params = new URLSearchParams(
-      window.location.search
+      window.location.search,
     );
     const code = params.get('code');
 
@@ -122,7 +122,7 @@ export class AuthController extends BaseController {
     window.history.replaceState(
       null,
       '',
-      window.location.pathname
+      window.location.pathname,
     );
   }
 }

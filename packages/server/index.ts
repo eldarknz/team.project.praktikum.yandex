@@ -107,6 +107,7 @@ async function startServer() {
 
       let render: (
         url: string,
+        store: object,
       ) => Promise<string>;
 
       if (!isDev()) {
@@ -119,13 +120,25 @@ async function startServer() {
           )
         ).render;
       }
-
-      const appHtml = await render(url);
-
-      const html = template.replace(
-        `<!-- ssr-outlet -->`,
-        appHtml,
-      );
+      const { createReduxStore } =
+        await vite!.ssrLoadModule(
+          path.resolve(
+            srcPath,
+            'src/service/store/index.ts',
+          ),
+        );
+      const store = createReduxStore();
+      const appHtml = await render(url, store);
+      const storeState = store.getState();
+      const storeIncrementHtml = `<script>window.__REDUX_STORE__ = ${JSON.stringify(
+        storeState,
+      )}</script>`;
+      const html = template
+        .replace(`<!-- ssr-outlet -->`, appHtml)
+        .replace(
+          `<!-- store-outlet -->`,
+          storeIncrementHtml,
+        );
 
       res
         .status(200)

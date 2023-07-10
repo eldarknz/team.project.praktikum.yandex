@@ -16,14 +16,14 @@ import { MemoryRouter } from 'react-router-dom';
 global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve('hey'),
-  })
+  }),
 );
 
 const renderAuthForm = (props: AuthFormProps) => {
   return render(
     <MemoryRouter>
       <AuthForm {...props} />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 };
 
@@ -43,19 +43,21 @@ describe('SignIn', () => {
     renderAuthForm({ authType: 'signin' });
 
     expect(
-      screen.getByText('Авторизация')
+      screen.getByText('Авторизация'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Логин')
+      screen.getByLabelText('Логин'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Пароль')
+      screen.getByLabelText('Пароль'),
     ).toBeDefined();
     expect(
-      screen.getByText('Войти')
+      screen.getByText('Войти'),
     ).toBeDefined();
     expect(
-      screen.getByText('Еще не зарегистрированы?')
+      screen.getByText(
+        'Еще не зарегистрированы?',
+      ),
     ).toBeDefined();
   });
 
@@ -66,13 +68,13 @@ describe('SignIn', () => {
       screen.getByLabelText('Логин'),
       {
         target: { value: '1' },
-      }
+      },
     );
 
     expect(
       screen.getByText(
-        'Кажется, вы неверно ввели логин :('
-      )
+        'Кажется, вы неверно ввели логин :(',
+      ),
     ).toBeDefined();
   });
 
@@ -83,22 +85,22 @@ describe('SignIn', () => {
       screen.getByLabelText('Логин'),
       {
         target: { value: 'testuser' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: 'Password123' },
-      }
+      },
     );
 
     fireEvent.click(
-      screen.getAllByRole('button')[0]
+      screen.getAllByRole('button')[0],
     );
 
     await waitFor(async () => {
       expect(
-        mockControllers.auth.signin
+        mockControllers.auth.signin,
       ).toHaveBeenCalledWith({
         values: {
           login: 'testuser',
@@ -116,34 +118,34 @@ describe('SignUp', () => {
     renderAuthForm({ authType: 'signup' });
 
     expect(
-      screen.getByText('Регистрация')
+      screen.getByText('Регистрация'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Почта')
+      screen.getByLabelText('Почта'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Логин')
+      screen.getByLabelText('Логин'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Имя')
+      screen.getByLabelText('Имя'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Фамилия')
+      screen.getByLabelText('Фамилия'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Телефон')
+      screen.getByLabelText('Телефон'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Пароль')
+      screen.getByLabelText('Пароль'),
     ).toBeDefined();
     expect(
-      screen.getByLabelText('Еще раз пароль')
+      screen.getByLabelText('Еще раз пароль'),
     ).toBeDefined();
     expect(
-      screen.getByText('Зарегистрироваться')
+      screen.getByText('Зарегистрироваться'),
     ).toBeDefined();
     expect(
-      screen.getByText('Уже есть аккаунт?')
+      screen.getByText('Уже есть аккаунт?'),
     ).toBeDefined();
   });
 
@@ -154,72 +156,72 @@ describe('SignUp', () => {
       screen.getByLabelText('Почта'),
       {
         target: { value: '1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: '1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Имя'),
       {
         target: { value: '1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Фамилия'),
       {
         target: { value: '1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Телефон'),
       {
         target: { value: '1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: '123' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
         target: { value: 'abc' },
-      }
+      },
     );
 
     expect(
       screen.getByText(
-        validate.errorMessages.email
-      )
+        validate.errorMessages.email,
+      ),
     ).toBeDefined();
     expect(
       screen.getByText(
-        validate.errorMessages.login
-      )
+        validate.errorMessages.login,
+      ),
     ).toBeDefined();
     expect(
       screen.queryAllByText(
-        validate.errorMessages.name
-      ).length
+        validate.errorMessages.name,
+      ).length,
     ).toBe(2);
     expect(
       screen.getByText(
-        validate.errorMessages.phone
-      )
+        validate.errorMessages.phone,
+      ),
     ).toBeDefined();
     expect(
       screen.getByText(
-        validate.errorMessages.password
-      )
+        validate.errorMessages.password,
+      ),
     ).toBeDefined();
     expect(
-      screen.getByText('Пароли не совпадают')
+      screen.getByText('Пароли не совпадают'),
     ).toBeDefined();
   });
 
@@ -230,52 +232,52 @@ describe('SignUp', () => {
       screen.getByLabelText('Почта'),
       {
         target: { value: 'test@example.com' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Логин'),
       {
         target: { value: 'testuser' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Имя'),
       {
         target: { value: 'Test' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Фамилия'),
       {
         target: { value: 'Test' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Телефон'),
       {
         target: { value: '1234567890' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Пароль'),
       {
         target: { value: 'Testpassword1' },
-      }
+      },
     );
     fireEvent.change(
       screen.getByLabelText('Еще раз пароль'),
       {
         target: { value: '' },
-      }
+      },
     );
 
     fireEvent.click(
-      screen.getAllByRole('button')[0]
+      screen.getAllByRole('button')[0],
     );
 
     await waitFor(async () => {
       expect(
-        mockControllers.auth.signup
+        mockControllers.auth.signup,
       ).toHaveBeenCalledWith({
         values: {
           email: 'test@example.com',

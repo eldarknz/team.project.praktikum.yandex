@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
 import { Router } from '@routers/Router';
 import {
   ServicesModel,
   ServicesContext,
 } from '@core/ServicesContext';
 import { ControllersProvider } from '@core/ControllersContext';
-
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
@@ -16,39 +14,42 @@ import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
 import { RootStore } from '@service/store';
-import { useViewerFromSession } from '@hooks/useViewerFromSession';
-
 import './styles/index.scss';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '@service/store/hooks';
+import { getUserAction } from '@service/store/asyncAction';
 
-const services: ServicesModel = {
+export const services: ServicesModel = {
   auth: new AuthAPI(),
   viewer: new ViewerAPI(),
   lead: new LeaderboardAPI(),
 };
 
 export const createControllers = (
-  store: RootStore
+  store: RootStore,
 ) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
   lead: new LeaderboardController(
     services,
-    store
+    store,
   ),
 });
 
 const Content = () => {
-  const {
-    isLoading: isLoadingViewer,
-    getViewer,
-  } = useViewerFromSession();
-
+  const { load, user } = useAppSelector(
+    state => state.userReducer,
+  );
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    getViewer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (user === null && load) {
+      dispatch(getUserAction());
+    }
+  }, [dispatch, load, user]);
 
-  return !isLoadingViewer ? (
+  return !load ? (
     <BrowserRouter>
       <Router />
     </BrowserRouter>

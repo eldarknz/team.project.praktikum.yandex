@@ -1,9 +1,6 @@
 import { FC } from 'react';
 
-import {
-  Container,
-  IContainerProps,
-} from './Container';
+import { Container, IContainerProps } from './Container';
 import { Col, IColProps } from './Col';
 import { Row, IRowProps } from './Row';
 

@@ -10,9 +10,7 @@ export interface ServicesModel {
   lead: LeaderboardAPI;
 }
 
-export const ServicesContext = createContext(
-  {} as ServicesModel
-);
+export const ServicesContext = createContext({} as ServicesModel);
 
 export const useServices = () => {
   return useContext(ServicesContext);

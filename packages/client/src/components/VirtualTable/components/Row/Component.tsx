@@ -7,10 +7,7 @@ export interface IColumnProps<Type> {
   headerName?: string;
   align?: TCellAlign;
   width?: number | string;
-  formatter?: (
-    value: any,
-    row: Type
-  ) => ReactNode;
+  formatter?: (value: any, row: Type) => ReactNode;
 }
 
 export interface IForumRowProps<Type> {
@@ -20,30 +17,20 @@ export interface IForumRowProps<Type> {
   onClick?: (row: Type, index: number) => void;
 }
 
-export const Row = <Type,>({
-  index,
-  columns,
-  row,
-  onClick,
-}: IForumRowProps<Type>) => {
+export const Row = <Type,>({ index, columns, row, onClick }: IForumRowProps<Type>) => {
   const handleClick = useCallback(() => {
     onClick?.(row, index);
   }, [index]);
 
   return (
-    <div
-      className={styles.tr}
-      onClick={handleClick}>
+    <div className={styles.tr} onClick={handleClick}>
       {columns.map(column => {
-        const { field, formatter, ...rest } =
-          column;
+        const { field, formatter, ...rest } = column;
         const key = field as keyof Type;
         const value = row[key] as ReactNode;
         return (
           <Cell key={field} {...rest}>
-            {formatter
-              ? formatter(value, row)
-              : value}
+            {formatter ? formatter(value, row) : value}
           </Cell>
         );
       })}

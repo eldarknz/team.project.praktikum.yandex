@@ -8,40 +8,26 @@ import {
 } from '@api/ViewerAPI';
 import { setUser } from '@service/store/reducers/userSlice';
 
-import {
-  Handlers,
-  BaseController,
-} from './BaseController';
+import { Handlers, BaseController } from './BaseController';
 
-export interface EditAvatarRequest
-  extends Handlers<UpdateAvatarResponse> {
+export interface EditAvatarRequest extends Handlers<UpdateAvatarResponse> {
   values: UpdateAvatarRequest;
 }
 
-export interface EditPasswordRequest
-  extends Handlers<undefined> {
+export interface EditPasswordRequest extends Handlers<undefined> {
   values: UpdatePasswordRequest;
 }
 
-export interface EditUserRequest
-  extends Handlers<UpdateUserResponse> {
+export interface EditUserRequest extends Handlers<UpdateUserResponse> {
   values: UpdateUserRequest;
 }
 
-export type GetViewerRequest =
-  Handlers<GetViewerResponse>;
+export type GetViewerRequest = Handlers<GetViewerResponse>;
 
 export class ViewerController extends BaseController {
-  public async editAvatar({
-    values,
-    onError,
-    onSuccess,
-  }: EditAvatarRequest): Promise<void> {
+  public async editAvatar({ values, onError, onSuccess }: EditAvatarRequest): Promise<void> {
     try {
-      const response =
-        await this.services.viewer.updateAvatar(
-          values,
-        );
+      const response = await this.services.viewer.updateAvatar(values);
 
       this.store.dispatch(setUser(response));
 
@@ -55,15 +41,9 @@ export class ViewerController extends BaseController {
     }
   }
 
-  public async editPassword({
-    values,
-    onError,
-    onSuccess,
-  }: EditPasswordRequest): Promise<void> {
+  public async editPassword({ values, onError, onSuccess }: EditPasswordRequest): Promise<void> {
     try {
-      await this.services.viewer.updatePassword(
-        values,
-      );
+      await this.services.viewer.updatePassword(values);
 
       if (onSuccess) {
         onSuccess(undefined);
@@ -77,16 +57,9 @@ export class ViewerController extends BaseController {
     }
   }
 
-  public async editUser({
-    values,
-    onError,
-    onSuccess,
-  }: EditUserRequest): Promise<void> {
+  public async editUser({ values, onError, onSuccess }: EditUserRequest): Promise<void> {
     try {
-      const response =
-        await this.services.viewer.updateUser(
-          values,
-        );
+      const response = await this.services.viewer.updateUser(values);
 
       this.store.dispatch(setUser(response));
 
@@ -102,13 +75,9 @@ export class ViewerController extends BaseController {
     }
   }
 
-  public async getViewer({
-    onSuccess,
-    onError,
-  }: GetViewerRequest): Promise<void> {
+  public async getViewer({ onSuccess, onError }: GetViewerRequest): Promise<void> {
     try {
-      const viewer =
-        await this.services.viewer.getViewer();
+      const viewer = await this.services.viewer.getViewer();
 
       this.store.dispatch(setUser(viewer));
 

@@ -1,12 +1,6 @@
-import {
-  FormErrors,
-  FormState,
-  FormValidators,
-} from './types';
+import { FormErrors, FormState, FormValidators } from './types';
 
-export function initState<TValues extends object>(
-  initialValues: TValues
-): FormState<TValues> {
+export function initState<TValues extends object>(initialValues: TValues): FormState<TValues> {
   return {
     values: {
       ...initialValues,
@@ -16,12 +10,6 @@ export function initState<TValues extends object>(
   };
 }
 
-export const fillObject = (
-  object: object,
-  value: unknown
-): object => {
-  return Object.keys(object).reduce(
-    (acc, key) => ({ ...acc, [key]: value }),
-    { ...object }
-  );
+export const fillObject = (object: object, value: unknown): object => {
+  return Object.keys(object).reduce((acc, key) => ({ ...acc, [key]: value }), { ...object });
 };

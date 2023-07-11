@@ -21,11 +21,7 @@ export const useViewerFromSession = () => {
     }
 
     setLoading(false);
-  }, [
-    controllers.auth,
-    controllers.viewer,
-    dispatch,
-  ]);
+  }, [controllers.auth, controllers.viewer, dispatch]);
 
   return { isLoading, setLoading, getViewer };
 };

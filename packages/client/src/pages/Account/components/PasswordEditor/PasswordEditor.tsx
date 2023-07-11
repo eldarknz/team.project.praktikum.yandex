@@ -13,17 +13,11 @@ export type PasswordEditorForm = {
 };
 
 export interface PasswordEditorProps {
-  onSubmit: (
-    values: PasswordEditorForm
-  ) => Promise<void>;
+  onSubmit: (values: PasswordEditorForm) => Promise<void>;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
-export const PasswordEditor = ({
-  isOpen,
-  onSubmit,
-  onOpenChange,
-}: PasswordEditorProps) => {
+export const PasswordEditor = ({ isOpen, onSubmit, onOpenChange }: PasswordEditorProps) => {
   const oldPassField = useTextField({
     value: '',
     name: 'oldPassword',
@@ -32,30 +26,16 @@ export const PasswordEditor = ({
   const newPassField = useTextField({
     value: '',
     name: 'newPassword',
-    rules: [
-      value =>
-        validate.password(value || '')
-          ? null
-          : validate.errorMessages.password,
-    ],
+    rules: [value => (validate.password(value || '') ? null : validate.errorMessages.password)],
   });
   const repeatPassField = useTextField({
     value: '',
     name: 'repeatPassword',
-    rules: [
-      value =>
-        newPassField.value === value
-          ? null
-          : 'Пароли должны совпадать',
-    ],
+    rules: [value => (newPassField.value === value ? null : 'Пароли должны совпадать')],
   });
 
   const { isSubmitting, formProps } = useForm({
-    fields: [
-      oldPassField,
-      newPassField,
-      repeatPassField,
-    ],
+    fields: [oldPassField, newPassField, repeatPassField],
     onSubmit: async () => {
       await onSubmit({
         oldPassword: oldPassField.value,
@@ -90,10 +70,7 @@ export const PasswordEditor = ({
           type="password"
         />
 
-        <Button
-          type="submit"
-          loading={isSubmitting}
-          disabled={isSubmitting}>
+        <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
           Редактировать
         </Button>
       </form>

@@ -1,11 +1,6 @@
 import { GetViewerResponse } from '@api/ViewerAPI';
 import { store } from '@service/store';
-import {
-  useMemo,
-  PropsWithChildren,
-  createContext,
-  useState,
-} from 'react';
+import { useMemo, PropsWithChildren, createContext, useState } from 'react';
 
 export type Viewer = GetViewerResponse;
 
@@ -18,8 +13,7 @@ export const StoreContext = createContext({
   viewer: null,
 } as StoreModel);
 
-interface StoreContextProviderProps
-  extends PropsWithChildren {
+interface StoreContextProviderProps extends PropsWithChildren {
   viewer: Viewer | null;
 }
 
@@ -27,23 +21,17 @@ export const StoreContextProvider = ({
   viewer: initialViewer,
   children,
 }: StoreContextProviderProps) => {
-  const [viewer, setViewer] = useState(
-    initialViewer
-  );
+  const [viewer, setViewer] = useState(initialViewer);
 
   const state: StoreModel = useMemo(
     () => ({
       viewer,
       setViewer,
     }),
-    [viewer]
+    [viewer],
   );
 
-  return (
-    <StoreContext.Provider value={state}>
-      {children}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={state}>{children}</StoreContext.Provider>;
 };
 
 export const useStore = () => {

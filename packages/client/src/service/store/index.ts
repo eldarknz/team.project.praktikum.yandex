@@ -1,8 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  IUserState,
-  userReducer,
-} from './reducers/userSlice';
+import { IUserState, userReducer } from './reducers/userSlice';
 
 export const createReduxStore = () =>
   configureStore({

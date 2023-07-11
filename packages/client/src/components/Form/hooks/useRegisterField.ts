@@ -4,42 +4,24 @@ import { FormState, Validator } from '../types';
 
 type CleanHandler = () => void;
 
-export interface RegisterFieldArgs<
-  TValues extends object
-> {
+export interface RegisterFieldArgs<TValues extends object> {
   name: string;
   validators: Validator<TValues>[];
   value: unknown;
   onClearForm: () => void;
 }
 
-export const useRegisterField = <
-  TValues extends object
->({
+export const useRegisterField = <TValues extends object>({
   onClearHandlesChange,
   onFormStateChange,
 }: {
-  onClearHandlesChange: (
-    fn: (state: CleanHandler[]) => CleanHandler[]
-  ) => void;
-  onFormStateChange: (
-    fn: (
-      state: FormState<TValues>
-    ) => FormState<TValues>
-  ) => void;
+  onClearHandlesChange: (fn: (state: CleanHandler[]) => CleanHandler[]) => void;
+  onFormStateChange: (fn: (state: FormState<TValues>) => FormState<TValues>) => void;
 }) => {
   const registerField = useCallback(
-    ({
-      name,
-      validators,
-      value,
-      onClearForm,
-    }: RegisterFieldArgs<TValues>) => {
+    ({ name, validators, value, onClearForm }: RegisterFieldArgs<TValues>) => {
       // register field
-      onClearHandlesChange(handlers => [
-        ...handlers,
-        onClearForm,
-      ]);
+      onClearHandlesChange(handlers => [...handlers, onClearForm]);
 
       onFormStateChange(state => {
         return {
@@ -61,23 +43,14 @@ export const useRegisterField = <
 
       // unregister field
       return () => {
-        onClearHandlesChange(handlers =>
-          handlers.filter(h => h !== onClearForm)
-        );
+        onClearHandlesChange(handlers => handlers.filter(h => h !== onClearForm));
 
         onFormStateChange(state => {
-          const { values, errors, validators } =
-            state;
+          const { values, errors, validators } = state;
 
-          delete (
-            values as Record<string, unknown>
-          )[name];
-          delete (
-            errors as Record<string, unknown>
-          )[name];
-          delete (
-            validators as Record<string, unknown>
-          )[name];
+          delete (values as Record<string, unknown>)[name];
+          delete (errors as Record<string, unknown>)[name];
+          delete (validators as Record<string, unknown>)[name];
 
           return {
             values,
@@ -87,7 +60,7 @@ export const useRegisterField = <
         });
       };
     },
-    [onClearHandlesChange, onFormStateChange]
+    [onClearHandlesChange, onFormStateChange],
   );
 
   return registerField;

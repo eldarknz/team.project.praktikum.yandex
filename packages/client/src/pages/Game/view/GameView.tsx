@@ -4,12 +4,6 @@ export type GameViewProps = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
 };
 
-export default function GameView({
-  canvasRef,
-}: GameViewProps) {
-  return (
-    <canvas
-      ref={canvasRef}
-      className={styles.container}></canvas>
-  );
+export default function GameView({ canvasRef }: GameViewProps) {
+  return <canvas ref={canvasRef} className={styles.container}></canvas>;
 }

@@ -12,10 +12,7 @@ export const Avatar = ({ link }: AvatarProps) => {
   if (link) {
     return (
       <div className={styles.avatar}>
-        <img
-          className={styles.image}
-          src={getResourceUrl(link)}
-        />
+        <img className={styles.image} src={getResourceUrl(link)} />
       </div>
     );
   }

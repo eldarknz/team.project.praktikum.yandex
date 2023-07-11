@@ -5,26 +5,16 @@ import styles from './Leaderboard.module.scss';
 import { useFetchLeaderboardData } from './useFetchLeaderboardData';
 
 export const Leaderboard = () => {
-  const playerListData =
-    useFetchLeaderboardData();
+  const playerListData = useFetchLeaderboardData();
 
   return (
-    <Grid.Container
-      width={'full'}
-      className={styles.leaderBoard}>
+    <Grid.Container width={'full'} className={styles.leaderBoard}>
       <Grid.Row justify="center">
         <Grid.Col width={6}>
-          <h1 className={styles.title}>
-            Лидерборд
-          </h1>
-          <h3 className={styles.subTitle}>
-            Максимальное количество очков за игру
-          </h3>
+          <h1 className={styles.title}>Лидерборд</h1>
+          <h3 className={styles.subTitle}>Максимальное количество очков за игру</h3>
           <div className={styles.searchBar}>
-            <Input
-              name="search"
-              labelText="Поиск игрока"
-            />
+            <Input name="search" labelText="Поиск игрока" />
           </div>
           <PlayerList players={playerListData} />
         </Grid.Col>

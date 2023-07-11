@@ -5,11 +5,8 @@ import {
 } from '../typings';
 
 export function getClassNames(
-  props: Record<
-    string,
-    ResponsivePropertyType | undefined
-  >,
-  styles: Record<string, string>
+  props: Record<string, ResponsivePropertyType | undefined>,
+  styles: Record<string, string>,
 ) {
   const classNames: string[] = [];
 
@@ -25,20 +22,12 @@ export function getClassNames(
       return;
     }
 
-    (
-      Object.keys(
-        prop
-      ) as BreakpointsObjectKeysType[]
-    ).forEach(breakpoint => {
+    (Object.keys(prop) as BreakpointsObjectKeysType[]).forEach(breakpoint => {
       if (prop[breakpoint] === null) {
         return;
       }
-      const value = prop[
-        breakpoint
-      ] as BreakpointsObjectType;
-      classNames.push(
-        styles[`${name}-${breakpoint}-${value}`]
-      );
+      const value = prop[breakpoint] as BreakpointsObjectType;
+      classNames.push(styles[`${name}-${breakpoint}-${value}`]);
     });
   });
 

@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from '@routers/Router';
-import {
-  ServicesModel,
-  ServicesContext,
-} from '@core/ServicesContext';
+import { ServicesModel, ServicesContext } from '@core/ServicesContext';
 import { ControllersProvider } from '@core/ControllersContext';
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
@@ -15,10 +12,7 @@ import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
 import { RootStore } from '@service/store';
 import './styles/index.scss';
-import {
-  useAppDispatch,
-  useAppSelector,
-} from '@service/store/hooks';
+import { useAppDispatch, useAppSelector } from '@service/store/hooks';
 import { getUserAction } from '@service/store/asyncAction';
 
 export const services: ServicesModel = {
@@ -27,21 +21,14 @@ export const services: ServicesModel = {
   lead: new LeaderboardAPI(),
 };
 
-export const createControllers = (
-  store: RootStore,
-) => ({
+export const createControllers = (store: RootStore) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
-  lead: new LeaderboardController(
-    services,
-    store,
-  ),
+  lead: new LeaderboardController(services, store),
 });
 
 const Content = () => {
-  const { load, user } = useAppSelector(
-    state => state.userReducer,
-  );
+  const { load, user } = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (user === null && load) {
@@ -61,8 +48,7 @@ const Content = () => {
 function App() {
   return (
     <ServicesContext.Provider value={services}>
-      <ControllersProvider
-        createControllers={createControllers}>
+      <ControllersProvider createControllers={createControllers}>
         <Content />
       </ControllersProvider>
     </ServicesContext.Provider>

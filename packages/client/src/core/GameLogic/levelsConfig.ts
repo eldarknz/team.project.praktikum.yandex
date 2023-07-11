@@ -7,10 +7,7 @@ export type Levels = 'first' | 'second' | 'third';
 export type LevelConfigItem = {
   id: string;
   finishPoint: number;
-  items: Omit<
-    GenericObjectImplProps,
-    'context'
-  >[];
+  items: Omit<GenericObjectImplProps, 'context'>[];
 };
 const diamand = createImage(diamandSrc);
 
@@ -20,8 +17,7 @@ export default class levelConfig {
     this.baseHeight = baseHeight;
   }
   first = (): LevelConfigItem => {
-    const { hills, platform, smPlatform } =
-      this._getImage('1');
+    const { hills, platform, smPlatform } = this._getImage('1');
     const { baseHeight } = this;
     return {
       id: '1',
@@ -94,8 +90,7 @@ export default class levelConfig {
     };
   };
   second = (): LevelConfigItem => {
-    const { hills, platform, smPlatform } =
-      this._getImage('2');
+    const { hills, platform, smPlatform } = this._getImage('2');
     const { baseHeight } = this;
     return {
       id: '2',
@@ -168,8 +163,7 @@ export default class levelConfig {
     };
   };
   third = (): LevelConfigItem => {
-    const { hills, platform, smPlatform } =
-      this._getImage('3');
+    const { hills, platform, smPlatform } = this._getImage('3');
     const { baseHeight } = this;
     return {
       id: '3',

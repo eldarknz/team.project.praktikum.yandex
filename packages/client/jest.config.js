@@ -11,8 +11,7 @@ export default {
   moduleNameMapper: {
     '^@api/(.*)$': '<rootDir>/src/api/$1',
     // '^@assets/(.*)$': '<rootDir>/src/assets/$1',
-    '^@components/(.*)$':
-      '<rootDir>/src/components/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@layouts/(.*)$': '<rootDir>/src/layouts/$1',

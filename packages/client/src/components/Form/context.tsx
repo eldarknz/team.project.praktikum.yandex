@@ -4,7 +4,7 @@ import { RegisterFieldArgs } from './hooks/useRegisterField';
 import { FormState } from './types';
 
 export interface FormContextState<
-  TValues extends object
+  TValues extends object,
 > extends FormState<TValues> {
   registerField: (
     data: RegisterFieldArgs<TValues>

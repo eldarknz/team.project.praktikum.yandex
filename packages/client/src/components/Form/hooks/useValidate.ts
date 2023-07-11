@@ -9,7 +9,7 @@ import {
 } from '../types';
 
 export const useValidate = <
-  TValues extends object
+  TValues extends object,
 >({
   formState,
   onFormStateChange,
@@ -35,24 +35,30 @@ export const useValidate = <
 
     const formErrors = Object.entries(
       validators
-    ).reduce((errors, [name, validators]) => {
-      const { values } = formState;
-      const messages = (
-        validators as Validator<TValues>[]
-      ).reduce((result, validator) => {
-        const value = (
-          values as Record<string, unknown>
-        )[name];
-        const err = validator(value, values);
-        return [...result, err];
-      }, [] as ReturnType<Validator<TValues>>[]);
+    ).reduce(
+      (errors, [name, validators]) => {
+        const { values } = formState;
+        const messages = (
+          validators as Validator<TValues>[]
+        ).reduce(
+          (result, validator) => {
+            const value = (
+              values as Record<string, unknown>
+            )[name];
+            const err = validator(value, values);
+            return [...result, err];
+          },
+          [] as ReturnType<Validator<TValues>>[]
+        );
 
-      if (messages[0]) {
-        errors[name] = messages[0];
-      }
+        if (messages[0]) {
+          errors[name] = messages[0];
+        }
 
-      return errors;
-    }, {} as Record<string, string>);
+        return errors;
+      },
+      {} as Record<string, string>
+    );
 
     if (isEmpty(formErrors)) {
       return true;

@@ -56,7 +56,6 @@ self.addEventListener('fetch', function (event) {
                   return networkResponse;
                 }
 
-
                 cache.put(
                   event.request,
                   networkResponse.clone()
@@ -66,7 +65,6 @@ self.addEventListener('fetch', function (event) {
               });
           })
           .catch(() => {
-
             return caches.match(event.request);
           });
       }

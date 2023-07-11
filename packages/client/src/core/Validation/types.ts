@@ -9,7 +9,7 @@ export type ValidationResult = string | null;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FormFieldState<
   T = any,
-  THtmlProps = any
+  THtmlProps = any,
 > {
   fieldProps: THtmlProps;
   value: T;

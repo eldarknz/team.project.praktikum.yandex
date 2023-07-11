@@ -5,7 +5,7 @@ import { FormState, Validator } from '../types';
 type CleanHandler = () => void;
 
 export interface RegisterFieldArgs<
-  TValues extends object
+  TValues extends object,
 > {
   name: string;
   validators: Validator<TValues>[];
@@ -14,7 +14,7 @@ export interface RegisterFieldArgs<
 }
 
 export const useRegisterField = <
-  TValues extends object
+  TValues extends object,
 >({
   onClearHandlesChange,
   onFormStateChange,

@@ -14,7 +14,11 @@ import { GameLayout } from '@layouts/Game/GameLayout';
 
 const mapRoutes = (routes: RouteItem[]) => {
   return routes.map(
-    ({ path, isPrivate, component: Component }) =>
+    ({
+      path,
+      isPrivate,
+      component: Component,
+    }) =>
       isPrivate ? (
         <Route
           key={path}

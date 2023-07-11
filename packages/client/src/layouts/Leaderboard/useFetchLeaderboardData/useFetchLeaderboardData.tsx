@@ -13,12 +13,11 @@ export const useFetchLeaderboardData = () => {
       try {
         const dataList:
           | { data: LeaderboardData }[]
-          | unknown = await controllers.lead.getAll(
-          {
+          | unknown =
+          await controllers.lead.getAll({
             cursor: 0,
             limit: 10,
-          }
-        );
+          });
 
         if (Array.isArray(dataList)) {
           const sortedData = dataList.sort(

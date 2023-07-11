@@ -14,7 +14,7 @@ export function escapeInput(
 }
 
 export function escapeObjectValues<
-  T extends { [key: string]: string | undefined }
+  T extends { [key: string]: string | undefined },
 >(obj: T): { [key in keyof T]: string } {
   const escapedObj = {} as {
     [key in keyof T]: string;

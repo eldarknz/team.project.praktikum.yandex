@@ -40,13 +40,13 @@ export const AuthForm = ({
     (content: string): boolean => {
       const password = (
         document.querySelector(
-          'input.baseInput.baseInput--error[name="password"]',
+          'input.baseInput.baseInput--error[name="password"]'
         ) as HTMLInputElement
       ).value;
 
       return password === content;
     },
-    [],
+    []
   );
 
   const handleSignInSubmit = useCallback(
@@ -54,7 +54,7 @@ export const AuthForm = ({
       event.preventDefault();
 
       const formData = new FormData(
-        event.target as HTMLFormElement,
+        event.target as HTMLFormElement
       );
 
       const data: Record<string, string> = {};
@@ -74,7 +74,7 @@ export const AuthForm = ({
         },
       });
     },
-    [controllers.auth, navigate],
+    [controllers.auth, navigate]
   );
 
   const handleSignUpSubmit = useCallback(
@@ -82,7 +82,7 @@ export const AuthForm = ({
       event.preventDefault();
 
       const formData = new FormData(
-        event.target as HTMLFormElement,
+        event.target as HTMLFormElement
       );
 
       const data: Record<string, string> = {};
@@ -102,7 +102,7 @@ export const AuthForm = ({
         },
       });
     },
-    [controllers.auth, navigate],
+    [controllers.auth, navigate]
   );
 
   const handleOAuthLogin: MouseEventHandler =
@@ -111,7 +111,7 @@ export const AuthForm = ({
         e.preventDefault();
         controllers.auth.signinWithYandex();
       },
-      [controllers.auth],
+      [controllers.auth]
     );
 
   const title =

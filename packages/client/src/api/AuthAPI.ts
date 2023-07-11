@@ -79,13 +79,13 @@ export class AuthAPI extends BaseApi {
       url: `${API_URL}/oauth/yandex/service-id?${new URLSearchParams(
         {
           redirect_uri: redirectUri,
-        },
+        }
       )}`,
     });
   }
 
   public authWithYandex(
-    data: AuthWithYandexRequest,
+    data: AuthWithYandexRequest
   ) {
     return this.http.post({
       url: `${API_URL}/oauth/yandex`,

@@ -3,7 +3,7 @@ import { RootState } from '@service/store';
 
 export const getRightInitialState = <T>(
   initialState: T,
-  reducer: keyof RootState,
+  reducer: keyof RootState
 ) =>
   isServer
     ? initialState

@@ -9,11 +9,11 @@ export type FormErrors<TValues> = Record<
 >;
 
 export type FormValidators<
-  TValues extends object
+  TValues extends object,
 > = Record<keyof TValues, Validator<TValues>[]>;
 
 export interface FormState<
-  TValues extends object
+  TValues extends object,
 > {
   values: TValues;
   errors: FormErrors<TValues>;

@@ -14,7 +14,7 @@ const initialState: IUserState = {
 export const userSlice = createSlice({
   initialState: getRightInitialState<IUserState>(
     initialState,
-    'userReducer',
+    'userReducer'
   ),
   name: 'user',
   reducers: {

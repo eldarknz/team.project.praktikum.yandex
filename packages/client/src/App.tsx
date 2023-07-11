@@ -28,19 +28,19 @@ export const services: ServicesModel = {
 };
 
 export const createControllers = (
-  store: RootStore,
+  store: RootStore
 ) => ({
   auth: new AuthController(services, store),
   viewer: new ViewerController(services, store),
   lead: new LeaderboardController(
     services,
-    store,
+    store
   ),
 });
 
 const Content = () => {
   const { load, user } = useAppSelector(
-    state => state.userReducer,
+    state => state.userReducer
   );
   const dispatch = useAppDispatch();
   useEffect(() => {

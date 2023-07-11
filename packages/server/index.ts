@@ -21,16 +21,16 @@ async function startServer() {
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(
-    require.resolve('client/dist/index.html'),
+    require.resolve('client/dist/index.html')
   );
   const ssrDistPath = path.dirname(
-    require.resolve('client/ssr-dist/client.cjs'),
+    require.resolve('client/ssr-dist/client.cjs')
   );
   const srcPath = path.dirname(
-    require.resolve('client'),
+    require.resolve('client')
   );
   const ssrClientPath = require.resolve(
-    'client/ssr-dist/client.cjs',
+    'client/ssr-dist/client.cjs'
   );
 
   if (isDev()) {
@@ -47,8 +47,8 @@ async function startServer() {
     app.use(
       '/assets',
       express.static(
-        path.resolve(distPath, 'assets'),
-      ),
+        path.resolve(distPath, 'assets')
+      )
     );
   }
 
@@ -58,7 +58,7 @@ async function startServer() {
     if (err) {
       console.error(
         'Ошибка при чтении папки:',
-        err,
+        err
       );
       return;
     }
@@ -75,14 +75,14 @@ async function startServer() {
       if (!isDev()) {
         if (
           staticFiles.includes(
-            req.baseUrl.replace('/', ''),
+            req.baseUrl.replace('/', '')
           )
         ) {
           res.sendFile(
             path.resolve(
               distPath,
-              req.baseUrl.replace('/', ''),
-            ),
+              req.baseUrl.replace('/', '')
+            )
           );
           return;
         }
@@ -91,23 +91,23 @@ async function startServer() {
       if (!isDev()) {
         template = fs.readFileSync(
           path.resolve(distPath, 'index.html'),
-          'utf-8',
+          'utf-8'
         );
       } else {
         template = fs.readFileSync(
           path.resolve(srcPath, 'index.html'),
-          'utf-8',
+          'utf-8'
         );
 
         template = await vite!.transformIndexHtml(
           url,
-          template,
+          template
         );
       }
 
       let render: (
         url: string,
-        store: object,
+        store: object
       ) => Promise<string>;
 
       if (!isDev()) {
@@ -116,7 +116,7 @@ async function startServer() {
       } else {
         render = (
           await vite!.ssrLoadModule(
-            path.resolve(srcPath, 'ssr.tsx'),
+            path.resolve(srcPath, 'ssr.tsx')
           )
         ).render;
       }
@@ -124,20 +124,20 @@ async function startServer() {
         await vite!.ssrLoadModule(
           path.resolve(
             srcPath,
-            'src/service/store/index.ts',
-          ),
+            'src/service/store/index.ts'
+          )
         );
       const store = createReduxStore();
       const appHtml = await render(url, store);
       const storeState = store.getState();
       const storeIncrementHtml = `<script>window.__REDUX_STORE__ = ${JSON.stringify(
-        storeState,
+        storeState
       )}</script>`;
       const html = template
         .replace(`<!-- ssr-outlet -->`, appHtml)
         .replace(
           `<!-- store-outlet -->`,
-          storeIncrementHtml,
+          storeIncrementHtml
         );
 
       res
@@ -154,7 +154,7 @@ async function startServer() {
 
   app.listen(port, () => {
     console.log(
-      `  ➜ 🎸 Server is listening on port: ${port}. Use this server: http://localhost:${port}`,
+      `  ➜ 🎸 Server is listening on port: ${port}. Use this server: http://localhost:${port}`
     );
   });
 }

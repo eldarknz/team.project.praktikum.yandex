@@ -19,5 +19,5 @@ export const getUserAction = createAsyncThunk(
       offLoader();
       console.error(e);
     }
-  },
+  }
 );

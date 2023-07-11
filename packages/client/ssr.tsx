@@ -9,6 +9,6 @@ export async function render(url, store) {
       <Provider store={store}>
         <App />
       </Provider>
-    </StaticRouter>,
+    </StaticRouter>
   );
 }

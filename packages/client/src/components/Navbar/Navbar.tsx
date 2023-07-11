@@ -5,12 +5,6 @@ export interface NavbarProps {
   view?: 'tabs' | 'icons';
 }
 
-export const Navbar = ({
-  view = 'tabs',
-}: NavbarProps) => {
-  return view === 'tabs' ? (
-    <NavbarTabs />
-  ) : (
-    <NavbarIcons />
-  );
+export const Navbar = ({ view = 'tabs' }: NavbarProps) => {
+  return view === 'tabs' ? <NavbarTabs /> : <NavbarIcons />;
 };

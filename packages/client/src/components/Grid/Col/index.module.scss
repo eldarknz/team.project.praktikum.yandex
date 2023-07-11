@@ -83,12 +83,8 @@
 
     @for $i from 1 to 13 {
       .width-#{$breakpoint_key}-#{$i} {
-        flex: 0
-          0
-          calc(#{$grid-col-width} * #{$i});
-        max-width: calc(
-          #{$grid-col-width} * #{$i}
-        );
+        flex: 0 0 calc(#{$grid-col-width} * #{$i});
+        max-width: calc(#{$grid-col-width} * #{$i});
       }
 
       .order-#{$breakpoint_key}-#{$i} {
@@ -98,9 +94,7 @@
 
     @for $i from 1 to 12 {
       .offset-#{$breakpoint_key}-#{$i} {
-        margin-left: calc(
-          #{$grid-col-width} * #{$i}
-        );
+        margin-left: calc(#{$grid-col-width} * #{$i});
       }
     }
   }

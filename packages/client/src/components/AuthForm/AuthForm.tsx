@@ -1,61 +1,37 @@
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-  ButtonProps,
-} from '@components/Button';
-import {
-  Input,
-  InputProps,
-} from '@components/Input';
+import { Button, ButtonProps } from '@components/Button';
+import { Input, InputProps } from '@components/Input';
 import './AuthForm.scss';
-import {
-  FormEvent,
-  MouseEventHandler,
-  useCallback,
-  useId,
-  useState,
-} from 'react';
+import { FormEvent, MouseEventHandler, useCallback, useId, useState } from 'react';
 import { ROUTES } from '@routers/routes';
 import { validate } from '@service/Validate';
 import { useControllers } from '@core/ControllersContext';
-import {
-  ISigninData,
-  ISignupData,
-} from '@api/AuthAPI';
+import { ISigninData, ISignupData } from '@api/AuthAPI';
 
 export type AuthFormProps = {
   authType: 'signup' | 'signin';
 };
 
-export const AuthForm = ({
-  authType,
-}: AuthFormProps) => {
+export const AuthForm = ({ authType }: AuthFormProps) => {
   const navigate = useNavigate();
   const controllers = useControllers();
-  const [authError, setAuthError] = useState<
-    string | null
-  >(null);
+  const [authError, setAuthError] = useState<string | null>(null);
 
-  const validateConfirmPassword = useCallback(
-    (content: string): boolean => {
-      const password = (
-        document.querySelector(
-          'input.baseInput.baseInput--error[name="password"]',
-        ) as HTMLInputElement
-      ).value;
+  const validateConfirmPassword = useCallback((content: string): boolean => {
+    const password = (
+      document.querySelector(
+        'input.baseInput.baseInput--error[name="password"]',
+      ) as HTMLInputElement
+    ).value;
 
-      return password === content;
-    },
-    [],
-  );
+    return password === content;
+  }, []);
 
   const handleSignInSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      const formData = new FormData(
-        event.target as HTMLFormElement,
-      );
+      const formData = new FormData(event.target as HTMLFormElement);
 
       const data: Record<string, string> = {};
 
@@ -81,9 +57,7 @@ export const AuthForm = ({
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      const formData = new FormData(
-        event.target as HTMLFormElement,
-      );
+      const formData = new FormData(event.target as HTMLFormElement);
 
       const data: Record<string, string> = {};
 
@@ -105,26 +79,21 @@ export const AuthForm = ({
     [controllers.auth, navigate],
   );
 
-  const handleOAuthLogin: MouseEventHandler =
-    useCallback(
-      e => {
-        e.preventDefault();
-        controllers.auth.signinWithYandex();
-      },
-      [controllers.auth],
-    );
+  const handleOAuthLogin: MouseEventHandler = useCallback(
+    e => {
+      e.preventDefault();
+      controllers.auth.signinWithYandex();
+    },
+    [controllers.auth],
+  );
 
-  const title =
-    authType === 'signin'
-      ? 'Авторизация'
-      : 'Регистрация';
+  const title = authType === 'signin' ? 'Авторизация' : 'Регистрация';
 
   const signInInputs: InputProps[] = [
     {
       name: 'login',
       labelText: 'Логин',
-      errorText:
-        'Кажется, вы неверно ввели логин :(',
+      errorText: 'Кажется, вы неверно ввели логин :(',
       validator: validate.login,
     },
     {
@@ -208,51 +177,28 @@ export const AuthForm = ({
     },
   ];
 
-  const inputs =
-    authType === 'signin'
-      ? signInInputs
-      : signUpInputs;
+  const inputs = authType === 'signin' ? signInInputs : signUpInputs;
 
-  const buttons =
-    authType === 'signin'
-      ? signInButtons
-      : signUpButtons;
+  const buttons = authType === 'signin' ? signInButtons : signUpButtons;
 
-  const handleSubmit =
-    authType === 'signin'
-      ? handleSignInSubmit
-      : handleSignUpSubmit;
+  const handleSubmit = authType === 'signin' ? handleSignInSubmit : handleSignUpSubmit;
 
   return (
     <div className="authBoxWrapper">
-      <form
-        className="authBox"
-        onSubmit={handleSubmit}>
+      <form className="authBox" onSubmit={handleSubmit}>
         <h1 className="authBoxHeader">{title}</h1>
 
         {inputs.map(inputProps => (
-          <Input
-            key={inputProps.name}
-            {...inputProps}
-          />
+          <Input key={inputProps.name} {...inputProps} />
         ))}
 
-        {authError && (
-          <div className="authBoxError">
-            {authError}
-          </div>
-        )}
+        {authError && <div className="authBoxError">{authError}</div>}
 
         {buttons.map(buttonProps => (
-          <Button
-            key={buttonProps.id}
-            {...buttonProps}
-          />
+          <Button key={buttonProps.id} {...buttonProps} />
         ))}
 
-        <Button
-          view="subButton"
-          onClick={handleOAuthLogin}>
+        <Button view="subButton" onClick={handleOAuthLogin}>
           Войти с Yandex
         </Button>
       </form>

@@ -1,7 +1,5 @@
 import GenericObjectImpl from '@core/GenericObject/GenericObjectImpl';
-import levelConfig, {
-  Levels,
-} from './levelsConfig';
+import levelConfig, { Levels } from './levelsConfig';
 
 export type LevelListType = {
   title: string;
@@ -23,11 +21,7 @@ export const levelList: LevelListType[] = [
   },
 ];
 
-export const getLevel = (
-  context: CanvasRenderingContext2D,
-  level: Levels,
-  baseHeight: number
-) => {
+export const getLevel = (context: CanvasRenderingContext2D, level: Levels, baseHeight: number) => {
   const config = new levelConfig(baseHeight);
 
   return {
@@ -36,7 +30,7 @@ export const getLevel = (
         new GenericObjectImpl({
           context,
           ...item,
-        })
+        }),
     ),
     finishPoint: config[level]().finishPoint,
   };

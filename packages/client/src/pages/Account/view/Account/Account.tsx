@@ -22,9 +22,7 @@ export interface AccountProps {
   viewer: ViewerModel;
 }
 
-export const Account = ({
-  viewer,
-}: AccountProps) => {
+export const Account = ({ viewer }: AccountProps) => {
   const {
     isOpen: isUserEditorOpen,
     close: closeUserEditor,
@@ -45,50 +43,44 @@ export const Account = ({
   } = useDialog();
   const controllers = useControllers();
 
-  const updateUser: UserEditorProps['onSubmit'] =
-    useCallback(
-      values => {
-        return controllers.viewer.editUser({
-          values,
-          onSuccess: () => {
-            closeUserEditor();
-          },
-          onError: () =>
-            alert('Cannot update user'),
-        });
-      },
-      [closeUserEditor, controllers.viewer]
-    );
+  const updateUser: UserEditorProps['onSubmit'] = useCallback(
+    values => {
+      return controllers.viewer.editUser({
+        values,
+        onSuccess: () => {
+          closeUserEditor();
+        },
+        onError: () => alert('Cannot update user'),
+      });
+    },
+    [closeUserEditor, controllers.viewer],
+  );
 
-  const updateAvatar: AvatarEditorProps['onSubmit'] =
-    useCallback(
-      values => {
-        return controllers.viewer.editAvatar({
-          values,
-          onSuccess: () => {
-            closeAvatarEditor();
-          },
-          onError: () =>
-            alert('Cannot update avatar'),
-        });
-      },
-      [closeAvatarEditor, controllers.viewer]
-    );
+  const updateAvatar: AvatarEditorProps['onSubmit'] = useCallback(
+    values => {
+      return controllers.viewer.editAvatar({
+        values,
+        onSuccess: () => {
+          closeAvatarEditor();
+        },
+        onError: () => alert('Cannot update avatar'),
+      });
+    },
+    [closeAvatarEditor, controllers.viewer],
+  );
 
-  const updatePassword: PasswordEditorProps['onSubmit'] =
-    useCallback(
-      values => {
-        return controllers.viewer.editPassword({
-          values,
-          onSuccess: () => {
-            closePasswordEditor();
-          },
-          onError: () =>
-            alert('Cannot update password'),
-        });
-      },
-      [closePasswordEditor, controllers.viewer]
-    );
+  const updatePassword: PasswordEditorProps['onSubmit'] = useCallback(
+    values => {
+      return controllers.viewer.editPassword({
+        values,
+        onSuccess: () => {
+          closePasswordEditor();
+        },
+        onError: () => alert('Cannot update password'),
+      });
+    },
+    [closePasswordEditor, controllers.viewer],
+  );
 
   return (
     <div className={styles.page}>
@@ -120,23 +112,15 @@ export const Account = ({
       <div className={styles.content}>
         <Avatar link={viewer.avatar} />
         <h4 className={styles.userName}>
-          {viewer.display_name
-            ? viewer.display_name
-            : `${viewer.first_name} ${viewer.second_name}`}
+          {viewer.display_name ? viewer.display_name : `${viewer.first_name} ${viewer.second_name}`}
         </h4>
 
         <UserDataList {...viewer} />
 
         <div className={styles.buttons}>
-          <Button onClick={openUserEditor}>
-            Изменить данные
-          </Button>
-          <Button onClick={openPasswordEditor}>
-            Изменить пароль
-          </Button>
-          <Button onClick={openAvatarEditor}>
-            Изменить аватар
-          </Button>
+          <Button onClick={openUserEditor}>Изменить данные</Button>
+          <Button onClick={openPasswordEditor}>Изменить пароль</Button>
+          <Button onClick={openAvatarEditor}>Изменить аватар</Button>
         </div>
       </div>
     </div>

@@ -1,9 +1,5 @@
 import cn from 'classnames';
-import {
-  useState,
-  useId,
-  TextareaHTMLAttributes,
-} from 'react';
+import { useState, useId, TextareaHTMLAttributes } from 'react';
 import { InputControl } from '@components/InputControl';
 import styles from './styles.module.scss';
 
@@ -26,14 +22,10 @@ export const Textarea = ({
   validator,
   ...otherProps
 }: TTextareaProps) => {
-  const [error, setError] = useState<
-    string | null
-  >(null);
+  const [error, setError] = useState<string | null>(null);
 
   /* eslint-disable */
-  const componentId = labelText
-    ? useId()
-    : undefined;
+  const componentId = labelText ? useId() : undefined;
   /* eslint-enable */
 
   const componentClassNames = cn(
@@ -41,7 +33,7 @@ export const Textarea = ({
     {
       [styles.error]: error,
     },
-    className
+    className,
   );
 
   const handleBlur = () => {
@@ -53,10 +45,7 @@ export const Textarea = ({
   };
 
   return (
-    <InputControl
-      labelId={componentId}
-      labelText={labelText}
-      error={error}>
+    <InputControl labelId={componentId} labelText={labelText} error={error}>
       <textarea
         id={componentId}
         name={name}

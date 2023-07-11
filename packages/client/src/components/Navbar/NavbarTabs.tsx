@@ -10,8 +10,7 @@ import styles from './Navbar.module.scss';
 import { StyledLink } from '@components/StyledLink';
 
 export const NavbarTabs = () => {
-  const isAuthenticated =
-    useIsViewerAuthenticated();
+  const isAuthenticated = useIsViewerAuthenticated();
   const controllers = useControllers();
 
   const links = useMemo(() => {
@@ -36,47 +35,32 @@ export const NavbarTabs = () => {
         title: 'Форум',
         route: ROUTES.Forum,
       },
-    ].filter(
-      ({ route }) =>
-        !route.isPrivate || isAuthenticated
-    );
+    ].filter(({ route }) => !route.isPrivate || isAuthenticated);
   }, [isAuthenticated]);
 
   const availableLinks = useMemo(
-    () =>
-      isAuthenticated
-        ? links
-        : links.filter(
-            ({ route: { isPrivate } }) =>
-              !isPrivate
-          ),
-    [isAuthenticated, links]
+    () => (isAuthenticated ? links : links.filter(({ route: { isPrivate } }) => !isPrivate)),
+    [isAuthenticated, links],
   );
 
-  const logout = useCallback(
-    () => controllers.auth.logout(),
-    [controllers.auth]
-  );
+  const logout = useCallback(() => controllers.auth.logout(), [controllers.auth]);
 
   return (
     <div className={styles.navbar}>
       <div className={styles.links}>
-        {availableLinks.map(
-          ({ title, route: { path } }) => (
-            <NavLink
-              key={title}
-              to={path}
-              className={({ isActive }) =>
-                cn({
-                  [styles.linkItem]: true,
-                  [styles.linkItemActive]:
-                    isActive,
-                })
-              }>
-              {title}
-            </NavLink>
-          )
-        )}
+        {availableLinks.map(({ title, route: { path } }) => (
+          <NavLink
+            key={title}
+            to={path}
+            className={({ isActive }) =>
+              cn({
+                [styles.linkItem]: true,
+                [styles.linkItemActive]: isActive,
+              })
+            }>
+            {title}
+          </NavLink>
+        ))}
       </div>
 
       {isAuthenticated ? (
@@ -85,9 +69,7 @@ export const NavbarTabs = () => {
         </div>
       ) : (
         <div className={styles.button}>
-          <StyledLink to={ROUTES.SignIn.path}>
-            Войти
-          </StyledLink>
+          <StyledLink to={ROUTES.SignIn.path}>Войти</StyledLink>
         </div>
       )}
     </div>

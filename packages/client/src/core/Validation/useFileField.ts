@@ -5,11 +5,7 @@ import {
   useState,
   useCallback,
 } from 'react';
-import {
-  FormFieldState,
-  FormFieldProps,
-  ValidationResult,
-} from './types';
+import { FormFieldState, FormFieldProps, ValidationResult } from './types';
 import { validateValue } from './validation';
 
 type Value = File | null;
@@ -31,51 +27,37 @@ type UseFieldFieldState = FormFieldState<
   }
 >;
 
-export const useFileField = (
-  props: UseFieldFieldProps
-): UseFieldFieldState => {
-  const {
-    rules,
-    name,
-    value: initialValue = null,
-  } = props;
+export const useFileField = (props: UseFieldFieldProps): UseFieldFieldState => {
+  const { rules, name, value: initialValue = null } = props;
 
-  const [value, setValue] =
-    useState(initialValue);
-  const [error, setError] =
-    useState<ValidationResult>(null);
+  const [value, setValue] = useState(initialValue);
+  const [error, setError] = useState<ValidationResult>(null);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> =
-    useCallback(
-      async event => {
-        if (props.onChange) {
-          props.onChange(event);
-        }
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    async event => {
+      if (props.onChange) {
+        props.onChange(event);
+      }
 
-        const { files } = event.target;
-        const file = files?.item(0) ?? null;
+      const { files } = event.target;
+      const file = files?.item(0) ?? null;
 
-        setValue(file);
-        setError(
-          await validateValue(file, rules)
-        );
-      },
-      [props, rules]
-    );
+      setValue(file);
+      setError(await validateValue(file, rules));
+    },
+    [props, rules],
+  );
 
-  const onBlur: FocusEventHandler<HTMLInputElement> =
-    useCallback(
-      async event => {
-        if (props.onBlur) {
-          props.onBlur(event);
-        }
+  const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+    async event => {
+      if (props.onBlur) {
+        props.onBlur(event);
+      }
 
-        setError(
-          await validateValue(value, rules)
-        );
-      },
-      [props, rules, value]
-    );
+      setError(await validateValue(value, rules));
+    },
+    [props, rules, value],
+  );
 
   const isValid = useCallback(async () => {
     const err = await validateValue(value, rules);

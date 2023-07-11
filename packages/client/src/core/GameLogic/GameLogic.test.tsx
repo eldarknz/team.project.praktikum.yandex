@@ -15,9 +15,7 @@ describe('GameLogic', () => {
 
   beforeEach(() => {
     canvas = document.createElement('canvas');
-    context = canvas.getContext(
-      '2d'
-    ) as CanvasRenderingContext2D;
+    context = canvas.getContext('2d') as CanvasRenderingContext2D;
     navigate = jest.fn();
     const props = {
       canvas,
@@ -39,12 +37,8 @@ describe('GameLogic', () => {
       gameLogic.init();
 
       expect(gameLogic.player).toBeDefined();
-      expect(
-        gameLogic.genericObjects
-      ).toBeDefined();
-      expect(
-        gameLogic.finishObject
-      ).toBeDefined();
+      expect(gameLogic.genericObjects).toBeDefined();
+      expect(gameLogic.finishObject).toBeDefined();
     });
   });
 
@@ -59,10 +53,9 @@ describe('GameLogic', () => {
         left: { presed: false },
         right: { presed: false },
       };
-      const contextStub: CanvasRenderingContext2D =
-        {
-          clearRect: jest.fn(),
-        } as any;
+      const contextStub: CanvasRenderingContext2D = {
+        clearRect: jest.fn(),
+      } as any;
       gameLogic.context = contextStub;
     });
 
@@ -70,26 +63,20 @@ describe('GameLogic', () => {
       gameLogic.keys.right.presed = true;
       gameLogic.animate();
 
-      expect(gameLogic.player?.velocity.x).toBe(
-        14
-      );
+      expect(gameLogic.player?.velocity.x).toBe(14);
     });
 
     it('should update player velocity when left key is pressed', () => {
       gameLogic.keys.left.presed = true;
       gameLogic.animate();
 
-      expect(gameLogic.player?.velocity.x).toBe(
-        -14
-      );
+      expect(gameLogic.player?.velocity.x).toBe(-14);
     });
 
     it('should not update player velocity when no keys are pressed', () => {
       gameLogic.animate();
 
-      expect(gameLogic.player?.velocity.x).toBe(
-        0
-      );
+      expect(gameLogic.player?.velocity.x).toBe(0);
     });
   });
 
@@ -100,9 +87,7 @@ describe('GameLogic', () => {
 
       gameLogic.keyUp({ keyCode });
 
-      expect(gameLogic.keys.left.presed).toBe(
-        false
-      );
+      expect(gameLogic.keys.left.presed).toBe(false);
     });
 
     it('should handle key up event for right key', () => {
@@ -111,9 +96,7 @@ describe('GameLogic', () => {
 
       gameLogic.keyUp({ keyCode });
 
-      expect(gameLogic.keys.right.presed).toBe(
-        false
-      );
+      expect(gameLogic.keys.right.presed).toBe(false);
     });
   });
 
@@ -123,9 +106,7 @@ describe('GameLogic', () => {
 
       gameLogic.keyDown({ keyCode });
 
-      expect(gameLogic.keys.left.presed).toBe(
-        true
-      );
+      expect(gameLogic.keys.left.presed).toBe(true);
       expect(gameLogic.currentKey).toBe('left');
     });
 
@@ -134,9 +115,7 @@ describe('GameLogic', () => {
 
       gameLogic.keyDown({ keyCode });
 
-      expect(gameLogic.keys.right.presed).toBe(
-        true
-      );
+      expect(gameLogic.keys.right.presed).toBe(true);
       expect(gameLogic.currentKey).toBe('right');
     });
 
@@ -148,9 +127,7 @@ describe('GameLogic', () => {
 
       gameLogic.keyDown({ keyCode });
 
-      expect(gameLogic.player?.velocity.y).toBe(
-        -20
-      );
+      expect(gameLogic.player?.velocity.y).toBe(-20);
       expect(gameLogic.jump).toBe(1);
     });
   });
@@ -167,23 +144,17 @@ describe('GameLogic', () => {
         left: { presed: false },
         right: { presed: false },
       };
-      const navigateSpy = jest.spyOn(
-        gameLogic,
-        'navigate'
-      );
+      const navigateSpy = jest.spyOn(gameLogic, 'navigate');
 
       gameLogic.player.position.y = 1338;
       gameLogic.scrollOffset = 5001;
 
       gameLogic.animate();
-      expect(navigateSpy).toHaveBeenCalledWith(
-        ROUTES.End.path,
-        {
-          state: {
-            level: gameLogic.level,
-          },
-        }
-      );
+      expect(navigateSpy).toHaveBeenCalledWith(ROUTES.End.path, {
+        state: {
+          level: gameLogic.level,
+        },
+      });
     });
 
     it('should navigate to end screen when player falls off the canvas', () => {
@@ -197,24 +168,16 @@ describe('GameLogic', () => {
         left: { presed: false },
         right: { presed: false },
       };
-      const navigateSpy = jest.spyOn(
-        gameLogic,
-        'navigate'
-      );
+      const navigateSpy = jest.spyOn(gameLogic, 'navigate');
 
-      gameLogic.player.position.y =
-        gameLogic.canvas.height +
-        gameLogic.player.height;
+      gameLogic.player.position.y = gameLogic.canvas.height + gameLogic.player.height;
       gameLogic.scrollOffset = 100;
 
       gameLogic.animate();
 
-      expect(navigateSpy).toHaveBeenCalledWith(
-        ROUTES.End.path,
-        {
-          state: { level: gameLogic.level },
-        }
-      );
+      expect(navigateSpy).toHaveBeenCalledWith(ROUTES.End.path, {
+        state: { level: gameLogic.level },
+      });
     });
   });
 });

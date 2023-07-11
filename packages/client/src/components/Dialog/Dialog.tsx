@@ -1,10 +1,4 @@
-import {
-  PropsWithChildren,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { PropsWithChildren, ReactNode, useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
 
@@ -19,15 +13,8 @@ interface DialogProps extends PropsWithChildren {
 
 const OVERLAY_CLASS = 'dialog-overlay';
 
-export const Dialog = ({
-  isOpen,
-  onOpenChange,
-  contentClass,
-  children,
-  title,
-}: DialogProps) => {
-  const [localOpen, setLocalOpen] =
-    useState(isOpen);
+export const Dialog = ({ isOpen, onOpenChange, contentClass, children, title }: DialogProps) => {
+  const [localOpen, setLocalOpen] = useState(isOpen);
 
   useEffect(() => {
     return setLocalOpen(isOpen);
@@ -39,16 +26,13 @@ export const Dialog = ({
     }
   }, [localOpen, onOpenChange]);
 
-  const closeDialogOnOverlayClick: React.MouseEventHandler =
-    useCallback(e => {
-      const element = e.target as HTMLElement;
+  const closeDialogOnOverlayClick: React.MouseEventHandler = useCallback(e => {
+    const element = e.target as HTMLElement;
 
-      if (
-        element.classList.contains(OVERLAY_CLASS)
-      ) {
-        setLocalOpen(false);
-      }
-    }, []);
+    if (element.classList.contains(OVERLAY_CLASS)) {
+      setLocalOpen(false);
+    }
+  }, []);
 
   return createPortal(
     <div
@@ -58,19 +42,11 @@ export const Dialog = ({
         [OVERLAY_CLASS]: true,
         'dialog--open': localOpen,
       })}>
-      <dialog
-        className={cn(
-          'dialog__content',
-          contentClass
-        )}>
-        <div className="dialog__header">
-          {title}
-        </div>
-        <div className="dialog__body">
-          {children}
-        </div>
+      <dialog className={cn('dialog__content', contentClass)}>
+        <div className="dialog__header">{title}</div>
+        <div className="dialog__body">{children}</div>
       </dialog>
     </div>,
-    document.body
+    document.body,
   );
 };

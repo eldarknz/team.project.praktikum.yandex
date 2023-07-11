@@ -3,10 +3,7 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import * as path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
-import {
-  PWAConfig,
-  configAliases,
-} from './vite.config';
+import { PWAConfig, configAliases } from './vite.config';
 
 export default defineConfig({
   plugins: [svgr(), react(), VitePWA(PWAConfig)],

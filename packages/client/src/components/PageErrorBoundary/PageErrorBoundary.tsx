@@ -1,8 +1,4 @@
-import {
-  Component,
-  ErrorInfo,
-  PropsWithChildren,
-} from 'react';
+import { Component, ErrorInfo, PropsWithChildren } from 'react';
 
 import { ROUTES } from '@routers/routes';
 import { StyledLink } from '@components/StyledLink';
@@ -13,10 +9,7 @@ interface PageErrorBoundaryState {
   hasError: boolean;
 }
 
-export class PageErrorBoundary extends Component<
-  PropsWithChildren,
-  PageErrorBoundaryState
-> {
+export class PageErrorBoundary extends Component<PropsWithChildren, PageErrorBoundaryState> {
   constructor(props: PropsWithChildren) {
     super(props);
     this.state = { hasError: false };
@@ -26,10 +19,7 @@ export class PageErrorBoundary extends Component<
     return { hasError: true };
   }
 
-  componentDidCatch(
-    error: Error,
-    info: ErrorInfo
-  ) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error(error);
     console.error(info.componentStack);
   }
@@ -39,9 +29,7 @@ export class PageErrorBoundary extends Component<
       return (
         <div className={style.pageErrorBoundary}>
           <h1>Something went wrong.</h1>
-          <StyledLink to={ROUTES.Home.path}>
-            На главную
-          </StyledLink>
+          <StyledLink to={ROUTES.Home.path}>На главную</StyledLink>
         </div>
       );
     }

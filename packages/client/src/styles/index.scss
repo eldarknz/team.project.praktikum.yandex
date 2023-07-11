@@ -8,8 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scrollbar-width: thin;
-  scrollbar-color: $scrollbar-color
-    $scrollbar-track-bg;
+  scrollbar-color: $scrollbar-color $scrollbar-track-bg;
 }
 
 *::-webkit-scrollbar {

@@ -1,22 +1,14 @@
-import {
-  ISignupData,
-  ISigninData,
-} from '@api/AuthAPI';
+import { ISignupData, ISigninData } from '@api/AuthAPI';
 import { GetViewerResponse } from '@api/ViewerAPI';
 
-import {
-  Handlers,
-  BaseController,
-} from './BaseController';
+import { Handlers, BaseController } from './BaseController';
 import { setUser } from '@service/store/reducers/userSlice';
 
-export interface SignUpRequest
-  extends Handlers<GetViewerResponse> {
+export interface SignUpRequest extends Handlers<GetViewerResponse> {
   values: ISignupData;
 }
 
-export interface SignInRequest
-  extends Handlers<GetViewerResponse> {
+export interface SignInRequest extends Handlers<GetViewerResponse> {
   values: ISigninData;
 }
 
@@ -25,16 +17,11 @@ export type LogoutRequest = Handlers<undefined>;
 const OAUTH_REDIRECT_URL = window.location.origin;
 
 export class AuthController extends BaseController {
-  public async signup({
-    onError,
-    onSuccess,
-    values,
-  }: SignUpRequest) {
+  public async signup({ onError, onSuccess, values }: SignUpRequest) {
     return this.services.auth
       .signup(values)
       .then(async () => {
-        const user =
-          await this.services.viewer.getViewer();
+        const user = await this.services.viewer.getViewer();
 
         this.store.dispatch(setUser(user));
 
@@ -49,16 +36,11 @@ export class AuthController extends BaseController {
       });
   }
 
-  public async signin({
-    onError,
-    onSuccess,
-    values,
-  }: SignInRequest) {
+  public async signin({ onError, onSuccess, values }: SignInRequest) {
     return this.services.auth
       .signin(values)
       .then(async () => {
-        const user =
-          await this.services.viewer.getViewer();
+        const user = await this.services.viewer.getViewer();
 
         this.store.dispatch(setUser(user));
 
@@ -73,10 +55,7 @@ export class AuthController extends BaseController {
       });
   }
 
-  logout({
-    onError,
-    onSuccess,
-  }: LogoutRequest = {}) {
+  logout({ onError, onSuccess }: LogoutRequest = {}) {
     return this.services.auth
       .logout()
       .then(async () => {
@@ -94,18 +73,15 @@ export class AuthController extends BaseController {
   }
 
   public async signinWithYandex() {
-    const { service_id } =
-      await this.services.auth.getServiceId({
-        redirectUri: OAUTH_REDIRECT_URL,
-      });
+    const { service_id } = await this.services.auth.getServiceId({
+      redirectUri: OAUTH_REDIRECT_URL,
+    });
 
     window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`;
   }
 
   public async getUserFromOAuth() {
-    const params = new URLSearchParams(
-      window.location.search,
-    );
+    const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
 
     if (!code) return;
@@ -119,10 +95,6 @@ export class AuthController extends BaseController {
       //
     }
 
-    window.history.replaceState(
-      null,
-      '',
-      window.location.pathname,
-    );
+    window.history.replaceState(null, '', window.location.pathname);
   }
 }

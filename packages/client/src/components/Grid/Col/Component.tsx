@@ -1,11 +1,7 @@
 import cn from 'classnames';
 import React, { useMemo } from 'react';
 
-import {
-  ResponsivePropertyType,
-  AlignContentType,
-  JustifyContentType,
-} from '../typings';
+import { ResponsivePropertyType, AlignContentType, JustifyContentType } from '../typings';
 import { getClassNames } from '../utils';
 
 import styles from './index.module.scss';
@@ -79,18 +75,10 @@ export const Col: React.FC<IColProps> = ({
   const componentClassName = cn(
     styles.component,
     guttersStyles.col,
-    useMemo(
-      () =>
-        getClassNames(
-          { width, offset, order },
-          styles
-        ),
-      [order, offset, width]
-    ),
+    useMemo(() => getClassNames({ width, offset, order }, styles), [order, offset, width]),
     align && globalStyles[`align-${align}`],
-    justify &&
-      globalStyles[`justify-content-${justify}`],
-    className
+    justify && globalStyles[`justify-content-${justify}`],
+    className,
   );
 
   const componentAttributes = {
@@ -98,9 +86,7 @@ export const Col: React.FC<IColProps> = ({
   };
 
   return (
-    <Component
-      className={componentClassName}
-      {...componentAttributes}>
+    <Component className={componentClassName} {...componentAttributes}>
       {children}
     </Component>
   );

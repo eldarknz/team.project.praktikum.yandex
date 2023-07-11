@@ -1,9 +1,4 @@
-import {
-  FormEventHandler,
-  FormHTMLAttributes,
-  useCallback,
-  useState,
-} from 'react';
+import { FormEventHandler, FormHTMLAttributes, useCallback, useState } from 'react';
 
 import { FormFieldState } from './types';
 
@@ -21,40 +16,33 @@ type UseFormState = {
 
 // ANCHOR - сделать так, чтобы в сабмите значение очищались от null и undefined
 
-export const useForm = ({
-  fields,
-  onSubmit,
-}: UseFormProps): UseFormState => {
-  const [isSubmitting, setSubmitting] =
-    useState(false);
+export const useForm = ({ fields, onSubmit }: UseFormProps): UseFormState => {
+  const [isSubmitting, setSubmitting] = useState(false);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> =
-    useCallback(
-      async event => {
-        event.preventDefault();
+  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    async event => {
+      event.preventDefault();
 
-        const isFormValid = (
-          await Promise.all(
-            fields.map(field => field.isValid())
-          )
-        ).every(isValid => isValid);
+      const isFormValid = (await Promise.all(fields.map(field => field.isValid()))).every(
+        isValid => isValid,
+      );
 
-        if (isFormValid) {
-          setSubmitting(true);
+      if (isFormValid) {
+        setSubmitting(true);
 
-          try {
-            await onSubmit();
+        try {
+          await onSubmit();
 
-            setSubmitting(false);
-          } catch (error) {
-            setSubmitting(false);
+          setSubmitting(false);
+        } catch (error) {
+          setSubmitting(false);
 
-            throw error;
-          }
+          throw error;
         }
-      },
-      [fields, onSubmit]
-    );
+      }
+    },
+    [fields, onSubmit],
+  );
 
   return {
     isSubmitting,

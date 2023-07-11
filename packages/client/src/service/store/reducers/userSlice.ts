@@ -12,10 +12,7 @@ const initialState: IUserState = {
 };
 
 export const userSlice = createSlice({
-  initialState: getRightInitialState<IUserState>(
-    initialState,
-    'userReducer',
-  ),
+  initialState: getRightInitialState<IUserState>(initialState, 'userReducer'),
   name: 'user',
   reducers: {
     setUser: (state, action) => {
@@ -28,7 +25,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, offUserLoader } =
-  userSlice.actions;
+export const { setUser, offUserLoader } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

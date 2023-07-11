@@ -23,18 +23,12 @@ export const InputControl = ({
     <>
       <div className={cn(wrapperClassName)}>
         {labelId && (
-          <label
-            htmlFor={labelId}
-            className={cn(labelClassName)}>
+          <label htmlFor={labelId} className={cn(labelClassName)}>
             {labelText}
           </label>
         )}
         <div>{children}</div>
-        {error && (
-          <div className="inputError">
-            {error}
-          </div>
-        )}
+        {error && <div className="inputError">{error}</div>}
       </div>
     </>
   );

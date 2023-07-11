@@ -32,10 +32,7 @@
 @each $breakpoint in $grid-breakpoints {
   $breakpoint_key: nth($breakpoint, 1);
   $breakpoint_value: nth($breakpoint, 2);
-  $width: map-get(
-    $container-width-sizes,
-    $breakpoint_key
-  );
+  $width: map-get($container-width-sizes, $breakpoint_key);
 
   @media (min-width: #{$breakpoint_value}) {
     .component {

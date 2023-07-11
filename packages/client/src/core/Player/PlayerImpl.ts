@@ -46,11 +46,7 @@ export default class PlayerImpl {
   readonly canvas?: HTMLCanvasElement;
   scrollOffset: number;
   readonly context: CanvasRenderingContext2D | null;
-  constructor({
-    scrollOffset,
-    canvas,
-    context,
-  }: PlayerImplProps) {
+  constructor({ scrollOffset, canvas, context }: PlayerImplProps) {
     this.context = context;
     this.scrollOffset = scrollOffset;
     this.canvas = canvas;
@@ -98,7 +94,7 @@ export default class PlayerImpl {
         this.position.x,
         this.position.y,
         this.width,
-        this.height
+        this.height,
       );
   }
 
@@ -106,32 +102,22 @@ export default class PlayerImpl {
     this.frames++;
     if (
       this.frames > FRAMECUT_FOR_STAND &&
-      (this.currentSprite ===
-        this.sprites.stand.left ||
-        this.currentSprite ===
-          this.sprites.stand.right)
+      (this.currentSprite === this.sprites.stand.left ||
+        this.currentSprite === this.sprites.stand.right)
     ) {
       this.frames = 0;
     } else if (
       this.frames > FRAMECUT_FOR_RUN &&
-      (this.currentSprite ===
-        this.sprites.run.left ||
-        this.currentSprite ===
-          this.sprites.run.right)
+      (this.currentSprite === this.sprites.run.left ||
+        this.currentSprite === this.sprites.run.right)
     ) {
       this.frames = 0;
     }
     const check =
-      this.scrollOffset > 0
-        ? this.canvas?.height || 0
-        : (this.canvas?.height || 0) -
-          BOTTOM_OFFSET;
+      this.scrollOffset > 0 ? this.canvas?.height || 0 : (this.canvas?.height || 0) - BOTTOM_OFFSET;
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
-    const val =
-      this.height +
-      this.position.y +
-      this.velocity.y;
+    const val = this.height + this.position.y + this.velocity.y;
     if (val <= check) {
       this.velocity.y += GAME_GRAVITY;
     } else {

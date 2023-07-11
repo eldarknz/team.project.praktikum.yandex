@@ -1,21 +1,8 @@
-export type AlignContentType =
-  | 'top'
-  | 'middle'
-  | 'bottom';
+export type AlignContentType = 'top' | 'middle' | 'bottom';
 
-export type JustifyContentType =
-  | 'left'
-  | 'center'
-  | 'right'
-  | 'around'
-  | 'between';
+export type JustifyContentType = 'left' | 'center' | 'right' | 'around' | 'between';
 
-export type BreakpointsType =
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'xxl';
+export type BreakpointsType = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export type BreakpointsObjectType = {
   sm?: string | number;
@@ -25,14 +12,8 @@ export type BreakpointsObjectType = {
   xxl?: string | number;
 };
 
-export type BreakpointsObjectKeysType =
-  keyof BreakpointsObjectType;
+export type BreakpointsObjectKeysType = keyof BreakpointsObjectType;
 
-export type ResponsivePropertyType =
-  | string
-  | number
-  | BreakpointsObjectType;
+export type ResponsivePropertyType = string | number | BreakpointsObjectType;
 
-export type ContainerBreakpointType =
-  | keyof BreakpointsType
-  | 'full';
+export type ContainerBreakpointType = keyof BreakpointsType | 'full';

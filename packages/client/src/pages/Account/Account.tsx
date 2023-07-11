@@ -5,9 +5,7 @@ import { useAppSelector } from '@service/store/hooks';
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const viewer = useAppSelector(
-    store => store.userReducer.user
-  );
+  const viewer = useAppSelector(store => store.userReducer.user);
 
   if (!viewer) {
     return (

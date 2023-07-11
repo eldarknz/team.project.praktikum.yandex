@@ -3,5 +3,5 @@
   "semi": true,
   "arrowParens": "avoid",
   "bracketSameLine": true,
-  "printWidth": 50
+  "printWidth": 100
 }

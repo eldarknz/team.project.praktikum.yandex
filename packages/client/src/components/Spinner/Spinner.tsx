@@ -4,9 +4,7 @@ export interface SpinnerProps {
   size?: number;
 }
 
-export const Spinner = ({
-  size = 24,
-}: SpinnerProps) => {
+export const Spinner = ({ size = 24 }: SpinnerProps) => {
   return (
     <span
       className="spinner"

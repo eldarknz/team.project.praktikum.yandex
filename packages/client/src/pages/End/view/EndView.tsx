@@ -6,20 +6,13 @@ export type EndViewProps = {
   isWin: boolean;
 };
 
-export default function EndView({
-  onRetry,
-  isWin,
-}: EndViewProps) {
+export default function EndView({ onRetry, isWin }: EndViewProps) {
   return (
     <>
       <h3 className={styles.title}>
-        {isWin
-          ? 'Ну что за чемпион!'
-          : 'Ого, вау, вот эта попытка!'}
+        {isWin ? 'Ну что за чемпион!' : 'Ого, вау, вот эта попытка!'}
       </h3>
-      <Button
-        className={styles.btn}
-        onClick={onRetry}>
+      <Button className={styles.btn} onClick={onRetry}>
         Повторить
       </Button>
     </>

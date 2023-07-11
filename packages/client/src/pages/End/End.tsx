@@ -1,9 +1,6 @@
 import { useCallback } from 'react';
 import EndView from './view/EndView';
-import {
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '@routers/routes';
 
 export default function End() {
@@ -14,10 +11,5 @@ export default function End() {
       state: { level: state.level },
     });
   }, [navigate, state.level]);
-  return (
-    <EndView
-      onRetry={handleRetry}
-      isWin={!!state?.win}
-    />
-  );
+  return <EndView onRetry={handleRetry} isWin={!!state?.win} />;
 }

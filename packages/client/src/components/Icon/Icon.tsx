@@ -9,11 +9,7 @@ export interface IconProps {
   size?: number;
 }
 
-export const Icon = ({
-  icon,
-  className,
-  size = 24,
-}: IconProps) => {
+export const Icon = ({ icon, className, size = 24 }: IconProps) => {
   return (
     <div
       style={{

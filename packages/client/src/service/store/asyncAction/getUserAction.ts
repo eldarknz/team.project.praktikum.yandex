@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { offUserLoader, setUser } from '@service/store/reducers/userSlice';
+
+import { offUserLoader, setUser } from '@shared/store/reducers/userSlice';
+
 import { services } from '../../../App';
 
 export const getUserAction = createAsyncThunk('user', async (_, { dispatch }) => {

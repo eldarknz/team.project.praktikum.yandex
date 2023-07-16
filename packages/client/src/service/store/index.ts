@@ -1,16 +1,1 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { IUserState, userReducer } from './reducers/userSlice';
-
-export const createReduxStore = () =>
-  configureStore({
-    reducer: { userReducer },
-  });
-
-export const store = createReduxStore();
-export type RootState = {
-  userReducer: IUserState;
-};
-
-export type RootStore = typeof store;
-
-export type AppDispatch = typeof store.dispatch;
+export * from './asyncAction/getUserAction';

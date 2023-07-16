@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 
 import { useControllers } from '@core/ControllersContext';
-import { useAppDispatch } from '@service/store/hooks';
-import { setUser } from '@service/store/reducers/userSlice';
+import { useAppDispatch } from '@shared/store/hooks';
+import { setUser } from '@shared/store/reducers/userSlice';
 
 export const useViewerFromSession = () => {
   const [isLoading, setLoading] = useState(false);

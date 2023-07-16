@@ -4,7 +4,7 @@ import 'normalize.css';
 
 import '@styles/index.scss';
 import { Provider } from 'react-redux';
-import { store } from '@service/store';
+import { store } from '@shared/store';
 
 import App from './App';
 

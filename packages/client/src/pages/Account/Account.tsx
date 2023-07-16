@@ -1,6 +1,7 @@
+import { useAppSelector } from '@shared/store/hooks';
+
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
-import { useAppSelector } from '@service/store/hooks';
 
 export const AccountPage = () => {
   document.title = 'Профиль';

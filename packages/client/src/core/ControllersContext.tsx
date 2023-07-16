@@ -3,9 +3,9 @@ import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
+import { RootStore, store } from '@shared/store';
 
 import { ServicesModel, useServices } from './ServicesContext';
-import { RootStore, store } from '@service/store';
 
 export interface ControllersModel {
   viewer: ViewerController;

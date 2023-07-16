@@ -1,5 +1,6 @@
-import { BaseApi } from '@api/BaseAPI';
-import { API_URL } from './constants';
+import { API_URL } from '@shared/config/constants';
+
+import { BaseApi } from './BaseAPI';
 
 export interface ISignupData {
   [key: string]: string;
@@ -52,6 +53,8 @@ export class AuthAPI extends BaseApi {
   }
 
   public signin(data: ISigninData) {
+    console.log('signin', `${API_URL}/auth/signup`);
+
     return this.http.post<SigninResponse, ISigninData>({
       url: `${API_URL}/auth/signin`,
       body: data,

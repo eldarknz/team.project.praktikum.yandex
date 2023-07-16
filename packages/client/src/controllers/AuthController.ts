@@ -1,8 +1,8 @@
 import { ISignupData, ISigninData } from '@api/AuthAPI';
 import { GetViewerResponse } from '@api/ViewerAPI';
+import { setUser } from '@shared/store/reducers/userSlice';
 
 import { Handlers, BaseController } from './BaseController';
-import { setUser } from '@service/store/reducers/userSlice';
 
 export interface SignUpRequest extends Handlers<GetViewerResponse> {
   values: ISignupData;
@@ -14,7 +14,7 @@ export interface SignInRequest extends Handlers<GetViewerResponse> {
 
 export type LogoutRequest = Handlers<undefined>;
 
-const OAUTH_REDIRECT_URL = window.location.origin;
+const getOAuthRedirectUrl = () => window.location.origin;
 
 export class AuthController extends BaseController {
   public async signup({ onError, onSuccess, values }: SignUpRequest) {
@@ -74,10 +74,10 @@ export class AuthController extends BaseController {
 
   public async signinWithYandex() {
     const { service_id } = await this.services.auth.getServiceId({
-      redirectUri: OAUTH_REDIRECT_URL,
+      redirectUri: getOAuthRedirectUrl(),
     });
 
-    window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`;
+    window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${getOAuthRedirectUrl()}`;
   }
 
   public async getUserFromOAuth() {
@@ -89,7 +89,7 @@ export class AuthController extends BaseController {
     try {
       await this.services.auth.authWithYandex({
         code,
-        redirectUri: OAUTH_REDIRECT_URL,
+        redirectUri: getOAuthRedirectUrl(),
       });
     } catch {
       //

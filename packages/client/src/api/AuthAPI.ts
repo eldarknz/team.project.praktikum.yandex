@@ -53,8 +53,6 @@ export class AuthAPI extends BaseApi {
   }
 
   public signin(data: ISigninData) {
-    console.log('signin', `${API_URL}/auth/signup`);
-
     return this.http.post<SigninResponse, ISigninData>({
       url: `${API_URL}/auth/signin`,
       body: data,

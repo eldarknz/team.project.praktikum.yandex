@@ -23,7 +23,7 @@ export const useFetchLeaderboardData = () => {
 
           const updatedPlayerListData = sortedData.map((item, index) => ({
             position: index + 1,
-            imgSrc: RESOURCES_URL + '\\' + item.data.imgSrc,
+            imgSrc: RESOURCES_URL + '/' + item.data.imgSrc,
             login: item.data.login,
             score: item.data.teamwork_theTeam_score,
           }));

@@ -1,16 +1,7 @@
-//@ts-ignore
 import { TopicModel, UserModel, CommentModel, ReplyModel, ReactionModel } from './models';
 import { SequelizeOptions, Sequelize } from 'sequelize-typescript';
 
-// const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env;
-
-// const CLIENT_PORT=3000
-
-// const SERVER_PORT=3001
-const POSTGRES_USER = 'test2';
-const POSTGRES_PASSWORD = 'test2';
-const POSTGRES_DB = 'postgres';
-const POSTGRES_PORT = 5432;
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env;
 
 const sequelizeOptions: SequelizeOptions = {
   username: POSTGRES_USER,

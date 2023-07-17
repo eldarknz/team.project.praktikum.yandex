@@ -8,6 +8,8 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
+import { createReduxStore } from '../shared/store';
+
 dotenv.config();
 
 const isDev = () => process.env.NODE_ENV === 'development';
@@ -18,10 +20,10 @@ async function startServer() {
   const port = Number(process.env.SERVER_PORT) || 3000;
 
   let vite: ViteDevServer | undefined;
-  const distPath = path.dirname(require.resolve('client/dist/index.html'));
-  const ssrDistPath = path.dirname(require.resolve('client/ssr-dist/client.cjs'));
-  const srcPath = path.dirname(require.resolve('client'));
-  const ssrClientPath = require.resolve('client/ssr-dist/client.cjs');
+  const distPath = path.resolve('../client/dist/');
+  const ssrDistPath = path.resolve('../client/ssr-dist/');
+  const srcPath = path.resolve('../client/');
+  const ssrClientPath = path.resolve('../client/ssr-dist/client.cjs');
 
   if (isDev()) {
     vite = await createViteServer({
@@ -76,9 +78,6 @@ async function startServer() {
       } else {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render;
       }
-      const { createReduxStore } = await vite!.ssrLoadModule(
-        path.resolve(srcPath, 'src/service/store/index.ts'),
-      );
       const store = createReduxStore();
       const appHtml = await render(url, store);
       const storeState = store.getState();

@@ -20,15 +20,7 @@
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
     "baseUrl": ".",
-    "rootDir": "..",
-    "paths": {
-      "*": ["types/*"],
-      "@shared/*": ["../shared/*"]
-    },
     "outDir": "dist"
   },
-  "include": [
-    "./*",
-    "../shared"
-  ]
+  "include": ["./models", "./store", "./typed.d.ts"],
 }

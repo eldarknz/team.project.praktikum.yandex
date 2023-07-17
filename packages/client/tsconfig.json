@@ -16,6 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "rootDir": "..",
     "paths": {
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
@@ -29,10 +30,11 @@
       "@service/*": ["./src/service/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["src", "./typed.d.ts", "./svg.d.ts"],
+  "include": ["src", "./typed.d.ts", "./svg.d.ts", "../shared"],
   "references": [
     {
       "path": "./tsconfig.node.json"

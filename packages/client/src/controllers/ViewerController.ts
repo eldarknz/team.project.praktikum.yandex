@@ -1,12 +1,12 @@
-import { GetViewerResponse } from '../api/ViewerAPI';
 import {
   UpdateAvatarRequest,
   UpdateAvatarResponse,
   UpdatePasswordRequest,
   UpdateUserRequest,
   UpdateUserResponse,
+  GetViewerResponse,
 } from '@api/ViewerAPI';
-import { setUser } from '@service/store/reducers/userSlice';
+import { setUser } from '@shared/store/reducers/userSlice';
 
 import { Handlers, BaseController } from './BaseController';
 

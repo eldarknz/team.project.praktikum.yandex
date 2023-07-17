@@ -1,5 +1,5 @@
 import { BaseApi } from '@api/BaseAPI';
-import { API_URL } from '@api/constants';
+import { API_URL } from '@shared/config/constants';
 
 export interface GetViewerResponse {
   id: number;

@@ -1,9 +1,15 @@
 version: '3.9'
 
+volumes:
+  DataVolume:
+    name: 'prakticum_volume'
+
 services:
   client:
     container_name: prakticum-client
     image: prakticum-client
+    volumes:
+      - DataVolume:/output:rw
     build:
       context: .
       dockerfile: Dockerfile.client
@@ -12,12 +18,16 @@ services:
     restart: always
     ports:
       - '${CLIENT_PORT}:80'
-    environment:
-      - CLIENT_PORT=${CLIENT_PORT}
-      - SERVER_PORT=${SERVER_PORT}
+    env_file:
+      - ./.env
+    networks:
+      - net
+
   server:
     container_name: prakticum-server
-    image: prackicum-server
+    image: prakticum-server
+    volumes:
+      - DataVolume:/app/client:ro
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -26,10 +36,17 @@ services:
     restart: always
     ports:
       - '${SERVER_PORT}:${SERVER_PORT}'
-    environment:
-      SERVER_PORT: ${SERVER_PORT}
+    env_file:
+      - ./.env
+    networks:
+      - net
+    depends_on:
+      - postgres
+      - client
+    command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
 
   postgres:
+    container_name: prakticum-database
     image: postgres:14
     ports:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'
@@ -39,3 +56,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./tmp/pgdata:/var/lib/postgresql/data
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

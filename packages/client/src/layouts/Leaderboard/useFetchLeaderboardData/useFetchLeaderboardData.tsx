@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useControllers } from '@core/ControllersContext';
 import { LeaderboardData } from '@api/LeaderboardAPI';
 import { IPlayerCardProps } from '@components/PlayerCard';
+import { RESOURCES_URL } from '@shared/config/constants';
 
 export const useFetchLeaderboardData = () => {
   const controllers = useControllers();
@@ -22,7 +23,7 @@ export const useFetchLeaderboardData = () => {
 
           const updatedPlayerListData = sortedData.map((item, index) => ({
             position: index + 1,
-            imgSrc: 'https://ya-praktikum.tech/api/v2/resources/' + item.data.imgSrc,
+            imgSrc: RESOURCES_URL + '/' + item.data.imgSrc,
             login: item.data.login,
             score: item.data.teamwork_theTeam_score,
           }));

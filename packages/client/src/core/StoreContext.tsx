@@ -1,8 +1,7 @@
-import { GetViewerResponse } from '@api/ViewerAPI';
-import { store } from '@service/store';
 import { useMemo, PropsWithChildren, createContext, useState } from 'react';
 
-export type Viewer = GetViewerResponse;
+import { Viewer } from '@shared/models/viewer';
+import { store } from '@shared/store';
 
 export interface StoreModel {
   viewer: Viewer | null;

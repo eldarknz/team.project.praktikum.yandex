@@ -10,10 +10,10 @@ import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
-import { RootStore } from '@service/store';
+import { RootStore } from '@shared/store';
+import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
+import { getUserAction } from '@service/store';
 import './styles/index.scss';
-import { useAppDispatch, useAppSelector } from '@service/store/hooks';
-import { getUserAction } from '@service/store/asyncAction';
 
 export const services: ServicesModel = {
   auth: new AuthAPI(),

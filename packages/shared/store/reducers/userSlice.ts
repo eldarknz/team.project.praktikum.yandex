@@ -1,6 +1,18 @@
-import { Viewer } from '@core/StoreContext';
 import { createSlice } from '@reduxjs/toolkit';
-import { getRightInitialState } from '@utils/getRightInitialState';
+
+import { Viewer } from '../../models/viewer';
+
+import { RootState } from '..';
+
+const getRightInitialState = <T>(initialState: T, reducer: keyof RootState) =>
+  isServer
+    ? initialState
+    : window.__REDUX_STORE__
+    ? window.__REDUX_STORE__?.[reducer]
+    : initialState;
+
+const isServer = !(typeof window !== 'undefined' && window.document);
+
 export interface IUserState {
   user: Viewer | null;
   load: boolean;

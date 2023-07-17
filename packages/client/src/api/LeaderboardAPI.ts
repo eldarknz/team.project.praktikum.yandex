@@ -1,5 +1,5 @@
+import { API_URL } from '@shared/config/constants';
 import { BaseApi } from '@api/BaseAPI';
-import { API_URL } from './constants';
 
 export interface LeaderboardData {
   imgSrc?: string;

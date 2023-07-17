@@ -1,5 +1,6 @@
-import { BaseApi } from '@api/BaseAPI';
-import { API_URL } from './constants';
+import { API_URL } from '@shared/config/constants';
+
+import { BaseApi } from './BaseAPI';
 
 export interface ISignupData {
   [key: string]: string;

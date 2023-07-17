@@ -65,6 +65,7 @@ export const configAliases = {
   '@service': path.resolve(__dirname, './src/service'),
   '@styles': path.resolve(__dirname, './src/styles'),
   '@utils': path.resolve(__dirname, './src/utils'),
+  '@shared': path.resolve(__dirname, '../shared'),
   '@public': path.resolve(__dirname, './public'),
 };
 

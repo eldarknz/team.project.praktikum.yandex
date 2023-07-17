@@ -2,16 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { Viewer } from '../../models/viewer';
 
-import { RootState } from '..';
+// import { RootState } from '..';
 
-const getRightInitialState = <T>(initialState: T, reducer: keyof RootState) =>
-  isServer
-    ? initialState
-    : window.__REDUX_STORE__
-    ? window.__REDUX_STORE__?.[reducer]
-    : initialState;
+// const isServer = !(typeof window !== 'undefined' && window.document);
 
-const isServer = !(typeof window !== 'undefined' && window.document);
+const getRightInitialState = <T>(initialState: T) => initialState;
+// isServer
+//   ? initialState
+//   : !!window.__REDUX_STORE__
+//   ? window.__REDUX_STORE__?.[reducer]
+//   : initialState;
 
 export interface IUserState {
   user: Viewer | null;
@@ -24,7 +24,7 @@ const initialState: IUserState = {
 };
 
 export const userSlice = createSlice({
-  initialState: getRightInitialState<IUserState>(initialState, 'userReducer'),
+  initialState: getRightInitialState<IUserState>(initialState),
   name: 'user',
   reducers: {
     setUser: (state, action) => {

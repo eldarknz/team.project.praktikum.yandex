@@ -9,6 +9,7 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
 import { createReduxStore } from '../shared/store';
+import { dbConnect } from './db';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const isDev = () => process.env.NODE_ENV === 'development';
 async function startServer() {
   const app = express();
   app.use(cors());
+  await dbConnect();
   const port = Number(process.env.SERVER_PORT) || 3000;
 
   let vite: ViteDevServer | undefined;

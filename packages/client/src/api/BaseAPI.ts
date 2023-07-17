@@ -1,4 +1,4 @@
-import { http } from '@core/HTTPTransport';
+import { http } from '@shared/core/HTTPTransport';
 
 export class BaseApi {
   protected http;

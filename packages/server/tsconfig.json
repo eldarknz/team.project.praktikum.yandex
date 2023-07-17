@@ -12,7 +12,6 @@
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
@@ -30,7 +29,8 @@
     "outDir": "dist"
   },
   "include": [
-    "./*",
-    "../shared"
+    "./models",
+    "../shared",
+    "./typed.d.ts",
   ]
 }

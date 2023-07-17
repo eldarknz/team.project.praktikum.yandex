@@ -4,6 +4,8 @@ import { Table, Column, DataType, Model } from 'sequelize-typescript';
 export interface ITopicModel {
   id: number;
   author: string;
+  post_name: string;
+  message_count: number;
 }
 
 @Table({ tableName: 'topic' })
@@ -12,9 +14,14 @@ export class TopicModel
   implements ITopicModel
 {
   @Column({ primaryKey: true, autoIncrement: true, type: DataType.INTEGER })
-  //@ts-ignore
-  id: number;
+  id!: number;
 
   @Column({ allowNull: false, type: DataType.STRING })
   author!: string;
+
+  @Column({ allowNull: false, type: DataType.STRING })
+  post_name!: string;
+
+  @Column({ allowNull: false, type: DataType.INTEGER })
+  message_count!: number;
 }

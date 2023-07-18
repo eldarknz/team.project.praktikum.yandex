@@ -11,8 +11,7 @@ import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
 import { RootStore } from '@shared/store';
-import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
-import { getUserAction } from '@service/store';
+import { useViewerFromSession } from '@hooks/useViewerFromSession';
 import './styles/index.scss';
 
 export const services: ServicesModel = {
@@ -28,20 +27,19 @@ export const createControllers = (store: RootStore) => ({
 });
 
 const Content = () => {
-  const { load, user } = useAppSelector(state => state.userReducer);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (user === null && load) {
-      dispatch(getUserAction());
-    }
-  }, [dispatch, load, user]);
+  const { isLoading, getViewer } = useViewerFromSession();
 
-  return !load ? (
+  useEffect(() => {
+    getViewer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return isLoading ? (
+    <PageLoader withBackground />
+  ) : (
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-  ) : (
-    <PageLoader withBackground />
   );
 };
 

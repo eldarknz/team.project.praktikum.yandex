@@ -24,6 +24,8 @@ services:
       - ./.env
     networks:
       - prakticum
+    depends_on:
+      - server
 
   server:
     container_name: prakticum-server
@@ -44,7 +46,6 @@ services:
       - prakticum
     depends_on:
       - postgres
-      - client
     command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
 
   postgres:

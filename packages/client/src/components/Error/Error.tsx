@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Error.scss';
+
 import { Button } from '@components/Button';
 import { ROUTES } from '@routers/routes';
+
+import './Error.scss';
 
 type OwnProps = {
   error: string;
@@ -13,8 +15,11 @@ type Props = OwnProps;
 
 export const Error = ({ error, title }: Props) => {
   const navigate = useNavigate();
-
   const handleHomeClick = useCallback(() => navigate(ROUTES.Home.path), [navigate]);
+
+  useEffect(() => {
+    document.title = `Ошибка ${error}`;
+  }, [error]);
 
   return (
     <div className="error">

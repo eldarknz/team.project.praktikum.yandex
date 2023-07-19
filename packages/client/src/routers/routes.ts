@@ -8,6 +8,7 @@ const GamePage = lazy(() => import('@pages/Game'));
 const SignInPage = lazy(() => import('@pages/SignIn'));
 const SignUpPage = lazy(() => import('@pages/SignUp'));
 const Error404Page = lazy(() => import('@pages/Error404'));
+const Error500Page = lazy(() => import('@pages/Error500'));
 
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));
@@ -81,6 +82,12 @@ export const ROUTES = {
     isPrivate: true,
     component: End,
     layout: Layout.Game,
+  },
+  Error500: {
+    path: '/error-500',
+    isPrivate: false,
+    component: Error500Page,
+    layout: Layout.Error,
   },
   Error404: {
     path: '*',

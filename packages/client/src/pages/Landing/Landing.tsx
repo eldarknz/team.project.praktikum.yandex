@@ -4,11 +4,11 @@ import { Button } from '@components/Button';
 import { ROUTES } from '@routers/routes';
 import backgroundImage from '@assets/png/background.png';
 import { Navbar } from '@components/Navbar';
-import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
+import { useViewer } from '@hooks/useViewer';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const isAuthenticated = useIsViewerAuthenticated();
+  const { isAuthenticated } = useViewer();
 
   const handleSignInClick = useCallback(() => navigate(ROUTES.SignIn.path), [navigate]);
   const backgroundStyle = {

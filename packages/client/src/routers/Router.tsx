@@ -1,22 +1,12 @@
-import { Fragment, ComponentType } from 'react';
+import { ComponentType } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { PrivateRoute } from '@routers/PrivateRoute';
 import { EmptyLayout } from '@layouts/Empty';
 import { DefaultLayout } from '@layouts/Default';
 import { AuthLayout } from '@layouts/Auth';
 import { ErrorLayout } from '@layouts/Error';
-import { Layout, RouteItem, ROUTES } from './routes';
+import { Layout, ROUTES } from './routes';
 import { GameLayout } from '@layouts/Game/GameLayout';
-
-const mapRoutes = (routes: RouteItem[]) => {
-  return routes.map(({ path, isPrivate, component: Component }) =>
-    isPrivate ? (
-      <Route key={path} element={<PrivateRoute page={<Component />} />} path={path} />
-    ) : (
-      <Route key={path} element={<Component />} path={path}></Route>
-    ),
-  );
-};
+import { RouteGuard } from './RouteGuard';
 
 const LAYOUTS: [Layout, ComponentType][] = [
   [Layout.Default, DefaultLayout],
@@ -28,14 +18,18 @@ const LAYOUTS: [Layout, ComponentType][] = [
 
 export const Router = () => {
   return (
-    <Fragment>
-      <Routes>
-        {LAYOUTS.map(([layoutKey, LayoutComponent]) => (
-          <Route key={layoutKey} element={<LayoutComponent />}>
-            {mapRoutes(Object.values(ROUTES).filter(({ layout }) => layout === layoutKey))}
-          </Route>
-        ))}
-      </Routes>
-    </Fragment>
+    <Routes>
+      {LAYOUTS.map(([layoutKey, LayoutComponent]) => (
+        <Route key={layoutKey} element={<LayoutComponent />}>
+          {Object.values(ROUTES)
+            .filter(({ layout }) => layout === layoutKey)
+            .map(({ path, accessType, component: Component }) => (
+              <Route key={path} element={<RouteGuard accessType={accessType} />} path={path}>
+                <Route path="" element={<Component />} />
+              </Route>
+            ))}
+        </Route>
+      ))}
+    </Routes>
   );
 };

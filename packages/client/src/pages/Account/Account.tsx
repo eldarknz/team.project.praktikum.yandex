@@ -1,4 +1,4 @@
-import { useAppSelector } from '@shared/store/hooks';
+import { useViewer } from '@hooks/useViewer';
 
 import { Account, LoadingState } from './view';
 import style from './Account.module.scss';
@@ -6,7 +6,7 @@ import style from './Account.module.scss';
 export const AccountPage = () => {
   document.title = 'Профиль';
 
-  const viewer = useAppSelector(store => store.userReducer.user);
+  const { viewer } = useViewer();
 
   if (!viewer) {
     return (

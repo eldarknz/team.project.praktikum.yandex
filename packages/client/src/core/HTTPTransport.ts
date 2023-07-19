@@ -18,20 +18,22 @@ type PostProps<T> = {
   headers?: keyof typeof HEADERS;
 };
 
-const handleResponse = async <T>(
-  response: Response,
-  handler: (response: Response) => Promise<T> | T,
-) => {
+const handleResponse = async <T>(response: Response) => {
+  const contentType = response.headers.get('content-type');
+  const responseContent = contentType?.includes('application/json')
+    ? await response.json()
+    : await response.text();
+
   if (response.ok) {
-    return handler(response);
+    return responseContent;
   } else {
-    throw new Error(
-      (
-        (await response.json()) as {
-          reason: string;
-        }
-      ).reason,
-    );
+    const message =
+      typeof responseContent === 'object' ? responseContent.reason : String(responseContent);
+    const error = new Error(message);
+
+    (error as any).response = response;
+
+    throw error;
   }
 };
 
@@ -47,17 +49,7 @@ class HTTPTransport {
       credentials: 'include',
       cache: 'no-store',
       body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
-    }).then(async response => {
-      return await handleResponse(response, () => {
-        const contentType = response.headers.get('content-type');
-
-        if (contentType?.includes('application/json')) {
-          return response.json();
-        } else {
-          return response.text();
-        }
-      });
-    });
+    }).then(handleResponse);
   }
 
   public post<TResponse, TBody = unknown>({
@@ -71,24 +63,14 @@ class HTTPTransport {
       credentials: 'include',
       cache: 'reload',
       body: body ? JSON.stringify(body) : null,
-    }).then(async response => {
-      return await handleResponse(response, () => {
-        const contentType = response.headers.get('content-type');
-
-        if (contentType?.includes('application/json')) {
-          return response.json();
-        } else {
-          return response.text();
-        }
-      });
-    });
+    }).then(handleResponse);
   }
 
   public get<TResponse>({ url }: { url: string }): Promise<TResponse> {
     return fetch(url, {
       credentials: 'include',
       cache: 'reload',
-    }).then(res => handleResponse(res, r => r.json()));
+    }).then(handleResponse);
   }
 }
 

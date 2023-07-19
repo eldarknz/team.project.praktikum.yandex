@@ -2,7 +2,7 @@ import { Optional } from 'sequelize';
 import { Table, Column, DataType, Model } from 'sequelize-typescript';
 
 export interface ITopicModel {
-  id: number;
+  id?: number;
   author: string;
   post_name: string;
   message_count: number;

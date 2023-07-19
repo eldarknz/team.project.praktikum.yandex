@@ -4,7 +4,7 @@ import { UserModel } from './user';
 import { TopicModel } from './topic';
 
 export interface IComment {
-  id: number;
+  id?: number;
   text: string;
   createdAt: string;
   owner_id: number;

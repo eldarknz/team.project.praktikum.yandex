@@ -12,7 +12,7 @@ export interface IUser {
   second_name: string | null;
 }
 
-@Table({ tableName: 'user' })
+@Table({ tableName: 'users' })
 export class UserModel extends Model<IUser, Optional<IUser, 'id'>> implements IUser {
   @Column({ primaryKey: true, type: DataType.INTEGER })
   id!: number;

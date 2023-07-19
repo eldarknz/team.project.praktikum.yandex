@@ -4,7 +4,7 @@ import { UserModel } from './user';
 import { CommentModel } from './comment';
 
 export interface IReaction {
-  id: number;
+  id?: number;
   owner_id: number;
   comment_id: number;
 }

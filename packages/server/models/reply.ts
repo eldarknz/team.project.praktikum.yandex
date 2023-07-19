@@ -4,7 +4,7 @@ import { UserModel } from './user';
 import { CommentModel } from './comment';
 
 export interface IReply {
-  id: number;
+  id?: number;
   text: string;
   createdAt: string;
   owner_id: number;

@@ -24,11 +24,17 @@
     "rootDir": "..",
     "paths": {
       "*": ["types/*"],
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
     },
     "outDir": "dist"
   },
   "include": [
+    "./*",
+    "./cert",
+    "./midlewars",
+    "./routers",
+    "./api",
+    "./services",
     "./models",
     "../shared",
     "./typed.d.ts",

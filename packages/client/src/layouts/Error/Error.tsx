@@ -8,8 +8,6 @@ import { PageErrorBoundary } from '@components/PageErrorBoundary';
 import style from './Error.module.scss';
 
 export const ErrorLayout = () => {
-  document.title = 'Ошибка 404';
-
   return (
     <div className={style.layout}>
       <Navbar />

@@ -12,9 +12,8 @@ export const useViewerFromSession = () => {
   const getViewer = useCallback(async () => {
     setLoading(true);
 
-    await controllers.auth.getUserFromOAuth();
-
     try {
+      await controllers.auth.getUserFromOAuth();
       await controllers.viewer.getViewer({});
     } catch {
       dispatch(setUser(null));
@@ -23,5 +22,5 @@ export const useViewerFromSession = () => {
     setLoading(false);
   }, [controllers.auth, controllers.viewer, dispatch]);
 
-  return { isLoading, setLoading, getViewer };
+  return { isLoading, getViewer };
 };

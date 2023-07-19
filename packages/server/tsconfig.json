@@ -29,7 +29,6 @@
     "outDir": "dist"
   },
   "include": [
-    "./*",
     "./cert",
     "./midlewars",
     "./routers",
@@ -37,6 +36,7 @@
     "./services",
     "./models",
     "../shared",
-    "./typed.d.ts",
+    "*",
+    "../@types/**/*"
   ]
 }

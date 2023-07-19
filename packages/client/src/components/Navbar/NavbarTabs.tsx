@@ -3,14 +3,15 @@ import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
 
 import { ROUTES } from '@routers/routes';
-import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
+import { useViewer } from '@hooks/useViewer';
 import { Button } from '@components/Button';
 import { useControllers } from '@core/ControllersContext';
 import styles from './Navbar.module.scss';
 import { StyledLink } from '@components/StyledLink';
+import { RouteAccessGuard } from '@routers/RouteGuard';
 
 export const NavbarTabs = () => {
-  const isAuthenticated = useIsViewerAuthenticated();
+  const { isAuthenticated } = useViewer();
   const controllers = useControllers();
 
   const links = useMemo(() => {
@@ -35,11 +36,14 @@ export const NavbarTabs = () => {
         title: 'Форум',
         route: ROUTES.Forum,
       },
-    ].filter(({ route }) => !route.isPrivate || isAuthenticated);
+    ].filter(({ route }) => route.accessType !== RouteAccessGuard.Private || isAuthenticated);
   }, [isAuthenticated]);
 
   const availableLinks = useMemo(
-    () => (isAuthenticated ? links : links.filter(({ route: { isPrivate } }) => !isPrivate)),
+    () =>
+      isAuthenticated
+        ? links
+        : links.filter(({ route: { accessType } }) => accessType !== RouteAccessGuard.Private),
     [isAuthenticated, links],
   );
 

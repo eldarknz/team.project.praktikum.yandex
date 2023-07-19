@@ -22,5 +22,7 @@
     "baseUrl": ".",
     "outDir": "dist"
   },
-  "include": ["./models", "./store", "./typed.d.ts"],
+  "include": [
+    "../@types/**/*"
+  ],
 }

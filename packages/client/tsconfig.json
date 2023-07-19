@@ -34,7 +34,7 @@
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["src", "./typed.d.ts", "./svg.d.ts", "../shared"],
+  "include": ["src", "../@types/**/*", "./svg.d.ts", "../shared"],
   "references": [
     {
       "path": "./tsconfig.node.json"

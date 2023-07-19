@@ -2,16 +2,17 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '@routers/routes';
-import { useIsViewerAuthenticated } from '@hooks/useIsViewerAuthenticated';
+import { useViewer } from '@hooks/useViewer';
 import { ReactComponent as HomeSVG } from '@assets/svg/colored/home-icon.svg';
 import { ReactComponent as LeaderboardSVG } from '@assets/svg/colored/leaderboard-icon.svg';
 import { ReactComponent as ProfileSVG } from '@assets/svg/colored/profile-icon.svg';
 import { ReactComponent as SettingsSVG } from '@assets/svg/colored/settings-icon.svg';
+import { RouteAccessGuard } from '@routers/RouteGuard';
 
 import style from './NavbarIcons.module.scss';
 
 export const NavbarIcons = () => {
-  const isAuthenticated = useIsViewerAuthenticated();
+  const { isAuthenticated } = useViewer();
 
   const links = useMemo(
     () => [
@@ -40,7 +41,12 @@ export const NavbarIcons = () => {
   );
 
   const availableLinks = useMemo(
-    () => (isAuthenticated ? links : links.filter(({ route: { isPrivate } }) => !isPrivate)),
+    () =>
+      isAuthenticated
+        ? links
+        : links.filter(
+            ({ route: { accessType } }) => !accessType || accessType === RouteAccessGuard.Private,
+          ),
     [isAuthenticated, links],
   );
 

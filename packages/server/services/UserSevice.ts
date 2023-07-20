@@ -8,21 +8,21 @@ type WithIdRequest = {
 class UserService implements BaseRESTService {
   async find({ id }: Partial<WithIdRequest>) {
     if (id) {
-      return await UserModel.findOne({
+      return UserModel.findOne({
         where: {
           id,
         },
       });
     }
-    return await UserModel.findAll();
+    return UserModel.findAll();
   }
 
   async create(props: IUser) {
-    return await UserModel.create(props);
+    return UserModel.create(props);
   }
 
   async update(props: IUser) {
-    return await UserModel.update(props, {
+    return UserModel.update(props, {
       where: {
         id: props.id,
       },
@@ -30,7 +30,7 @@ class UserService implements BaseRESTService {
   }
 
   async delete({ id }: WithIdRequest) {
-    return await UserModel.destroy({
+    return UserModel.destroy({
       where: {
         id,
       },

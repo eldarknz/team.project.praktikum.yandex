@@ -20,7 +20,7 @@ import reactionRouter from './routers/ReactionRouter';
 dotenv.config();
 
 export const isDev = () => process.env.NODE_ENV === 'development';
-export const originWhitList = ['http://localhost:3001', 'http://localhost:3000'];
+export const originWhiteList = ['http://localhost:3001', 'http://localhost:3000'];
 async function startServer() {
   const app = express();
   app.disable('x-powered-by');
@@ -30,7 +30,7 @@ async function startServer() {
   app.use(
     cors({
       credentials: true,
-      origin: originWhitList,
+      origin: originWhiteList,
     }),
   );
   await dbConnect().then(() => {

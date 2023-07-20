@@ -11,7 +11,7 @@ export class BaseApi implements BaseApiImpl {
   public find = async (req: Request, res: Response) => {
     const { query } = req;
     await this.service
-      .find({ id: query.id ? Number(query.id) : undefined })
+      .find({ id: query.id && !!Number(query.id) ? Number(query.id) : undefined })
       .then(d => res.status(200).send(d))
       .catch(e => res.send(500).send({ message: e }));
   };
@@ -27,7 +27,7 @@ export class BaseApi implements BaseApiImpl {
   public update = async (req: Request, res: Response) => {
     const { body } = req;
     if (!body.id) {
-      res.sendStatus(400);
+      res.status(400).send({ message: 'id field is required' });
       return;
     }
     await this.service
@@ -39,7 +39,7 @@ export class BaseApi implements BaseApiImpl {
   public delete = async (req: Request, res: Response) => {
     const { body } = req;
     if (!body.id) {
-      res.sendStatus(400);
+      res.status(400).send({ message: 'id field is required' });
       return;
     }
     await this.service

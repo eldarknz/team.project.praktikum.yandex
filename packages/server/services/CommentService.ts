@@ -8,21 +8,21 @@ type WithIdRequest = {
 class CommentService implements BaseRESTService {
   async find({ id }: Partial<WithIdRequest>) {
     if (id) {
-      return await CommentModel.findOne({
+      return CommentModel.findOne({
         where: {
           id,
         },
       });
     }
-    return await CommentModel.findAll();
+    return CommentModel.findAll();
   }
 
   async create(props: IComment) {
-    return await CommentModel.create(props);
+    return CommentModel.create(props);
   }
 
   async update(props: IComment) {
-    return await CommentModel.update(props, {
+    return CommentModel.update(props, {
       where: {
         id: props.id,
       },
@@ -30,7 +30,7 @@ class CommentService implements BaseRESTService {
   }
 
   async delete({ id }: WithIdRequest) {
-    return await CommentModel.destroy({
+    return CommentModel.destroy({
       where: {
         id,
       },

@@ -6,13 +6,13 @@ import { BaseApi } from '../api/BaseApi';
 
 export function createApiRouter<T>(api: T & BaseApi): Router {
   const router: Router = Router();
-  const baseMidlewars = [addAllowOrigin, checkAuth];
+  const baseMidllewars = [addAllowOrigin, checkAuth];
 
   router
-    .get('/', baseMidlewars, api.find)
-    .post('/', [...baseMidlewars, urlEncoder], api.create)
-    .put('/', [...baseMidlewars, urlEncoder], api.update)
-    .delete('/', [...baseMidlewars, urlEncoder], api.delete);
+    .get('/', baseMidllewars, api.find)
+    .post('/', [...baseMidllewars, urlEncoder], api.create)
+    .put('/', [...baseMidllewars, urlEncoder], api.update)
+    .delete('/', [...baseMidllewars, urlEncoder], api.delete);
 
   return router;
 }

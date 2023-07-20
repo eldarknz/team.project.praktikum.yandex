@@ -8,21 +8,21 @@ type WithIdRequest = {
 class ReactionService implements BaseRESTService {
   async find({ id }: Partial<WithIdRequest>) {
     if (id) {
-      return await ReactionModel.findOne({
+      return ReactionModel.findOne({
         where: {
           id,
         },
       });
     }
-    return await ReactionModel.findAll();
+    return ReactionModel.findAll();
   }
 
   async create(props: IReaction) {
-    return await ReactionModel.create(props);
+    return ReactionModel.create(props);
   }
 
   async update(props: IReaction) {
-    return await ReactionModel.update(props, {
+    return ReactionModel.update(props, {
       where: {
         id: props.id,
       },
@@ -30,7 +30,7 @@ class ReactionService implements BaseRESTService {
   }
 
   async delete({ id }: WithIdRequest) {
-    return await ReactionModel.destroy({
+    return ReactionModel.destroy({
       where: {
         id,
       },

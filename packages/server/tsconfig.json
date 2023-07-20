@@ -24,7 +24,7 @@
     "rootDir": "..",
     "paths": {
       "*": ["types/*"],
-      "@shared/*": ["../shared/*"],
+      "@shared/*": ["../shared/*"]
     },
     "outDir": "dist"
   },

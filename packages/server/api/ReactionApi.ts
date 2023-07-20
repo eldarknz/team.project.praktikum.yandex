@@ -1,4 +1,4 @@
-import { reactionService } from '../services/ReactionSevice';
+import { reactionService } from '../services/ReactionService';
 import { BaseApi } from './BaseApi';
 
 export const reactionApi = new BaseApi(reactionService);

@@ -12,11 +12,12 @@
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true, 
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
     "baseUrl": ".",
@@ -28,8 +29,14 @@
     "outDir": "dist"
   },
   "include": [
-    "./*",
+    "./cert",
+    "./midlewars",
+    "./routers",
+    "./api",
+    "./services",
+    "./models",
     "../shared",
+    "*",
     "../@types/**/*"
   ]
 }

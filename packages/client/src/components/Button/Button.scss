@@ -32,6 +32,11 @@
     background-color: $neutral60;
   }
 
+  &:hover {
+    background-color: $darkPurple;
+    transition: background-color 0.75s ease-out;
+  }
+
   .button__content {
     padding: 0.7rem;
   }

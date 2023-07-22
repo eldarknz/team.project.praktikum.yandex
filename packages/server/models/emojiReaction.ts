@@ -3,18 +3,17 @@ import { Table, Column, DataType, Model, ForeignKey } from 'sequelize-typescript
 import { UserModel } from './user';
 import { CommentModel } from './comment';
 
-export interface IReaction {
+export interface IEmojiReaction {
   id?: number;
   owner_id: number;
   comment_id: number;
-  reaction_type: string; // Тип реакции (например, 'like', 'dislike', 'emoji')
-  emoji_unicode?: string;
+  emoji_unicode: string;
 }
 
-@Table({ tableName: 'reaction' })
-export class ReactionModel
-  extends Model<IReaction, Optional<IReaction, 'id'>>
-  implements IReaction
+@Table({ tableName: 'emoji_reaction' })
+export class EmojiReactionModel
+  extends Model<IEmojiReaction, Optional<IEmojiReaction, 'id'>>
+  implements IEmojiReaction
 {
   @Column({ primaryKey: true, autoIncrement: true, type: DataType.INTEGER })
   id!: number;
@@ -28,8 +27,5 @@ export class ReactionModel
   comment_id!: number;
 
   @Column({ allowNull: false, type: DataType.STRING })
-  reaction_type!: string;
-
-  @Column({ type: DataType.STRING, allowNull: true }) // Опциональное поле для хранения Unicode-представления эмодзи
-  emoji_unicode?: string;
+  emoji_unicode!: string;
 }

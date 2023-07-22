@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Button } from '@components/Button';
+import { gameAudio } from '@core/GameAudio/GameAudio';
 import styles from './EndView.module.scss';
 
 export type EndViewProps = {
@@ -7,6 +9,10 @@ export type EndViewProps = {
 };
 
 export default function EndView({ onRetry, isWin }: EndViewProps) {
+  useEffect(() => {
+    isWin ? gameAudio.finshGame(0.5) : gameAudio.gameOver(0.5);
+  }, []);
+
   return (
     <>
       <h3 className={styles.title}>

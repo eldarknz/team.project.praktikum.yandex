@@ -36,7 +36,7 @@ class GameAudio {
     }
   }
 
-  finshGame(volume = 1) {
+  finishGame(volume = 1) {
     if (volume <= 0.01) return;
     if (!this.finishSound) {
       this.finishSound = createAudio(finish);

@@ -10,7 +10,7 @@ export type EndViewProps = {
 
 export default function EndView({ onRetry, isWin }: EndViewProps) {
   useEffect(() => {
-    isWin ? gameAudio.finshGame(0.5) : gameAudio.gameOver(0.5);
+    isWin ? gameAudio.finishGame(0.5) : gameAudio.gameOver(0.5);
   }, []);
 
   return (

@@ -10,17 +10,22 @@ class GameAudio {
   private finishSound: HTMLAudioElement | undefined;
   private gameOverSound: HTMLAudioElement | undefined;
 
+  #playOrStop(sound: HTMLAudioElement) {
+    if (sound.paused) {
+      sound.play();
+    } else {
+      sound.pause();
+      sound.currentTime = 0;
+    }
+  }
+
   jumpClick(volume = 1) {
     if (volume <= 0.01) return;
     if (!this.jumpSound) {
       this.jumpSound = createAudio(jump);
     }
     this.jumpSound.volume = volume;
-    if (this.jumpSound.paused) {
-      this.jumpSound.play();
-    } else {
-      this.jumpSound.currentTime = 0;
-    }
+    this.#playOrStop(this.jumpSound);
   }
 
   stepClick(volume = 1) {
@@ -29,11 +34,7 @@ class GameAudio {
       this.stepSound = createAudio(step);
     }
     this.stepSound.volume = volume;
-    if (this.stepSound.paused) {
-      this.stepSound.play();
-    } else {
-      this.stepSound.currentTime = 0;
-    }
+    this.#playOrStop(this.stepSound);
   }
 
   finishGame(volume = 1) {

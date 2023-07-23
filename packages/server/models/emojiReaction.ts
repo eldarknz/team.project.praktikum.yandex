@@ -1,5 +1,5 @@
 import { Optional } from 'sequelize';
-import { Table, Column, DataType, Model, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, DataType, Model, ForeignKey, Index } from 'sequelize-typescript';
 import { UserModel } from './user';
 import { CommentModel } from './comment';
 
@@ -22,6 +22,7 @@ export class EmojiReactionModel
   @Column({ allowNull: false, type: DataType.INTEGER })
   owner_id!: number;
 
+  @Index
   @ForeignKey(() => CommentModel)
   @Column({ allowNull: false, type: DataType.INTEGER })
   comment_id!: number;

@@ -1,13 +1,18 @@
 import { Request, Response } from 'express';
-import { emojiReactionService } from '../services/EmojiReactionService'; // Импортируем наш сервис
+import { emojiReactionService } from '../services/EmojiReactionService';
 
 export class EmojiReactionApi {
   public static async addEmojiReaction(req: Request, res: Response) {
     try {
-      const { owner_id, comment_id, emoji_unicode } = req.body;
+      if (!req.user) {
+        return res.status(403).json({ message: 'Пользователь не авторизован' });
+      }
+
+      const { comment_id, emoji_unicode } = req.body;
+      const owner_id = req.user.id;
 
       // Проверяем, что все необходимые поля переданы
-      if (!owner_id || !comment_id || !emoji_unicode) {
+      if (!comment_id || !emoji_unicode) {
         return res.status(400).json({ message: 'Не переданы все необходимые поля' });
       }
 

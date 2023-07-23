@@ -10,9 +10,23 @@ class GameAudio {
   private finishSound: HTMLAudioElement | undefined;
   private gameOverSound: HTMLAudioElement | undefined;
 
+  #soundInit(sound: HTMLAudioElement | undefined, url: string, volume = 1) {
+    console.log(sound);
+    if (volume <= 0.01) return;
+    if (!sound) {
+      sound = createAudio(url);
+    }
+    sound.volume = volume;
+    return sound;
+  }
+
+  #play(sound: HTMLAudioElement) {
+    sound.play();
+  }
+
   #playOrStop(sound: HTMLAudioElement) {
     if (sound.paused) {
-      sound.play();
+      this.#play(sound);
     } else {
       sound.pause();
       sound.currentTime = 0;
@@ -20,39 +34,23 @@ class GameAudio {
   }
 
   jumpClick(volume = 1) {
-    if (volume <= 0.01) return;
-    if (!this.jumpSound) {
-      this.jumpSound = createAudio(jump);
-    }
-    this.jumpSound.volume = volume;
-    this.#playOrStop(this.jumpSound);
+    this.jumpSound = this.#soundInit(this.jumpSound, jump, volume);
+    this.jumpSound && this.#playOrStop(this.jumpSound);
   }
 
   stepClick(volume = 1) {
-    if (volume <= 0.01) return;
-    if (!this.stepSound) {
-      this.stepSound = createAudio(step);
-    }
-    this.stepSound.volume = volume;
-    this.#playOrStop(this.stepSound);
+    this.stepSound = this.#soundInit(this.stepSound, step, volume);
+    this.stepSound && this.#playOrStop(this.stepSound);
   }
 
   finishGame(volume = 1) {
-    if (volume <= 0.01) return;
-    if (!this.finishSound) {
-      this.finishSound = createAudio(finish);
-    }
-    this.finishSound.volume = volume;
-    this.finishSound.play();
+    this.finishSound = this.#soundInit(this.finishSound, finish, volume);
+    this.finishSound && this.#play(this.finishSound);
   }
 
   gameOver(volume = 1) {
-    if (volume <= 0.01) return;
-    if (!this.gameOverSound) {
-      this.gameOverSound = createAudio(gameOver);
-    }
-    this.gameOverSound.volume = volume;
-    this.gameOverSound.play();
+    this.gameOverSound = this.#soundInit(this.gameOverSound, gameOver, volume);
+    this.gameOverSound && this.#play(this.gameOverSound);
   }
 }
 

@@ -14,7 +14,7 @@ export const PlayerCard = ({ position, imgSrc, login, score }: IPlayerCardProps)
       <div className={styles.playerCardCol}>{position}</div>
       <div className={styles.playerCardCol}>
         <div className={styles.playerInfo}>
-          {imgSrc ? <Avatar src={imgSrc} /> : <Avatar />}
+          <Avatar src={imgSrc} />
           <div className={styles.playerName}>{login}</div>
         </div>
       </div>

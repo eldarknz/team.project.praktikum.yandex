@@ -7,6 +7,7 @@ import {
   FocusEvent,
   useId,
   useState,
+  useRef,
 } from 'react';
 import cn from 'classnames';
 import './Input.scss';
@@ -57,8 +58,13 @@ export const Input = ({
 
   const [localValue, setLocalValue] = useState(value);
 
+  const mounted = useRef(false);
   useEffect(() => {
-    setError(errorText || null);
+    if (mounted.current) {
+      setError(errorText || null);
+    }
+
+    mounted.current = true;
   }, [errorText]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(

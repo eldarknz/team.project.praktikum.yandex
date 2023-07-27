@@ -4,3 +4,4 @@ export * from './comment';
 export * from './reply';
 export * from './reaction';
 export * from './userTheme';
+export * from './emojiReaction';

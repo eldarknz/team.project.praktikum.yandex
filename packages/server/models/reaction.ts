@@ -7,6 +7,8 @@ export interface IReaction {
   id?: number;
   owner_id: number;
   comment_id: number;
+  reaction_type: string; // Тип реакции (например, 'like', 'dislike', 'emoji')
+  emoji_unicode?: string;
 }
 
 @Table({ tableName: 'reaction' })
@@ -24,4 +26,10 @@ export class ReactionModel
   @ForeignKey(() => CommentModel)
   @Column({ allowNull: false, type: DataType.INTEGER })
   comment_id!: number;
+
+  @Column({ allowNull: false, type: DataType.STRING })
+  reaction_type!: string;
+
+  @Column({ type: DataType.STRING, allowNull: true }) // Опциональное поле для хранения Unicode-представления эмодзи
+  emoji_unicode?: string;
 }

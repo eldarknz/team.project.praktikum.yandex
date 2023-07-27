@@ -17,7 +17,7 @@ export const PWAConfig: Partial<VitePWAOptions> = {
     enabled: true,
   },
   injectManifest: {
-    globPatterns: ['**/*.{html,js,css,png,svg,ico}'],
+    globPatterns: ['**/*.{html,js,css,png,svg,ico,mp3}'],
     globIgnores: ['maskable-icon-192.png', 'icon-192.png', 'icon-256.png', 'icon-512.png'],
   },
   workbox: {},

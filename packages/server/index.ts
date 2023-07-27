@@ -18,6 +18,8 @@ import commentRouter from './routers/CommentRouter';
 import replyRouter from './routers/ReplyRouter';
 import reactionRouter from './routers/ReactionRouter';
 import userThemeRoutes from './routers/UserThemeRouter';
+import emojiReactionRouter from './routers/EmojiReactionRouter';
+
 dotenv.config();
 
 export const isDev = () => process.env.NODE_ENV === 'development';
@@ -41,6 +43,7 @@ async function startServer() {
     app.use('/api/v1/reply', replyRouter);
     app.use('/api/v1/reaction', reactionRouter);
     app.use('/api/v1/theme', userThemeRoutes);
+    app.use('/api/v1/emoji-reactions', emojiReactionRouter);
   });
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));

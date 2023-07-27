@@ -9,14 +9,41 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 
 import { createReduxStore } from '../shared/store';
-
+import { dbConnect } from './db';
+import userRouter from './routers/UserRouter';
+import cookeParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import topicRouter from './routers/TopicRouter';
+import commentRouter from './routers/CommentRouter';
+import replyRouter from './routers/ReplyRouter';
+import reactionRouter from './routers/ReactionRouter';
+import emojiReactionRouter from './routers/EmojiReactionRouter';
 dotenv.config();
 
-const isDev = () => process.env.NODE_ENV === 'development';
-
+export const isDev = () => process.env.NODE_ENV === 'development';
+export const originWhiteList = ['http://localhost:3001', 'http://localhost:3000'];
 async function startServer() {
   const app = express();
-  app.use(cors());
+  app.disable('x-powered-by');
+  app.enable('trust proxy');
+  //@ts-expect-error
+  app.use(cookeParser());
+  app.use(
+    cors({
+      credentials: true,
+      origin: originWhiteList,
+    }),
+  );
+  await dbConnect().then(() => {
+    app.use('/api/v1/user', userRouter);
+    app.use('/api/v1/topic', topicRouter);
+    app.use('/api/v1/comment', commentRouter);
+    app.use('/api/v1/reply', replyRouter);
+    app.use('/api/v1/reaction', reactionRouter);
+    app.use('/api/v1/emoji-reactions', emojiReactionRouter);
+  });
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
   const port = Number(process.env.SERVER_PORT) || 3000;
 
   let vite: ViteDevServer | undefined;

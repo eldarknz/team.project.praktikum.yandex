@@ -6,6 +6,7 @@ import { fullscreenHandler } from '@utils/fullscreen';
 import { useAppSelector } from '@shared/store/hooks';
 import { GetViewerResponse } from '@api/ViewerAPI';
 import { useControllers } from '@core/ControllersContext';
+import { gameControlHandler } from '@utils/gameControl';
 
 export const GAME_GRAVITY = 1.7;
 const HEADER_HEIGHT = 120;
@@ -37,14 +38,15 @@ export const GamePage = () => {
   }, [ref.current]);
 
   useEffect(() => {
+    const keyEventsHandler = gameControlHandler(game);
     if (game) {
-      window.addEventListener('keydown', game.keyDown);
-      window.addEventListener('keyup', game.keyUp);
+      window.addEventListener('keydown', keyEventsHandler);
+      window.addEventListener('keyup', keyEventsHandler);
     }
     return () => {
       if (game) {
-        window.removeEventListener('keydown', game.keyDown);
-        window.removeEventListener('keyup', game.keyUp);
+        window.removeEventListener('keydown', keyEventsHandler);
+        window.removeEventListener('keyup', keyEventsHandler);
       }
     };
   }, [game]);

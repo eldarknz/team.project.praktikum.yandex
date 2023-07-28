@@ -1,4 +1,5 @@
-import { reactionApi } from '../api/ReactionApi';
+import { reactionApi } from '@api/ReactionApi';
+
 import { createApiRouter } from './createApiRouter';
 
 const reactionRouter = createApiRouter(reactionApi);

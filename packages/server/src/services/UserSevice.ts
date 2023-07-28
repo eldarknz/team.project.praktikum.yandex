@@ -1,4 +1,4 @@
-import { IUser, UserModel } from '../models';
+import { IUser, UserModel } from '@db/models';
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {

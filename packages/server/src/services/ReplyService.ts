@@ -1,4 +1,4 @@
-import { IReply, ReplyModel } from '../models';
+import { IReply, ReplyModel } from '@db/models';
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {

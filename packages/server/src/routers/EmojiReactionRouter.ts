@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { EmojiReactionApi } from '../api/EmojiReactionApi';
+
+import { EmojiReactionApi } from '@api/EmojiReactionApi';
 
 const emojiReactionRouter: Router = Router();
 

@@ -1,4 +1,5 @@
-import { IComment, CommentModel } from '../models';
+import { IComment, CommentModel } from '@db/models';
+
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {

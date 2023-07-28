@@ -1,25 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import request from 'request';
-import { isDev } from '../index';
-import { API_URL } from '../../shared/config/constants';
 
-declare module 'express-serve-static-core' {
-  interface Request {
-    user?: {
-      id: number;
-      email: string;
-      login: string | null;
-      first_name: string;
-      second_name: string;
-      display_name: string | null;
-      phone: string;
-      avatar: string | null;
-    };
-  }
-}
+import { API_URL } from '@workspace/shared/config/constants';
+import { IS_DEV } from '@constants';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
   let isAuth = false;
+
   await new Promise((resolve, reject) => {
     request(
       `${API_URL}/auth/user`,
@@ -29,7 +16,8 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         withCredentials: true,
       },
       (_, resp) => {
-        isAuth = resp ? resp.statusCode === 200 : isDev();
+        isAuth = resp ? resp.statusCode === 200 : IS_DEV;
+
         if (isAuth) {
           req.user = JSON.parse(resp.body);
           next();

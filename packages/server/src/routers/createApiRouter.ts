@@ -1,8 +1,9 @@
-import { addAllowOrigin } from '../midlewars/addAllowOrigin';
 import { Router } from 'express';
-import { urlEncoder } from '../midlewars/urlEncoder';
-import { checkAuth } from '../midlewars/checkAuth';
-import { BaseApi } from '../api/BaseApi';
+
+import { addAllowOrigin } from '@middlewares/addAllowOrigin';
+import { urlEncoder } from '@middlewares/urlEncoder';
+import { checkAuth } from '@middlewares/checkAuth';
+import { BaseApi } from '@api/BaseApi';
 
 export function createApiRouter<T>(api: T & BaseApi): Router {
   const router: Router = Router();

@@ -1,4 +1,4 @@
-import { IEmojiReaction, EmojiReactionModel } from '../models/emojiReaction';
+import { IEmojiReaction, EmojiReactionModel } from '@db/models/emojiReaction';
 
 class EmojiReactionService {
   async createEmojiReaction(emojiReactionData: IEmojiReaction) {

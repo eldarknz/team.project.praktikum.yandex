@@ -1,4 +1,4 @@
-import { ITopicModel, TopicModel } from '../models';
+import { ITopicModel, TopicModel } from '@db/models';
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {

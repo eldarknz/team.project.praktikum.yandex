@@ -1,7 +1,8 @@
-import { TopicModel, UserModel, CommentModel, ReplyModel, ReactionModel } from './models';
 import { SequelizeOptions, Sequelize } from 'sequelize-typescript';
 
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } = process.env;
+import { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } from '@constants';
+
+import { TopicModel, UserModel, CommentModel, ReplyModel, ReactionModel } from './models';
 
 const sequelizeOptions: SequelizeOptions = {
   username: POSTGRES_USER,
@@ -19,6 +20,7 @@ export const dbConnect = async (): Promise<void> => {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ force: process.env.NODE_ENV === 'development' });
+
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);

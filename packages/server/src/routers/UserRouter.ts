@@ -1,4 +1,5 @@
-import { userApi } from '../api/UserApi';
+import { userApi } from '@api/UserApi';
+
 import { createApiRouter } from './createApiRouter';
 
 const userRouter = createApiRouter(userApi);

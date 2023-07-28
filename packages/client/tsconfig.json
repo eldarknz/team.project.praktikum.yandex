@@ -34,10 +34,11 @@
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["src", "../@types/**/*", "./svg.d.ts", "../shared"],
   "references": [
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "include": ["src", "./svg.d.ts", "../shared"],
+  
 }

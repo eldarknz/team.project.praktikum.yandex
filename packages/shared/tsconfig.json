@@ -9,6 +9,7 @@
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
+    "skipLibCheck": false,
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -23,6 +24,10 @@
     "outDir": "dist"
   },
   "include": [
-    "../@types/**/*"
-  ],
+    "./@types",
+    "./config",
+    "./core",
+    "./models",
+    "./store",
+  ]
 }

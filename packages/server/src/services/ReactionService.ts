@@ -1,4 +1,5 @@
-import { IReaction, ReactionModel } from '../models';
+import { IReaction, ReactionModel } from '@db/models';
+
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {

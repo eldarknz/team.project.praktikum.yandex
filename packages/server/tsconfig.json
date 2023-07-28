@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"], // TODO зачем оно? Кажется, paths не парсились
+    "files": true
+  },
   "compilerOptions": {
     "composite": true,
     "target": "es2019",
@@ -16,27 +20,39 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true, 
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
     "baseUrl": ".",
-    "rootDir": "..",
+    "rootDir": ".",
+    "outDir": "dist",
     "paths": {
-      "*": ["types/*"],
-      "@shared/*": ["../shared/*"]
-    },
-    "outDir": "dist"
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+
+      "@api": ["./src/api"],
+      "@api/*": ["./src/api/*"],
+
+      "@middlewares": ["./src/middlewares"],
+      "@middlewares/*": ["./src/middlewares/*"],
+
+      "@routers": ["./src/routers"],
+      "@routers/*": ["./src/routers/*"],
+
+      "@app": ["./src/app"],
+      "@app/*": ["./src/app/*"],
+
+      "@db": ["./src/db"],
+      "@db/*": ["./src/db/*"],
+    }
   },
   "include": [
     "./cert",
-    "./midlewars",
-    "./routers",
-    "./api",
-    "./services",
-    "./models",
-    "../shared",
-    "*",
-    "../@types/**/*"
+    "./src"
+  ],
+  "files": [
+    "index.ts"
   ]
 }

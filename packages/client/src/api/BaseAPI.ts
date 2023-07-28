@@ -1,4 +1,4 @@
-import { http } from '@shared/core/HTTPTransport';
+import { http } from '@workspace/shared';
 
 export class BaseApi {
   protected http;

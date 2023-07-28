@@ -7,7 +7,7 @@ import { createServer as createViteServer } from 'vite';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import { createReduxStore } from '@workspace/shared/store';
+import { createReduxStore } from '@workspace/shared';
 import { PORT, CORS_ORIGIN_WHITELIST } from '@constants';
 import userRouter from '@routers/UserRouter';
 import topicRouter from '@routers/TopicRouter';
@@ -69,7 +69,7 @@ export async function createApp() {
     try {
       const template = await vite.transformIndexHtml(
         url,
-        fs.readFileSync(CLIENT_HTML_FILE_PATH, 'utf-8'),
+        fs.readFileSync(CLIENT_HTML_FILE_PATH, 'utf-8')
       );
       const { render } = await vite.ssrLoadModule(CLIENT_RENDER_FILE_PATH);
       const store = createReduxStore();
@@ -94,7 +94,7 @@ export async function createApp() {
 
   app.listen(PORT, () => {
     console.log(
-      `  ➜ 🎸 Server is listening on port: ${PORT}. Use this server: http://localhost:${PORT}`,
+      `  ➜ 🎸 Server is listening on port: ${PORT}. Use this server: http://localhost:${PORT}`
     );
   });
 }

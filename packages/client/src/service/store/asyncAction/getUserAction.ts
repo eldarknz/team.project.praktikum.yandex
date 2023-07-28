@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { offUserLoader, setUser } from '@shared/store/reducers/userSlice';
+import { offUserLoader, setUser } from '@workspace/shared';
 
 import { services } from '../../../App';
 

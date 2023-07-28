@@ -1,33 +1,19 @@
 {
+  "extends": "../../tsconfig.base.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"], // TODO зачем оно? Кажется, paths не парсились
     "files": true
   },
   "compilerOptions": {
+    "rootDir": ".",
     "composite": true,
-    "target": "es2019",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "removeComments": true,
     "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true, 
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
-    "baseUrl": ".",
-    "rootDir": ".",
     "outDir": "dist",
+    "baseUrl": ".",
     "paths": {
       "@constants": ["./src/constants"],
       "@constants/*": ["./src/constants/*"],
@@ -45,14 +31,14 @@
       "@app/*": ["./src/app/*"],
 
       "@db": ["./src/db"],
-      "@db/*": ["./src/db/*"],
+      "@db/*": ["./src/db/*"]
     }
   },
-  "include": [
-    "./cert",
-    "./src"
-  ],
-  "files": [
-    "index.ts"
+  "files": [],
+  "include": ["src"],
+  "references": [
+    {
+      "path": "./tsconfig.prod.json"
+    }
   ]
 }

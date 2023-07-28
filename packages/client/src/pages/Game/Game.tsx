@@ -3,7 +3,7 @@ import GameView from './view/GameView';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GameLogic } from '@core/GameLogic/GameLogic';
 import { fullscreenHandler } from '@utils/fullscreen';
-import { useAppSelector } from '@shared/store/hooks';
+import { useAppSelector } from '@workspace/shared';
 import { GetViewerResponse } from '@api/ViewerAPI';
 import { useControllers } from '@core/ControllersContext';
 import { gameControlHandler } from '@utils/gameControl';

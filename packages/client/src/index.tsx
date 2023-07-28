@@ -1,10 +1,11 @@
 import React from 'react';
-import { hydrateRoot } from 'react-dom/client';
-import 'normalize.css';
-
-import '@styles/index.scss';
 import { Provider } from 'react-redux';
-import { store } from '@shared/store';
+import { hydrateRoot } from 'react-dom/client';
+
+import { store } from '@workspace/shared';
+
+import 'normalize.css';
+import '@styles/index.scss';
 
 import App from './App';
 
@@ -14,5 +15,5 @@ hydrateRoot(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

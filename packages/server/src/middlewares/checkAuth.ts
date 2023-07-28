@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import request from 'request';
 
-import { API_URL } from '@workspace/shared/config/constants';
+import { API_URL } from '@workspace/shared';
 import { IS_DEV } from '@constants';
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,7 +26,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
           res.sendStatus(403);
           reject();
         }
-      },
+      }
     );
   });
 };

@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
-import { RootStore, store } from '@shared/store';
+import { RootStore, store } from '@workspace/shared';
 
 import { ServicesModel, useServices } from './ServicesContext';
 

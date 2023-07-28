@@ -10,7 +10,7 @@ import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { PageLoader } from '@components/PageLoader';
-import { RootStore } from '@shared/store';
+import { RootStore } from '@workspace/shared';
 import { useViewerFromSession } from '@hooks/useViewerFromSession';
 import './styles/index.scss';
 

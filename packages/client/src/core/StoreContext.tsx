@@ -1,7 +1,6 @@
 import { useMemo, PropsWithChildren, createContext, useState } from 'react';
 
-import { Viewer } from '@shared/models/viewer';
-import { store } from '@shared/store';
+import { Viewer, store } from '@workspace/shared';
 
 export interface StoreModel {
   viewer: Viewer | null;
@@ -27,7 +26,7 @@ export const StoreContextProvider = ({
       viewer,
       setViewer,
     }),
-    [viewer],
+    [viewer]
   );
 
   return <StoreContext.Provider value={state}>{children}</StoreContext.Provider>;

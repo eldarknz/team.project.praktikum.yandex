@@ -1,4 +1,4 @@
-import { API_URL } from '@shared/config/constants';
+import { API_URL } from '@workspace/shared';
 import { BaseApi } from '@api/BaseAPI';
 
 export interface LeaderboardData {

@@ -2,17 +2,27 @@
   "name": "workspace",
   "private": true,
   "scripts": {
-    "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
-    "build:server": "lerna run build --scope=server",
-    "build:client": "lerna run build --scope=client",
-    "build": "lerna run build",
-    "dev:client": "lerna run dev --scope=client",
-    "dev:server": "lerna run dev --scope=server",
-    "dev": "lerna run dev",
-    "test": "lerna run test",
-    "lint": "lerna run lint",
-    "format": "lerna run format",
-    "preview": "lerna run preview"
+    "bootstrap": "yarn && node init.js && npx lerna clean -y && yarn && npx lerna bootstrap",
+
+    "build:shared": "npx lerna run build --scope=@workspace/shared",
+    "build:server": "npx lerna run build --scope=server",
+    "build:client": "npx lerna run build --scope=client",
+    "build": "npx lerna run build",
+
+    "dev:client": "npx lerna run dev --scope=client",
+    "dev:server": "npx lerna run dev --scope=server",
+    "dev": "npx lerna run dev",
+
+    "preview:client": "npx lerna run preview --scope=client",
+    "preview:server": "npx lerna run preview --scope=server",
+    "preview": "npx lerna run preview",
+
+    "start": "npx lerna run start --scope=server",
+
+    "test": "npx lerna run test",
+    "lint": "npx lerna run lint",
+    
+    "format": "npx lerna run format"
   },
   "license": "MIT",
   "workspaces": [

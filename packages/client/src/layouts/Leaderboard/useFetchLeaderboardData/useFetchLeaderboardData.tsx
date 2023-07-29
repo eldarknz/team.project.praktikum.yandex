@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useControllers } from '@core/ControllersContext';
 import { LeaderboardData } from '@api/LeaderboardAPI';
 import { IPlayerCardProps } from '@components/PlayerCard';
-import { RESOURCES_URL } from '@workspace/shared';
+import { RESOURCES_URL } from '@workspace/shared/src/config';
 
 export const useFetchLeaderboardData = () => {
   const controllers = useControllers();

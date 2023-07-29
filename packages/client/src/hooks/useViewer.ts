@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useAppSelector } from '@workspace/shared';
+import { useAppSelector } from '@core/StoreContext';
 
 export const useViewer = () => {
   const userId = useAppSelector(store => store.userReducer.user?.id);

@@ -1,6 +1,9 @@
 import { useMemo, PropsWithChildren, createContext, useState } from 'react';
+import { useStore as useStoreRedux } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { Viewer, store } from '@workspace/shared';
+import { Viewer } from '@workspace/shared/src/models';
+import { RootState, AppDispatch } from '@workspace/shared/src/store';
 
 export interface StoreModel {
   viewer: Viewer | null;
@@ -33,5 +36,8 @@ export const StoreContextProvider = ({
 };
 
 export const useStore = () => {
-  return store.getState();
+  return useStoreRedux<RootState>();
 };
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

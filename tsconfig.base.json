@@ -3,24 +3,20 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
     "removeComments": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    // "noImplicitReturns": true,
     // "noImplicitOverride": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     // "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "target": "es2015",
+    "target": "es6",
     "module": "commonjs",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
@@ -28,7 +24,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@workspace/shared": ["./packages/shared/src/index.ts"]
+      "@workspace/shared": ["packages/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -3,7 +3,6 @@ import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 import { AuthController } from '@controllers/AuthController';
 import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
-import { RootStore, store } from '@workspace/shared';
 
 import { ServicesModel, useServices } from './ServicesContext';
 
@@ -20,13 +19,13 @@ export const useControllers = () => {
 };
 
 interface ControllersProviderProps extends PropsWithChildren {
-  createControllers: (store: RootStore, services: ServicesModel) => ControllersModel;
+  createControllers: (services: ServicesModel) => ControllersModel;
 }
 
 export const ControllersProvider = ({ createControllers, children }: ControllersProviderProps) => {
   const services = useServices();
   const controllers = useMemo(() => {
-    return createControllers(store, services);
+    return createControllers(services);
   }, [createControllers, services]);
 
   return <ControllersContext.Provider value={controllers}>{children}</ControllersContext.Provider>;

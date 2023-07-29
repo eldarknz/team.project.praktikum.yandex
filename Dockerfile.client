@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 RUN yarn lerna bootstrap \
-    && yarn build --scope=client
+    && yarn build:client
 
 
 # stage 'production'

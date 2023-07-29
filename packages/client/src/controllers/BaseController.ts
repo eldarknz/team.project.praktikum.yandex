@@ -1,5 +1,5 @@
 import { ServicesModel } from '@core/ServicesContext';
-import { RootState, RootStore } from '@workspace/shared';
+import { RootState, RootStore } from '@workspace/shared/src/store';
 
 export interface Handlers<T = unknown> {
   onSuccess?: (data: T) => void;

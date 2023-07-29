@@ -11,8 +11,8 @@
     "defaultBase": "main"
   },
   "targetDefaults": {
-    "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    "build": {
+      "dependsOn": ["^build", "prebuild"]
     }
   }
 }

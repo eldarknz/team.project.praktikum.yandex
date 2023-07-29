@@ -7,7 +7,6 @@ import { NavigateFunction } from 'react-router-dom';
 import { getLevel } from './getLevel';
 import { Levels } from './levelsConfig';
 import { GetViewerResponse } from '@api/ViewerAPI';
-import { LeaderboardData } from '@api/LeaderboardAPI';
 import { ControllersModel } from '@core/ControllersContext';
 
 export type GameLogicProps = {
@@ -204,6 +203,7 @@ export class GameLogic {
 
   private _getWinCondition = () => {
     const { player, finishObject, finishPoint, scrollOffset } = this;
+
     if (player && finishObject && finishPoint) {
       const rightFinishCrossing = scrollOffset <= finishPoint + finishObject.width;
       const leftFinishCrossing = scrollOffset > finishPoint;
@@ -231,6 +231,8 @@ export class GameLogic {
 
       return leftFinishCrossing && bottomFinishCrossing && rightFinishCrossing && topFinishCrossing;
     }
+
+    return false;
   };
 
   private _moveObject = (item: GenericObjectImpl) => {

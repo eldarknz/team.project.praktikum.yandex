@@ -1,6 +1,6 @@
 import { SequelizeOptions, Sequelize } from 'sequelize-typescript';
 
-import { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } from '@constants';
+import { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, IS_DEV } from '@constants';
 
 import { TopicModel, UserModel, CommentModel, ReplyModel, ReactionModel } from './models';
 
@@ -19,7 +19,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export const dbConnect = async (): Promise<void> => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ force: process.env.NODE_ENV === 'development' });
+    await sequelize.sync({ force: IS_DEV });
 
     console.log('Connection has been established successfully.');
   } catch (error) {

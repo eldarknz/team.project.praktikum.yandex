@@ -3,10 +3,10 @@ import GameView from './view/GameView';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GameLogic } from '@core/GameLogic/GameLogic';
 import { fullscreenHandler } from '@utils/fullscreen';
-import { useAppSelector } from '@workspace/shared';
 import { GetViewerResponse } from '@api/ViewerAPI';
 import { useControllers } from '@core/ControllersContext';
 import { gameControlHandler } from '@utils/gameControl';
+import { useAppSelector } from '@core/StoreContext';
 
 export const GAME_GRAVITY = 1.7;
 const HEADER_HEIGHT = 120;

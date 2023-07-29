@@ -1,44 +1,48 @@
 {
   "extends": "../../tsconfig.base.json",
   "ts-node": {
-    "require": ["tsconfig-paths/register"], // TODO зачем оно? Кажется, paths не парсились
+    "require": ["tsconfig-paths/register"],
     "files": true
   },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+  },
   "compilerOptions": {
-    "rootDir": ".",
-    "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
+
+    "composite": false,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "declarationMap": false,
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
-    "outDir": "dist",
-    "baseUrl": ".",
+
+    "baseUrl": "./src",
     "paths": {
-      "@constants": ["./src/constants"],
-      "@constants/*": ["./src/constants/*"],
+      "@constants": ["./constants"],
+      "@constants/*": ["./constants/*"],
 
-      "@api": ["./src/api"],
-      "@api/*": ["./src/api/*"],
+      "@api": ["./api"],
+      "@api/*": ["./api/*"],
 
-      "@middlewares": ["./src/middlewares"],
-      "@middlewares/*": ["./src/middlewares/*"],
+      "@middlewares": ["./middlewares"],
+      "@middlewares/*": ["./middlewares/*"],
 
-      "@routers": ["./src/routers"],
-      "@routers/*": ["./src/routers/*"],
+      "@routers": ["./routers"],
+      "@routers/*": ["./routers/*"],
 
-      "@app": ["./src/app"],
-      "@app/*": ["./src/app/*"],
+      "@app": ["./app"],
+      "@app/*": ["./app/*"],
 
-      "@db": ["./src/db"],
-      "@db/*": ["./src/db/*"]
+      "@db": ["./db"],
+      "@db/*": ["./db/*"]
     }
   },
   "files": [],
   "include": ["src"],
-  "references": [
-    {
-      "path": "./tsconfig.prod.json"
-    }
-  ]
+  "exclude": ["dist"]
 }

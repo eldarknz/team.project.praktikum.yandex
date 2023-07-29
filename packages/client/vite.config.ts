@@ -14,12 +14,13 @@ export const PWAConfig: Partial<VitePWAOptions> = {
   filename: 'sw.js',
   outDir: 'dist',
   devOptions: {
-    enabled: true,
+    enabled: false,
   },
   injectManifest: {
     globPatterns: ['**/*.{html,js,css,png,svg,ico,mp3}'],
     globIgnores: ['maskable-icon-192.png', 'icon-192.png', 'icon-256.png', 'icon-512.png'],
   },
+  mode: process.env.NODE_ENV as any,
   workbox: {},
   manifest: {
     name: "theTeam's game",
@@ -65,7 +66,6 @@ export const configAliases = {
   '@service': path.resolve(__dirname, './src/service'),
   '@styles': path.resolve(__dirname, './src/styles'),
   '@utils': path.resolve(__dirname, './src/utils'),
-  '@shared': path.resolve(__dirname, '../shared'),
   '@public': path.resolve(__dirname, './public'),
 };
 
@@ -76,9 +76,6 @@ export default defineConfig({
   },
   preview: {
     port: Number(process.env.CLIENT_PREVIEW_PORT) || 8080,
-  },
-  define: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [svgr(), react(), VitePWA(PWAConfig)],
   resolve: {

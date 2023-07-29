@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
@@ -16,12 +15,9 @@ import replyRouter from '@routers/ReplyRouter';
 import reactionRouter from '@routers/ReactionRouter';
 import emojiReactionRouter from '@routers/EmojiReactionRouter';
 import { dbConnect } from '@db';
+import { CLIENT_PATH } from './constants';
 
-dotenv.config();
-
-const CLIENT_PATH = path.resolve(__dirname, '../../../client/');
-// const CLIENT_SSR_DIST_PATH = path.resolve(CLIENT_PATH, '/ssr-dist/');
-const CLIENT_RENDER_FILE_PATH = path.resolve(CLIENT_PATH, 'ssr.tsx');
+const CLIENT_RENDER_FILE_PATH = path.resolve(CLIENT_PATH, 'src/index.ssr.tsx');
 const CLIENT_HTML_FILE_PATH = path.resolve(CLIENT_PATH, 'index.html');
 
 export async function createApp() {
@@ -30,7 +26,6 @@ export async function createApp() {
   app.disable('x-powered-by');
   app.enable('trust proxy');
 
-  //@ts-expect-error TODO: explain
   app.use(cookieParser());
   app.use(cors({ credentials: true, origin: CORS_ORIGIN_WHITELIST }));
   app.use(bodyParser.json());
@@ -78,7 +73,8 @@ export async function createApp() {
 
       const storeIncrementHtml = `
         <script>
-          window.__REDUX_STORE__ = ${JSON.stringify(storeState)}
+          window.__REDUX_STORE__ = ${JSON.stringify(storeState)};
+          window.__IS_SSR__ = true;
         </script>`;
       const html = template
         .replace(`<!-- ssr-outlet -->`, appHtml)

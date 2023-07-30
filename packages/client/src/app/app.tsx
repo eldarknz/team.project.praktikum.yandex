@@ -26,12 +26,8 @@ const ContentSPA = () => {
 };
 
 function App() {
-  console.log('Client App');
-
   const store = useStore<RootState>();
   const getControllers = useMemo(() => createControllers.bind(null, store), [store]);
-
-  console.log('Client App store', store);
 
   return (
     <BrowserRouter>

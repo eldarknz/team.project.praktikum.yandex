@@ -1,7 +1,10 @@
+@import '@styles/variables.scss';
+
 .default-layout {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background: $backgroundImg;
 
   &__main {
     flex: 1 1 auto;

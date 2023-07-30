@@ -6,9 +6,10 @@ import { ROUTES } from '@routers/routes';
 import { useViewer } from '@hooks/useViewer';
 import { Button } from '@components/Button';
 import { useControllers } from '@core/ControllersContext';
-import styles from './Navbar.module.scss';
 import { StyledLink } from '@components/StyledLink';
 import { RouteAccessGuard } from '@routers/RouteGuard';
+
+import styles from './NavbarTabs.module.scss';
 
 export const NavbarTabs = () => {
   const { isAuthenticated } = useViewer();

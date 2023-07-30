@@ -24,14 +24,12 @@ services:
       - ./.env
     networks:
       - prakticum
-    depends_on:
-      - server
 
   server:
     container_name: prakticum-server
     image: prakticum-server
     volumes:
-      - DataVolume:/app/packages/client:rw
+      - DataVolume:/app/dist/client:rw
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -45,6 +43,7 @@ services:
     networks:
       - prakticum
     depends_on:
+      - client
       - postgres
     command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 

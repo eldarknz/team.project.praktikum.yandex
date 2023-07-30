@@ -17,6 +17,8 @@ RUN yarn lerna bootstrap \
 COPY utils/wait-for.sh wait-for.sh
 
 RUN chmod +x wait-for.sh \
+    && ln -s /app/dist/client/dist /app/packages/client/dist \
+    && ln -s /app/dist/client/ssr-dist /app/packages/client/ssr-dist \
     && apt update \
     && apt install -y netcat-openbsd
 

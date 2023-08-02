@@ -18,7 +18,7 @@ class UserThemeService implements BaseRESTService {
     return UserThemeModel.findAll();
   }
 
-  async create(props: IUserTheme) {
+  create(props: IUserTheme) {
     return UserThemeModel.create(props);
   }
 }

@@ -19,7 +19,6 @@ export enum Layout {
   Auth,
   Error,
   Game,
-  Empty,
 }
 
 export type RouteItem = {
@@ -34,7 +33,7 @@ export const ROUTES = {
     path: '/',
     accessType: undefined,
     component: LandingPage,
-    layout: Layout.Empty,
+    layout: Layout.Default,
   },
   Forum: {
     path: '/forum',

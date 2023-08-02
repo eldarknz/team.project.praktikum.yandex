@@ -7,13 +7,13 @@ import { BaseApi } from '@api/BaseApi';
 
 export function createApiRouter<T>(api: T & BaseApi): Router {
   const router: Router = Router();
-  const baseMidllewars = [addAllowOrigin, checkAuth];
+  const baseMiddlewares = [addAllowOrigin, checkAuth];
 
   router
-    .get('/', baseMidllewars, api.find)
-    .post('/', [...baseMidllewars, urlEncoder], api.create)
-    .put('/', [...baseMidllewars, urlEncoder], api.update)
-    .delete('/', [...baseMidllewars, urlEncoder], api.delete);
+    .get('/', baseMiddlewares, api.find)
+    .post('/', [...baseMiddlewares, urlEncoder], api.create)
+    .put('/', [...baseMiddlewares, urlEncoder], api.update)
+    .delete('/', [...baseMiddlewares, urlEncoder], api.delete);
 
   return router;
 }

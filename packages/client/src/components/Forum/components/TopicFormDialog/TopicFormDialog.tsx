@@ -3,25 +3,25 @@ import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
 import { Form } from '@components/Form';
-import { FormSubmitHandler, FormContextState } from '@components/Form';
-import { TNewPostProps } from '@layouts/Forum/models';
-import styles from './PostCreator.module.scss';
+import { FormSubmitHandler } from '@components/Form';
+import styles from './TopicFormDialog.module.scss';
 import { Textarea } from '@components/Textarea';
 
-export type PostCreatorForm = TNewPostProps;
+export type TopicFormDialogValues = {
+  post_name: string;
+  message: string;
+};
 
-export type PostFormContext = FormContextState<PostCreatorForm>;
-
-export interface PostCreatorProps {
-  onSubmit: FormSubmitHandler<PostCreatorForm>;
+export interface TopicFormDialogProps {
+  onSubmit: FormSubmitHandler<TopicFormDialogValues>;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-export const PostCreator = ({ isOpen, onSubmit, onOpenChange }: PostCreatorProps) => {
+export const TopicFormDialog = ({ isOpen, onSubmit, onOpenChange }: TopicFormDialogProps) => {
   const [isSubmitting, setSubmitting] = useState(false);
 
-  const handleSubmit: FormSubmitHandler<PostCreatorForm> = useCallback(
+  const handleSubmit: FormSubmitHandler<TopicFormDialogValues> = useCallback(
     async data => {
       setSubmitting(true);
       await onSubmit(data);

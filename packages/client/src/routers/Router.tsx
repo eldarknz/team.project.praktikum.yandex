@@ -1,6 +1,5 @@
 import { ComponentType } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { EmptyLayout } from '@layouts/Empty';
 import { DefaultLayout } from '@layouts/Default';
 import { AuthLayout } from '@layouts/Auth';
 import { ErrorLayout } from '@layouts/Error';
@@ -13,7 +12,6 @@ const LAYOUTS: [Layout, ComponentType][] = [
   [Layout.Auth, AuthLayout],
   [Layout.Error, ErrorLayout],
   [Layout.Game, GameLayout],
-  [Layout.Empty, EmptyLayout],
 ];
 
 export const Router = () => {

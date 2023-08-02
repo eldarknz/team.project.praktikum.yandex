@@ -1,18 +1,7 @@
-import { ComponentType } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { DefaultLayout } from '@layouts/Default';
-import { AuthLayout } from '@layouts/Auth';
-import { ErrorLayout } from '@layouts/Error';
-import { Layout, ROUTES } from './routes';
-import { GameLayout } from '@layouts/Game/GameLayout';
+import { ROUTES } from './routes';
 import { RouteGuard } from './RouteGuard';
-
-const LAYOUTS: [Layout, ComponentType][] = [
-  [Layout.Default, DefaultLayout],
-  [Layout.Auth, AuthLayout],
-  [Layout.Error, ErrorLayout],
-  [Layout.Game, GameLayout],
-];
+import { LAYOUTS } from '@layouts/index';
 
 export const Router = () => {
   return (

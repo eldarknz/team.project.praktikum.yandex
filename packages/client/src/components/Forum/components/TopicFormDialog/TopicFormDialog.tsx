@@ -1,34 +1,34 @@
-import { useCallback, useState } from 'react';
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
-import { Form } from '@components/Form';
-import { FormSubmitHandler } from '@components/Form';
+import { useForm, useTextField } from '@core/Validation';
+
 import styles from './TopicFormDialog.module.scss';
-import { Textarea } from '@components/Textarea';
 
 export type TopicFormDialogValues = {
-  post_name: string;
-  message: string;
+  theme: string;
 };
 
 export interface TopicFormDialogProps {
-  onSubmit: FormSubmitHandler<TopicFormDialogValues>;
+  onSubmit: (values: TopicFormDialogValues) => Promise<void> | void;
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
 export const TopicFormDialog = ({ isOpen, onSubmit, onOpenChange }: TopicFormDialogProps) => {
-  const [isSubmitting, setSubmitting] = useState(false);
+  const themeField = useTextField({
+    name: 'post_name',
+    rules: [value => (value ? null : 'Тема')],
+  });
 
-  const handleSubmit: FormSubmitHandler<TopicFormDialogValues> = useCallback(
-    async data => {
-      setSubmitting(true);
-      await onSubmit(data);
-      setSubmitting(false);
+  const { isSubmitting, formProps } = useForm({
+    fields: [themeField],
+    onSubmit: async () => {
+      if (!themeField.value) return;
+
+      await onSubmit({ theme: themeField.value });
     },
-    [onSubmit]
-  );
+  });
 
   return (
     <Dialog
@@ -36,13 +36,12 @@ export const TopicFormDialog = ({ isOpen, onSubmit, onOpenChange }: TopicFormDia
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       contentClass={styles.dialog}>
-      <Form onSubmit={handleSubmit}>
-        <Input key="post_name" labelText="Тема" name="post_name" />
-        <Textarea key="message" labelText="Сообщение" name="message" />
+      <form {...formProps}>
+        <Input {...themeField.fieldProps} labelText="Тема" type="password" />
         <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
           Создать
         </Button>
-      </Form>
+      </form>
     </Dialog>
   );
 };

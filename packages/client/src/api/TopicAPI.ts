@@ -8,19 +8,19 @@ export interface TopicModel {
 }
 
 export interface CreateTopicRequest {
-  author: string;
   post_name: string;
-  message_count: number;
 }
 
 export interface UpdateTopicRequest {
   id: number;
-  author: string;
   post_name: string;
-  message_count: number;
 }
 
 export interface DeleteTopicRequest {
+  id: number;
+}
+
+export interface GetTopicRequest {
   id: number;
 }
 
@@ -48,10 +48,16 @@ export class TopicAPI extends BaseApi {
     });
   }
 
-  public get(data: DeleteTopicRequest) {
+  public get(data: GetTopicRequest) {
     return this.http.get<TopicModel>({
       url: path,
       body: data,
+    });
+  }
+
+  public list() {
+    return this.http.get<TopicModel[]>({
+      url: path,
     });
   }
 }

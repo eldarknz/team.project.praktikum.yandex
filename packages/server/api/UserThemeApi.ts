@@ -2,19 +2,25 @@ import { Request, Response } from 'express';
 import { userThemeService } from '../services/UserThemeService';
 
 export class UserThemeApi {
-  public static create = async (req: Request, res: Response) => {
-    const { body } = req;
-    await userThemeService
-      .create(body)
-      .then(() => res.status(200).send({ message: 'ok' }))
-      .catch(e => res.status(500).send({ message: e }));
+  public static create = async (request: Request, response: Response) => {
+    const { body } = request;
+    try {
+      await userThemeService.create(body);
+      return response.status(201).send({ message: 'ok' });
+    } catch (error) {
+      return response.status(500).send({ message: error });
+    }
   };
 
-  public static find = async (req: Request, res: Response) => {
-    const { query } = req;
-    await userThemeService
-      .find({ id: query.id && !!Number(query.id) ? Number(query.id) : undefined })
-      .then(d => res.status(200).send(d))
-      .catch(e => res.send(500).send({ message: e }));
+  public static find = async (request: Request, response: Response) => {
+    const { query } = request;
+    try {
+      const userTheme = await userThemeService.find({
+        id: query.id && !!Number(query.id) ? Number(query.id) : undefined,
+      });
+      return response.status(200).json(userTheme);
+    } catch (error) {
+      return response.status(500).send({ message: error });
+    }
   };
 }

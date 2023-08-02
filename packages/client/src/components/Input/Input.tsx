@@ -53,7 +53,7 @@ export const Input = ({
         }
       }
     },
-    [validator, errorText],
+    [validator, errorText]
   );
 
   const [localValue, setLocalValue] = useState(value);
@@ -87,7 +87,7 @@ export const Input = ({
         onChange(e);
       }
     },
-    [errorText, validator, onChange],
+    [errorText, validator, onChange]
   );
 
   return (

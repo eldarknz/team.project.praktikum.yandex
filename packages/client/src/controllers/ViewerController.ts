@@ -6,7 +6,7 @@ import {
   UpdateUserResponse,
   GetViewerResponse,
 } from '@api/ViewerAPI';
-import { setUser } from '@shared/store/reducers/userSlice';
+import { setUser } from '@workspace/shared/src/store/reducers';
 
 import { Handlers, BaseController } from './BaseController';
 

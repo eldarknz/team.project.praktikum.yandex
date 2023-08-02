@@ -1,7 +1,9 @@
 import { useMemo, PropsWithChildren, createContext, useState } from 'react';
+import { useStore as useStoreRedux } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { Viewer } from '@shared/models/viewer';
-import { store } from '@shared/store';
+import { Viewer } from '@workspace/shared/src/models';
+import { RootState, AppDispatch } from '@workspace/shared/src/store';
 
 export interface StoreModel {
   viewer: Viewer | null;
@@ -27,12 +29,15 @@ export const StoreContextProvider = ({
       viewer,
       setViewer,
     }),
-    [viewer],
+    [viewer]
   );
 
   return <StoreContext.Provider value={state}>{children}</StoreContext.Provider>;
 };
 
 export const useStore = () => {
-  return store.getState();
+  return useStoreRedux<RootState>();
 };
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

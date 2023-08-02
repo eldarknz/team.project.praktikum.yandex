@@ -45,7 +45,7 @@ export const NavbarTabs = () => {
       isAuthenticated
         ? links
         : links.filter(({ route: { accessType } }) => accessType !== RouteAccessGuard.Private),
-    [isAuthenticated, links],
+    [isAuthenticated, links]
   );
 
   const logout = useCallback(() => controllers.auth.logout(), [controllers.auth]);

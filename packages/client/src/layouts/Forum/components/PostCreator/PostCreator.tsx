@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@components/Button';
 import { Dialog } from '@components/Dialog';
 import { Input } from '@components/Input';
@@ -27,7 +27,7 @@ export const PostCreator = ({ isOpen, onSubmit, onOpenChange }: PostCreatorProps
       await onSubmit(data);
       setSubmitting(false);
     },
-    [onSubmit],
+    [onSubmit]
   );
 
   return (

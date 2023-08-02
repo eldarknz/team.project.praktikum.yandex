@@ -46,7 +46,7 @@ export const Container: React.FC<IContainerProps> = ({
   gutter,
   children,
   className,
-  dataTestId,
+  // dataTestId,
 }) => {
   const componentClassName = cn(
     width
@@ -54,7 +54,7 @@ export const Container: React.FC<IContainerProps> = ({
         useMemo(() => getClassNames({ component: width }, styles), [width])
       : styles['component'],
     useMemo(() => getClassNames({ gutter }, styles), [gutter]),
-    className,
+    className
   );
 
   return <Component className={componentClassName}>{children}</Component>;

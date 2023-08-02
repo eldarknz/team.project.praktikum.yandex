@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 
 import { useControllers } from '@core/ControllersContext';
-import { useAppDispatch } from '@shared/store/hooks';
-import { setUser } from '@shared/store/reducers/userSlice';
+import { setUser } from '@workspace/shared/src/store/reducers';
+import { useAppDispatch } from '@core/StoreContext';
 
-export const useViewerFromSession = () => {
-  const [isLoading, setLoading] = useState(false);
+export const useViewerFromSession = (isLoadingInitial = false) => {
+  const [isLoading, setLoading] = useState(isLoadingInitial);
   const dispatch = useAppDispatch();
   const controllers = useControllers();
 

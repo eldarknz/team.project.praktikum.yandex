@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -13,10 +14,13 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "declaration": false,
+    "declarationMap": false,
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "rootDir": "..",
+    "rootDir": ".",
+    "outDir": "./dist",
     "paths": {
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
@@ -31,13 +35,14 @@
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
       "@public/*": ["./public/*"],
-      "@shared/*": ["../shared/*"]
+
+      "@app": ["./src/app/index.tsx"]
     }
   },
-  "include": ["src", "../@types/**/*", "./svg.d.ts", "../shared"],
   "references": [
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
+  "include": ["src", "node_modules/@workspace/shared/*.d.ts"]
 }

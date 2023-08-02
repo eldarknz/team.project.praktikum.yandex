@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useControllers } from '@core/ControllersContext';
 import { LeaderboardData } from '@api/LeaderboardAPI';
 import { IPlayerCardProps } from '@components/PlayerCard';
-import { RESOURCES_URL } from '@shared/config/constants';
+import { RESOURCES_URL } from '@workspace/shared/src/config';
 
 export const useFetchLeaderboardData = () => {
   const controllers = useControllers();
@@ -18,7 +18,7 @@ export const useFetchLeaderboardData = () => {
 
         if (Array.isArray(dataList)) {
           const sortedData = dataList.sort(
-            (a, b) => b.data.teamwork_theTeam_score - a.data.teamwork_theTeam_score,
+            (a, b) => b.data.teamwork_theTeam_score - a.data.teamwork_theTeam_score
           );
 
           const updatedPlayerListData = sortedData.map((item, index) => ({

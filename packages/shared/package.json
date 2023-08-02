@@ -1,0 +1,14 @@
+{
+  "name": "@workspace/shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && npx tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.0"
+  },
+  "license": "MIT"
+}

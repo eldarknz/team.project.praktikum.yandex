@@ -24,14 +24,12 @@ services:
       - ./.env
     networks:
       - prakticum
-    depends_on:
-      - server
 
   server:
     container_name: prakticum-server
     image: prakticum-server
     volumes:
-      - DataVolume:/app/client:ro
+      - DataVolume:/app/dist/client:rw
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -45,18 +43,17 @@ services:
     networks:
       - prakticum
     depends_on:
+      - client
       - postgres
-    command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/server/index.js
+    command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
   postgres:
     container_name: prakticum-database
     image: postgres:14
     ports:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - ./.env
     volumes:
       - ./tmp/pgdata:/var/lib/postgresql/data
     networks:
@@ -66,10 +63,8 @@ services:
     container_name: pgadmin
     image: dpage/pgadmin4:7.4
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_LISTEN_PORT: 80
+    env_file:
+      - ./.env
     ports:
       - '8080:80'
     volumes:

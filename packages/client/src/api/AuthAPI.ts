@@ -1,4 +1,4 @@
-import { API_URL } from '@shared/config/constants';
+import { API_URL } from '@workspace/shared/src/config';
 
 import { BaseApi } from './BaseAPI';
 

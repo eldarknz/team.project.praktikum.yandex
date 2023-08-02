@@ -14,15 +14,15 @@ export type TTextareaProps = {
 
 export const Textarea = ({
   className,
-  errorText,
+  // errorText,
   labelText,
   placeholder,
   name,
-  onChange,
-  validator,
+  // onChange,
+  // validator,
   ...otherProps
 }: TTextareaProps) => {
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   /* eslint-disable */
   const componentId = labelText ? useId() : undefined;
@@ -33,7 +33,7 @@ export const Textarea = ({
     {
       [styles.error]: error,
     },
-    className,
+    className
   );
 
   const handleBlur = () => {

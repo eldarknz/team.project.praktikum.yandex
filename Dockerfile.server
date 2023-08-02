@@ -2,7 +2,6 @@ ARG NODE_VERSION=16
 ARG SERVER_PORT=3001
 
 
-# stage 'build'
 FROM node:$NODE_VERSION-buster as builder
 
 WORKDIR /app
@@ -12,25 +11,15 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN mkdir -p /app/client \
-    && yarn lerna bootstrap \
-    && yarn build --scope=server
-
-
-# stage 'production'
-FROM node:$NODE_VERSION-buster-slim as production
-
-WORKDIR /app/server
-
-COPY --from=builder /app/packages/server/dist/ /app/
-COPY --from=builder /app/packages/server/package.json /app/package.json
+RUN yarn lerna bootstrap \
+    && yarn build:server
 
 COPY utils/wait-for.sh wait-for.sh
 
 RUN chmod +x wait-for.sh \
+    && ln -s /app/dist/client/dist /app/packages/client/dist \
+    && ln -s /app/dist/client/ssr-dist /app/packages/client/ssr-dist \
     && apt update \
-    && apt install -y netcat-openbsd \
-    && yarn install --production=true \
-    && ls -la
+    && apt install -y netcat-openbsd
 
 EXPOSE $SERVER_PORT

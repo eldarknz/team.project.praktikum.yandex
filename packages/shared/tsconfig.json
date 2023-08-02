@@ -1,28 +1,14 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "target": "es2019",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
+    "composite": false,
+    "incremental": false,
     "declaration": true,
     "declarationMap": true,
-    "removeComments": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "es2019", "esnext.asynciterable"],
-    "types": ["node", "jest"],
-    "baseUrl": ".",
-    "outDir": "dist"
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": [
-    "../@types/**/*"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

@@ -12,7 +12,7 @@ type ObjectFit = 'fill' | 'contain' | 'cover' | 'none' | 'scale-down';
 
 const FONT_SIZE_FACTOR = 0.4;
 
-export const Avatar: React.FC<IAvatarProps> = ({ name = '', src = '', size = 48, className }) => {
+export const Avatar: React.FC<IAvatarProps> = ({ src = '', size = 48, className }) => {
   const style = {
     lineHeight: size + 'px',
     width: size,

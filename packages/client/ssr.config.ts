@@ -7,9 +7,10 @@ import { PWAConfig, configAliases } from './vite.config';
 
 export default defineConfig({
   plugins: [svgr(), react(), VitePWA(PWAConfig)],
+  mode: process.env.NODE_ENV as any,
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'ssr.tsx'),
+      entry: path.resolve(__dirname, 'src/index.ssr.tsx'),
       name: 'Client',
       formats: ['cjs'],
     },

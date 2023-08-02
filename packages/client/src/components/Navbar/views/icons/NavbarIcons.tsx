@@ -37,7 +37,7 @@ export const NavbarIcons = () => {
         icon: <SettingsSVG />,
       },
     ],
-    [],
+    []
   );
 
   const availableLinks = useMemo(
@@ -45,9 +45,9 @@ export const NavbarIcons = () => {
       isAuthenticated
         ? links
         : links.filter(
-            ({ route: { accessType } }) => !accessType || accessType === RouteAccessGuard.Private,
+            ({ route: { accessType } }) => !accessType || accessType === RouteAccessGuard.Private
           ),
-    [isAuthenticated, links],
+    [isAuthenticated, links]
   );
 
   return (

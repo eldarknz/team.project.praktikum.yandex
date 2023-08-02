@@ -6,7 +6,7 @@
   },
   "tsc-alias": {
     "verbose": false,
-    "resolveFullPaths": true,
+    "resolveFullPaths": true
   },
   "compilerOptions": {
     "outDir": "dist",

@@ -4,12 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-
     "build:client": "rimraf dist && tsc && vite build --config vite.config.ts",
     "build:ssr": "rimraf ssr-dist && tsc && vite build --config ssr.config.ts",
     "build": "yarn build:client && yarn build:ssr",
     "postbuild": "tsc-alias",
-
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",

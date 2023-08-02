@@ -6,7 +6,7 @@ interface FindRequest {
 }
 
 class UserThemeService implements BaseRESTService {
-  async findById({ id }: Partial<FindRequest>) {
+  findById({ id }: Partial<FindRequest>) {
     return UserThemeModel.findOne({
       where: {
         id,
@@ -14,7 +14,7 @@ class UserThemeService implements BaseRESTService {
     });
   }
 
-  async findAll() {
+  findAll() {
     return UserThemeModel.findAll();
   }
 

@@ -14,9 +14,13 @@ export class UserThemeApi {
 
   public static find = async (request: Request, response: Response) => {
     const { query } = request;
-    const id = query.id && !!Number(query.id) ? Number(query.id) : null;
     try {
-      const userTheme = await userThemeService.find({ id });
+      let userTheme;
+      if (query.id && !!Number(query.id)) {
+        userTheme = await userThemeService.findById({ id: Number(query.id) });
+      } else {
+        userTheme = await userThemeService.findAll();
+      }
       return response.status(200).json(userTheme);
     } catch (error) {
       return response.status(500).send({ message: error });

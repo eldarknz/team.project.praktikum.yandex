@@ -4,9 +4,10 @@ import { UserThemeApi } from '../api/UserThemeApi';
 export const userThemeRouter = (router: Router) => {
   const themesRouter: Router = Router();
 
-  /* eslint-disable */
-  themesRouter.post('/', UserThemeApi.create).get('/', UserThemeApi.find);
-  /* eslint-enable */
+  // prettier-ignore
+  themesRouter
+    .post('/', UserThemeApi.create)
+    .get('/', UserThemeApi.find);
 
   router.use('/theme', themesRouter);
 };

@@ -2,7 +2,7 @@ import { IUserTheme, UserThemeModel } from '../models';
 import { BaseRESTService } from './BaseRESTService';
 
 interface FindRequest {
-  id: number; // ID темы в таблице
+  id: number | null; // ID темы в таблице
 }
 
 class UserThemeService implements BaseRESTService {

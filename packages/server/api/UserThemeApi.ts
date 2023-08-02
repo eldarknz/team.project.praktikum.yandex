@@ -14,10 +14,9 @@ export class UserThemeApi {
 
   public static find = async (request: Request, response: Response) => {
     const { query } = request;
+    const id = query.id && !!Number(query.id) ? Number(query.id) : null;
     try {
-      const userTheme = await userThemeService.find({
-        id: query.id && !!Number(query.id) ? Number(query.id) : undefined,
-      });
+      const userTheme = await userThemeService.find({ id });
       return response.status(200).json(userTheme);
     } catch (error) {
       return response.status(500).send({ message: error });

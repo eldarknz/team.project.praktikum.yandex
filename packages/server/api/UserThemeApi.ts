@@ -12,15 +12,19 @@ export class UserThemeApi {
     }
   };
 
-  public static find = async (request: Request, response: Response) => {
+  public static findById = async (request: Request, response: Response) => {
     const { query } = request;
     try {
-      let userTheme;
-      if (query.id && !!Number(query.id)) {
-        userTheme = await userThemeService.findById({ id: Number(query.id) });
-      } else {
-        userTheme = await userThemeService.findAll();
-      }
+      const userTheme = await userThemeService.findById({ id: Number(query.id) });
+      return response.status(200).json(userTheme);
+    } catch (error) {
+      return response.status(500).send({ message: error });
+    }
+  };
+
+  public static findAll = async (_: Request, response: Response) => {
+    try {
+      const userTheme = await userThemeService.findAll();
       return response.status(200).json(userTheme);
     } catch (error) {
       return response.status(500).send({ message: error });

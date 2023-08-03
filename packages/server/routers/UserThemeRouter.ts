@@ -7,7 +7,8 @@ export const userThemeRouter = (router: Router) => {
   // prettier-ignore
   themesRouter
     .post('/', UserThemeApi.create)
-    .get('/', UserThemeApi.find);
+    .get('/', UserThemeApi.findById)
+    .get('/', UserThemeApi.findAll);
 
   router.use('/theme', themesRouter);
 };

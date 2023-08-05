@@ -10,7 +10,7 @@ export interface TopicModel {
   updatedAt: string;
 }
 
-export type CreateTopicRequest = Pick<TopicModel, 'title' | 'content'>;
+export type CreateTopicRequest = Pick<TopicModel, 'title' | 'content' | 'authorId'>;
 
 export interface UpdateTopicRequest {
   id: number;

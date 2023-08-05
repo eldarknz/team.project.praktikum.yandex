@@ -17,9 +17,9 @@ export class BaseApi implements BaseApiImpl {
   };
 
   public create = async (req: Request, res: Response) => {
-    const { body, user } = req;
+    const { body } = req;
     await this.service
-      .create(body, user)
+      .create(body)
       .then(data => res.status(200).send(data))
       .catch(e => res.status(500).send({ message: e }));
   };

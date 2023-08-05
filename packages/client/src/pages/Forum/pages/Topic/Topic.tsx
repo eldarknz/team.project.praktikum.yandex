@@ -39,7 +39,6 @@ export const TopicPage = () => {
   }, []);
 
   if (topicQuery.isFetching || !topic) {
-    console.log('wow');
     return <PageLoader />;
   }
 

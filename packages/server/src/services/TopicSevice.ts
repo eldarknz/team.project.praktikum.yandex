@@ -17,10 +17,9 @@ class TopicService implements BaseRESTService {
     return TopicModel.findAll();
   }
 
-  async create(props: Omit<ITopicModel, 'authorId'>, { id }: { id: number }) {
+  async create(props: ITopicModel) {
     return TopicModel.create({
       ...props,
-      authorId: id,
     });
   }
 

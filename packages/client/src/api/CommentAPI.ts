@@ -2,7 +2,7 @@ import { BaseApi } from '@api/BaseAPI';
 
 import { Comment } from '@workspace/shared/src/models';
 
-export type CreateCommentRequest = Pick<Comment, 'text' | 'topicId'>;
+export type CreateCommentRequest = Pick<Comment, 'text' | 'topicId' | 'authorId'>;
 
 export interface GetCommentListRequest {
   topicId: number;

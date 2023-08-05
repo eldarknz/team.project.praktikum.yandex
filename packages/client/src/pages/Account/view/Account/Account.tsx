@@ -1,20 +1,13 @@
-import { useCallback } from 'react';
-
 import { useDialog } from '@hooks/useDialog';
 import { Button } from '@components/Button';
-import { useControllers } from '@core/ControllersContext';
 
 import { ViewerModel } from '../../models';
+import { UserEditor, UserDataList, PasswordEditor, AvatarEditor, Avatar } from '../../components';
 import {
-  UserEditor,
-  UserDataList,
-  PasswordEditor,
-  AvatarEditor,
-  UserEditorProps,
-  AvatarEditorProps,
-  PasswordEditorProps,
-  Avatar,
-} from '../../components';
+  useUpdateUserMutation,
+  useUpdateAvatarMutation,
+  useUpdatePasswordMutation,
+} from '../../hooks';
 
 import styles from './Account.module.scss';
 
@@ -23,89 +16,46 @@ export interface AccountProps {
 }
 
 export const Account = ({ viewer }: AccountProps) => {
-  const {
-    isOpen: isUserEditorOpen,
-    close: closeUserEditor,
-    open: openUserEditor,
-    setState: setUserEditorState,
-  } = useDialog();
-  const {
-    isOpen: isPasswordEditorOpen,
-    close: closePasswordEditor,
-    open: openPasswordEditor,
-    setState: setPasswordEditorState,
-  } = useDialog();
-  const {
-    isOpen: isAvatarEditorOpen,
-    close: closeAvatarEditor,
-    open: openAvatarEditor,
-    setState: setAvatarEditorState,
-  } = useDialog();
-  const controllers = useControllers();
-
-  const updateUser: UserEditorProps['onSubmit'] = useCallback(
-    values => {
-      return controllers.viewer.editUser({
-        values,
-        onSuccess: () => {
-          closeUserEditor();
-        },
-        onError: () => alert('Cannot update user'),
-      });
-    },
-    [closeUserEditor, controllers.viewer],
-  );
-
-  const updateAvatar: AvatarEditorProps['onSubmit'] = useCallback(
-    values => {
-      return controllers.viewer.editAvatar({
-        values,
-        onSuccess: () => {
-          closeAvatarEditor();
-        },
-        onError: () => alert('Cannot update avatar'),
-      });
-    },
-    [closeAvatarEditor, controllers.viewer],
-  );
-
-  const updatePassword: PasswordEditorProps['onSubmit'] = useCallback(
-    values => {
-      return controllers.viewer.editPassword({
-        values,
-        onSuccess: () => {
-          closePasswordEditor();
-        },
-        onError: () => alert('Cannot update password'),
-      });
-    },
-    [closePasswordEditor, controllers.viewer],
-  );
+  const editUserDialog = useDialog();
+  const editPasswordDialog = useDialog();
+  const editAvatarDialog = useDialog();
+  const { mutate: updateUser } = useUpdateUserMutation({
+    onSuccess: editUserDialog.close,
+    onError: () => alert('Cannot update user'),
+  });
+  const { mutate: updateAvatar } = useUpdateAvatarMutation({
+    onSuccess: editAvatarDialog.close,
+    onError: () => alert('Cannot update avatar'),
+  });
+  const { mutate: updatePassword } = useUpdatePasswordMutation({
+    onSuccess: editAvatarDialog.close,
+    onError: () => alert('Cannot update avatar'),
+  });
 
   return (
     <div className={styles.page}>
-      {isUserEditorOpen && (
+      {editUserDialog.isOpen && (
         <UserEditor
           viewer={viewer}
-          isOpen={isUserEditorOpen}
+          isOpen={editUserDialog.isOpen}
           onSubmit={updateUser}
-          onOpenChange={setUserEditorState}
+          onOpenChange={editUserDialog.setState}
         />
       )}
 
-      {isPasswordEditorOpen && (
+      {editPasswordDialog.isOpen && (
         <PasswordEditor
-          isOpen={isPasswordEditorOpen}
+          isOpen={editPasswordDialog.isOpen}
           onSubmit={updatePassword}
-          onOpenChange={setPasswordEditorState}
+          onOpenChange={editPasswordDialog.setState}
         />
       )}
 
-      {isAvatarEditorOpen && (
+      {editAvatarDialog.isOpen && (
         <AvatarEditor
-          isOpen={isAvatarEditorOpen}
+          isOpen={editAvatarDialog.isOpen}
           onSubmit={updateAvatar}
-          onOpenChange={setAvatarEditorState}
+          onOpenChange={editAvatarDialog.setState}
         />
       )}
 
@@ -118,9 +68,9 @@ export const Account = ({ viewer }: AccountProps) => {
         <UserDataList {...viewer} />
 
         <div className={styles.buttons}>
-          <Button onClick={openUserEditor}>Изменить данные</Button>
-          <Button onClick={openPasswordEditor}>Изменить пароль</Button>
-          <Button onClick={openAvatarEditor}>Изменить аватар</Button>
+          <Button onClick={editUserDialog.open}>Изменить данные</Button>
+          <Button onClick={editPasswordDialog.open}>Изменить пароль</Button>
+          <Button onClick={editAvatarDialog.open}>Изменить аватар</Button>
         </div>
       </div>
     </div>

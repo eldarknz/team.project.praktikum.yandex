@@ -1,7 +1,8 @@
+import { useCallback, useState } from 'react';
+
 import { TopicModel } from '@api/TopicAPI';
 import { useServices } from '@core/ServicesContext';
-import { QueryHandler } from '@pages/Forum/models';
-import { useCallback, useState } from 'react';
+import { QueryHandler } from '@utils/hooks';
 
 export interface UseTopicQueryProps extends QueryHandler {
   id: number;

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { QueryHandler } from '@pages/Forum/models';
+import { QueryHandler } from '@utils/hooks';
 import { useServices } from '@core/ServicesContext';
 import { CreateCommentRequest } from '@api/CommentAPI';
 import { Comment } from '@workspace/shared/src/models';

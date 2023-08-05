@@ -2,8 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { TopicModel } from '@components/Forum/models';
 import { useServices } from '@core/ServicesContext';
-
-import { QueryHandler } from '../models';
+import { QueryHandler } from '@utils/hooks';
 
 export const useTopicListQuery = ({ onError, onSuccess }: QueryHandler) => {
   const [isFetching, setFetching] = useState(false);

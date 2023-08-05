@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 
-import { QueryHandler } from '@pages/Forum/models';
 import { useServices } from '@core/ServicesContext';
 import { useAppDispatch, useAppSelector } from '@core/StoreContext';
 import { setComments } from '@workspace/shared/src/store/reducers';
+import { QueryHandler } from '@utils/hooks';
 
 export interface UseCommentListQueryProps extends QueryHandler {
   topicId: number;

@@ -3,8 +3,7 @@ import { useCallback, useState } from 'react';
 import { CreateTopicRequest } from '@api/TopicAPI';
 import { TopicModel } from '@components/Forum/models';
 import { useServices } from '@core/ServicesContext';
-
-import { QueryHandler } from '../models';
+import { QueryHandler } from '@utils/hooks';
 import { useViewer } from '@hooks/useViewer';
 
 export const useCreatePostMutation = ({ onError, onSuccess }: QueryHandler<TopicModel>) => {

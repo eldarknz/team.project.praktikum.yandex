@@ -3,6 +3,7 @@ import { Button } from '@components/Button';
 import { Grid } from '@components/Grid';
 import { useDialog } from '@hooks/useDialog';
 import { Spinner } from '@components/Spinner';
+import { useViewer } from '@hooks/useViewer';
 
 import { useCreatePostMutation, useForumNavigation, useTopicListQuery } from '../../hooks';
 
@@ -13,6 +14,7 @@ import styles from './Forum.module.scss';
 export const ForumPage = () => {
   document.title = 'Forum';
 
+  const { isAuthenticated } = useViewer();
   const { toTopic: navigateToTopic } = useForumNavigation();
   const { isFetching, fetchTopicList, topics } = useTopicListQuery({
     onSuccess: () => null,
@@ -48,9 +50,11 @@ export const ForumPage = () => {
             <Grid.Col width={9}>
               <div className={styles.header}>
                 <h1 className={styles.title}>Форум</h1>
-                <div className={styles.actions}>
-                  <Button children="Создать топик" onClick={topicDialog.open} />
-                </div>
+                {isAuthenticated && (
+                  <div className={styles.actions}>
+                    <Button children="Создать топик" onClick={topicDialog.open} />
+                  </div>
+                )}
               </div>
 
               <TopicList topics={topics} onTopicClick={navigateToTopic} />

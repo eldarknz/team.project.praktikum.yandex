@@ -3,14 +3,16 @@ import { useParams } from 'react-router-dom';
 
 import { useTopicQuery, useCommentListQuery, useCreateCommentMutation } from '@pages/Forum/hooks';
 import { Spinner } from '@components/Spinner';
+import { PageLoader } from '@components/PageLoader';
+import { useViewer } from '@hooks/useViewer';
 
 import { MessageForm, CommentsList } from './components';
 
 import styles from './Topic.module.scss';
-import { PageLoader } from '@components/PageLoader';
 
 export const TopicPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { isAuthenticated } = useViewer();
   const topicId = Number(id);
   const commentListQuery = useCommentListQuery({
     topicId: Number(id),
@@ -53,7 +55,7 @@ export const TopicPage = () => {
           {comments && !commentListQuery.isFetching ? (
             <Fragment>
               <CommentsList comments={comments} />
-              <MessageForm onSubmit={sendMessage} />
+              {isAuthenticated && <MessageForm onSubmit={sendMessage} />}
             </Fragment>
           ) : (
             <Spinner />

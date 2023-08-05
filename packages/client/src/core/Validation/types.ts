@@ -10,6 +10,7 @@ export interface FormFieldState<T = any, THtmlProps = any> {
   value: T;
   error: string | null;
   isValid: () => Promise<boolean>;
+  clear: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -2,10 +2,10 @@ import { Optional } from 'sequelize';
 import { Table, Column, DataType, Model } from 'sequelize-typescript';
 
 export interface ITopicModel {
-  id?: number;
-  author: string;
-  post_name: string;
-  message_count: number;
+  id: number;
+  authorId: number;
+  title: string;
+  content: string;
 }
 
 @Table({ tableName: 'topic' })
@@ -17,11 +17,11 @@ export class TopicModel
   id!: number;
 
   @Column({ allowNull: false, type: DataType.STRING })
-  author!: string;
+  authorId!: number;
 
   @Column({ allowNull: false, type: DataType.STRING })
-  post_name!: string;
+  title!: string;
 
-  @Column({ allowNull: false, type: DataType.INTEGER })
-  message_count!: number;
+  @Column({ allowNull: false, type: DataType.STRING })
+  content!: string;
 }

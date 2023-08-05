@@ -6,6 +6,7 @@ import { AuthAPI } from '@api/AuthAPI';
 import { ViewerAPI } from '@api/ViewerAPI';
 import { LeaderboardAPI } from '@api/LeaderboardAPI';
 import { TopicAPI } from '@api/TopicAPI';
+import { CommentAPI } from '@api/CommentAPI';
 import { RootStore } from '@workspace/shared/src/store';
 
 export const services: ServicesModel = {
@@ -13,6 +14,7 @@ export const services: ServicesModel = {
   viewer: new ViewerAPI(),
   lead: new LeaderboardAPI(),
   topic: new TopicAPI(),
+  comment: new CommentAPI(),
 };
 
 export const createControllers = (store: RootStore) => ({

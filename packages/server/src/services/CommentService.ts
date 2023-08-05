@@ -18,8 +18,8 @@ class CommentService implements BaseRESTService {
     return CommentModel.findAll();
   }
 
-  async create(props: IComment) {
-    return CommentModel.create(props);
+  async create(props: IComment, { id }: { id: number }) {
+    return CommentModel.create({ ...props, authorId: id });
   }
 
   async update(props: IComment) {

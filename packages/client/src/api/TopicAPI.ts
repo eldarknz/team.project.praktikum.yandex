@@ -2,18 +2,19 @@ import { BaseApi } from '@api/BaseAPI';
 
 export interface TopicModel {
   id: number;
-  author: string;
-  post_name: string;
+  authorId: number;
+  title: string;
+  content: string;
   message_count: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface CreateTopicRequest {
-  post_name: string;
-}
+export type CreateTopicRequest = Pick<TopicModel, 'title' | 'content'>;
 
 export interface UpdateTopicRequest {
   id: number;
-  post_name: string;
+  postName: string;
 }
 
 export interface DeleteTopicRequest {
@@ -50,8 +51,7 @@ export class TopicAPI extends BaseApi {
 
   public get(data: GetTopicRequest) {
     return this.http.get<TopicModel>({
-      url: path,
-      body: data,
+      url: `${path}?${new URLSearchParams(data as any).toString()}`,
     });
   }
 

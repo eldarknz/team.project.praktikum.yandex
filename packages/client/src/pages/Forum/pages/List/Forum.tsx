@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { Button } from '@components/Button';
 import { Grid } from '@components/Grid';
 import { useDialog } from '@hooks/useDialog';
-import { TopicFormDialog, TopicList } from '@components/Forum/components';
 import { Spinner } from '@components/Spinner';
 
 import { useCreatePostMutation, useForumNavigation, useTopicListQuery } from '../../hooks';
+
+import { TopicFormDialog, TopicList } from './components';
 
 import styles from './Forum.module.scss';
 
@@ -17,19 +18,14 @@ export const ForumPage = () => {
     onSuccess: () => null,
     onError: () => alert('Cannot get topic list!'),
   });
+  const topicDialog = useDialog();
   const { createPost } = useCreatePostMutation({
     onError: () => alert('Cannot create topic!'),
     onSuccess: topic => {
       navigateToTopic(topic);
-      closePostCreator();
+      topicDialog.close();
     },
   });
-  const {
-    isOpen: isPostCreatorOpen,
-    close: closePostCreator,
-    open: openPostCreator,
-    setState: setPostCreatorState,
-  } = useDialog();
 
   useEffect(() => {
     fetchTopicList();
@@ -39,9 +35,9 @@ export const ForumPage = () => {
   return (
     <div className={styles.page}>
       <TopicFormDialog
-        isOpen={isPostCreatorOpen}
+        isOpen={topicDialog.isOpen}
         onSubmit={createPost}
-        onOpenChange={setPostCreatorState}
+        onOpenChange={topicDialog.setState}
       />
 
       {isFetching ? (
@@ -53,7 +49,7 @@ export const ForumPage = () => {
               <div className={styles.header}>
                 <h1 className={styles.title}>Форум</h1>
                 <div className={styles.actions}>
-                  <Button children="Создать топик" onClick={openPostCreator} />
+                  <Button children="Создать топик" onClick={topicDialog.open} />
                 </div>
               </div>
 

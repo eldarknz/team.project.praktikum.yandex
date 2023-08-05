@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { TopicFormDialogValues } from '@components/Forum/components';
+import { CreateTopicRequest } from '@api/TopicAPI';
 import { TopicModel } from '@components/Forum/models';
 import { useServices } from '@core/ServicesContext';
 
@@ -11,13 +11,14 @@ export const useCreatePostMutation = ({ onError, onSuccess }: QueryHandler<Topic
   const { topic: topicService } = useServices();
 
   const createPost = useCallback(
-    async (values: TopicFormDialogValues) => {
+    async (values: CreateTopicRequest) => {
       setSubmitting(true);
 
       try {
-        const topic = await topicService.create({ post_name: values.theme });
+        const topic = await topicService.create({ ...values });
         onSuccess(topic);
       } catch (error) {
+        console.log(error);
         onError();
       }
 

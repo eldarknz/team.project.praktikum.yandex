@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Button } from '@components/Button';
 import { Grid } from '@components/Grid';
 import { useDialog } from '@hooks/useDialog';
-import { Spinner } from '@components/Spinner';
 import { useViewer } from '@hooks/useViewer';
 
 import { useCreatePostMutation, useForumNavigation, useTopicListQuery } from '../../hooks';
@@ -10,6 +9,7 @@ import { useCreatePostMutation, useForumNavigation, useTopicListQuery } from '..
 import { TopicFormDialog, TopicList } from './components';
 
 import styles from './Forum.module.scss';
+import { PageLoader } from '@components/PageLoader';
 
 export const ForumPage = () => {
   document.title = 'Forum';
@@ -43,7 +43,7 @@ export const ForumPage = () => {
       />
 
       {isFetching ? (
-        <Spinner />
+        <PageLoader />
       ) : (
         <Grid.Container width={'full'} className={styles.container}>
           <Grid.Row justify="center">

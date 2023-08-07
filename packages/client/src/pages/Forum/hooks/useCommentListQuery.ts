@@ -19,7 +19,7 @@ export const useCommentListQuery = ({ topicId, onError, onSuccess }: UseCommentL
     setFetching(true);
 
     try {
-      const fetchedComments = await services.comment.list({ topicId });
+      const fetchedComments = await services.topic.comments(topicId);
       dispatch(setComments(fetchedComments));
 
       onSuccess();
@@ -30,7 +30,7 @@ export const useCommentListQuery = ({ topicId, onError, onSuccess }: UseCommentL
     }
 
     setFetching(false);
-  }, [dispatch, onError, onSuccess, services.comment, topicId]);
+  }, [dispatch, onError, onSuccess, services.topic, topicId]);
 
   return { fetch, comments, isFetching };
 };

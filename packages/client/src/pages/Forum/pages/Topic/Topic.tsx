@@ -5,6 +5,7 @@ import { useTopicQuery, useCommentListQuery, useCreateCommentMutation } from '@p
 import { Spinner } from '@components/Spinner';
 import { PageLoader } from '@components/PageLoader';
 import { useViewer } from '@hooks/useViewer';
+import { dateConvert } from '@utils/dateConverter';
 
 import { MessageForm, CommentsList } from './components';
 
@@ -47,7 +48,13 @@ export const TopicPage = () => {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <h1 className={styles.header}>{topic.title}</h1>
+        <div className={styles.header}>
+          <time className={styles.createdAt} dateTime={topic.createdAt}>
+            {dateConvert(topic.createdAt)}
+          </time>
+
+          <h1 className={styles.title}>{topic.title}</h1>
+        </div>
 
         <div className={styles.content}>{topic.content}</div>
 

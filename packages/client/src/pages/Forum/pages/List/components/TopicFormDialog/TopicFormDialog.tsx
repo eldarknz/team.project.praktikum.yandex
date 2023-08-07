@@ -44,7 +44,7 @@ export const TopicFormDialog = ({ isOpen, onSubmit, onOpenChange }: TopicFormDia
       contentClass={styles.dialog}>
       <form {...formProps}>
         <Input {...titleField.fieldProps} labelText="Тема" type="text" />
-        <Textarea {...contentField.fieldProps} labelText="Тема" />
+        <Textarea {...contentField.fieldProps} labelText="Контент" />
         <Button type="submit" loading={isSubmitting} disabled={isSubmitting}>
           Создать
         </Button>

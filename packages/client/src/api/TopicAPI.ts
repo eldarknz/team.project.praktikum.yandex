@@ -60,4 +60,10 @@ export class TopicAPI extends BaseApi {
       url: path,
     });
   }
+
+  public comments(id: number) {
+    return this.http.get<TopicModel[]>({
+      url: `${path}/comments?${new URLSearchParams({ id } as any).toString()}`,
+    });
+  }
 }

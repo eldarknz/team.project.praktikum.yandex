@@ -3,8 +3,12 @@
 .baseInput {
   width: 100%;
   border: none;
-  border-bottom: 1px solid $primaryColor;
+  background: $darkPurple;
+  border: 1px solid $primaryColor;
+  border-radius: $baseBorderRadius;
   padding: 0.3rem 0;
+  color: $white;
+  padding: 16px;
 }
 
 .baseInput:focus {

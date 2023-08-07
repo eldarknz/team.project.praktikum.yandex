@@ -22,24 +22,23 @@ export const TopicList = ({ topics, onTopicClick }: TopicListProps) => {
       {
         field: 'postName',
         headerName: 'Заголовок',
-        formatter: (value: string, topic: TopicModel) => (
+        formatter: (_, topic: TopicModel) => (
           <div className={styles.postMainInfo}>
-            <div className={styles.postTitle}>{value}</div>
+            <div className={styles.postTitle}>{topic.title}</div>
             <div className={styles.postMinor}>
-              <div className={styles.postAuthor}>{topic.authorId}</div>
               <div className={styles.postStartDate}>{dateConvert(topic.createdAt)}</div>
             </div>
           </div>
         ),
       },
       {
-        field: 'message_count',
+        field: 'commentsCount',
         headerName: 'Кол-во сообщений',
         width: '15%',
         formatter: (value: string) => (
           <div className={styles.postMessages}>
             <Icon icon={<MessageIcon />} size={18} />
-            <div className={styles.postMessageCount}>{value}</div>
+            <div className={styles.postMessageCount}>{value || 0}</div>
           </div>
         ),
       },
@@ -51,7 +50,6 @@ export const TopicList = ({ topics, onTopicClick }: TopicListProps) => {
         formatter: (value: string) => (
           <div className={styles.postLatestInfo}>
             <div className={styles.postLatestDate}>{dateConvert(value)}</div>
-            <div className={styles.postLatestUser}>{''}</div>
           </div>
         ),
       },

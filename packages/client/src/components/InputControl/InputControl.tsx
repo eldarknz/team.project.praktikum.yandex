@@ -13,7 +13,7 @@ type InputControlProps = {
 
 export const InputControl = ({
   labelText,
-  labelClassName = 'inputLabel',
+  labelClassName,
   labelId,
   wrapperClassName = 'inputControl',
   error,
@@ -23,7 +23,7 @@ export const InputControl = ({
     <>
       <div className={cn(wrapperClassName)}>
         {labelId && (
-          <label htmlFor={labelId} className={cn(labelClassName)}>
+          <label htmlFor={labelId} className={cn(labelClassName, 'inputLabel')}>
             {labelText}
           </label>
         )}

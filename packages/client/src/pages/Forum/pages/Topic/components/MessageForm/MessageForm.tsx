@@ -29,7 +29,7 @@ export const MessageForm = ({ onSubmit }: MessageFormProps) => {
 
   return (
     <form {...form.formProps}>
-      <Textarea {...textField.fieldProps} labelText="Тема" rows={5} />
+      <Textarea {...textField.fieldProps} labelText="Текст комментария" rows={5} />
       <Button type="submit" loading={form.isSubmitting} disabled={form.isSubmitting}>
         Отправить
       </Button>

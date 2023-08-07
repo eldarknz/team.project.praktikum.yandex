@@ -1,0 +1,14 @@
+.postMainInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.postTitle {
+  font-size: 1.1;
+  margin-bottom: 4px;
+}
+
+.postMinor {
+  font-size: 0.8em;
+  opacity: 0.5;
+}

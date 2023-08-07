@@ -1,1 +1,1 @@
-import '@workspace/shared';
+import '@workspace/shared/src';

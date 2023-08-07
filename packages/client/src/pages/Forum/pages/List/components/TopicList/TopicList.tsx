@@ -3,9 +3,6 @@ import { useMemo } from 'react';
 import { VirtualTable } from '@components/VirtualTable';
 import { IColumnProps } from '@components/VirtualTable/components/Row';
 import { dateConvert } from '@utils/dateConverter';
-import { ReactComponent as MessageIcon } from '@assets/svg/plain/message-circle.svg';
-import { TCellAlign } from '@components/VirtualTable/components/Cell';
-import { Icon } from '@components/Icon';
 
 import { TopicModel } from '@components/Forum/models';
 
@@ -31,28 +28,28 @@ export const TopicList = ({ topics, onTopicClick }: TopicListProps) => {
           </div>
         ),
       },
-      {
-        field: 'commentsCount',
-        headerName: 'Кол-во сообщений',
-        width: '15%',
-        formatter: (value: string) => (
-          <div className={styles.postMessages}>
-            <Icon icon={<MessageIcon />} size={18} />
-            <div className={styles.postMessageCount}>{value || 0}</div>
-          </div>
-        ),
-      },
-      {
-        field: 'upload_date',
-        headerName: 'Последнее сообщение',
-        align: 'right' as TCellAlign,
-        width: '30%',
-        formatter: (value: string) => (
-          <div className={styles.postLatestInfo}>
-            <div className={styles.postLatestDate}>{dateConvert(value)}</div>
-          </div>
-        ),
-      },
+      // {
+      //   field: 'commentsCount',
+      //   headerName: 'Кол-во сообщений',
+      //   width: '15%',
+      //   formatter: (value: string) => (
+      //     <div className={styles.postMessages}>
+      //       <Icon icon={<MessageIcon />} size={18} />
+      //       <div className={styles.postMessageCount}>{value || 0}</div>
+      //     </div>
+      //   ),
+      // },
+      // {
+      //   field: 'upload_date',
+      //   headerName: 'Последнее сообщение',
+      //   align: 'right' as TCellAlign,
+      //   width: '30%',
+      //   formatter: (value: string) => (
+      //     <div className={styles.postLatestInfo}>
+      //       <div className={styles.postLatestDate}>{dateConvert(value)}</div>
+      //     </div>
+      //   ),
+      // },
     ],
     []
   );

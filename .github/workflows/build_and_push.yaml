@@ -3,7 +3,7 @@ name: Push to GitHub Container Registry
 on:
   push:
     branches:
-      - main
+      - lunaticnenslaved/TEA-93/deploy-to-cloud
 
 
 jobs:

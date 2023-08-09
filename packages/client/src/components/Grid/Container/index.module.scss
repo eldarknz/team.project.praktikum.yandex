@@ -1,0 +1,53 @@
+@import '@styles/variables.scss';
+@import '../styles/vars.scss';
+
+.component,
+.component-sm,
+.component-md,
+.component-lg,
+.component-xl,
+.component-xxl,
+.component-full {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc($spacing-1 * 2);
+  padding-right: calc($spacing-1 * 2);
+
+  &.gutter-0 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @for $i from 8 to 25 {
+    @if $i % 8 == 0 {
+      &.gutter-#{$i} {
+        padding-left: calc($spacing-1 * #{$i});
+        padding-right: calc($spacing-1 * #{$i});
+      }
+    }
+  }
+}
+
+@each $breakpoint in $grid-breakpoints {
+  $breakpoint_key: nth($breakpoint, 1);
+  $breakpoint_value: nth($breakpoint, 2);
+  $width: map-get($container-width-sizes, $breakpoint_key);
+
+  @media (min-width: #{$breakpoint_value}) {
+    .component {
+      max-width: #{$width};
+    }
+
+    @each $size in $container-width-sizes {
+      $size_key: nth($size, 1);
+      $size_value: nth($size, 2);
+
+      @if $breakpoint_value > $size_value {
+        .component-#{$size_key} {
+          max-width: #{$width};
+        }
+      }
+    }
+  }
+}

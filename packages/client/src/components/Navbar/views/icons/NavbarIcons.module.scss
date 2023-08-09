@@ -1,0 +1,24 @@
+.navbarIcons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  max-width: 100vw;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  svg {
+    width: 60px;
+    height: 60px;
+    display: block;
+  }
+}
+
+.navbarItem {
+  -webkit-transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.navbarItem:hover {
+  transform: translateY(-4px) scale(1.05);
+}

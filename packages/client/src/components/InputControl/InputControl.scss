@@ -1,0 +1,23 @@
+@import '@styles/variables.scss';
+
+.inputControl {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.inputLabel {
+  color: $neutral60;
+  font-size: 0.7rem;
+}
+
+.inputError {
+  color: $danger;
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 0;
+  min-width: 100%;
+}

@@ -1,0 +1,73 @@
+@import '@styles/variables.scss';
+
+.container {
+  position: relative;
+}
+
+.active {
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  text-align: left;
+  padding: 18px;
+}
+
+.list {
+  position: absolute;
+  border-radius: 6px;
+  overflow: hidden;
+  right: 0;
+  left: 0;
+  top: calc(100% + 10px);
+}
+
+.item {
+  font-size: 14px;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.default {
+  .active {
+    background: $white;
+    color: $baseBlack;
+    border: 1px solid $gray;
+  }
+
+  .list {
+    background: $white;
+    border: 1px solid $gray;
+  }
+
+  .item {
+    color: $baseBlack;
+
+    &:hover {
+      background: $primaryColor;
+      color: $white;
+    }
+  }
+}
+
+.purple {
+  .active {
+    background: $darkPurple;
+    color: $white;
+    border: 1px solid $purple;
+  }
+
+  .list {
+    background: $darkPurple;
+    border: 1px solid $purple;
+  }
+
+  .item {
+    color: $white;
+
+    &:hover {
+      background: $purple;
+    }
+  }
+}

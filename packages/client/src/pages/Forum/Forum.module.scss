@@ -1,0 +1,10 @@
+@import '@styles/variables.scss';
+
+.page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding-bottom: $spacing-4;
+}

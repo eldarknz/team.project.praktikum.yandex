@@ -1,0 +1,63 @@
+@import '@styles/variables.scss';
+@import '@styles/animations.scss';
+
+$horPadding: 16px;
+$verPadding: 16px;
+
+.dialog {
+  display: none;
+
+  .dialog__content {
+    cursor: default;
+    border: none;
+    display: block;
+    max-width: 90vw;
+    min-width: $dialogMinWidth;
+    border-radius: $baseBorderRadius;
+    box-shadow: $baseBoxShadow;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .dialog__header {
+    text-align: center;
+    font-weight: 600;
+    padding: $verPadding $horPadding;
+  }
+
+  .dialog__body {
+    padding: $verPadding $horPadding;
+  }
+
+  &.dialog--open {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Animations
+  animation: $slideOutAnimation;
+  .dialog__content {
+    animation: $fadeOutAnimation;
+  }
+
+  &.dialog--open {
+    animation: $fadeInAnimation;
+
+    .dialog__content {
+      animation: $slideInAnimation;
+    }
+  }
+}
+
+.dialog-overlay {
+  display: none;
+  background: rgba($baseBlack, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
+}

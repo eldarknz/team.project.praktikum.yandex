@@ -1,0 +1,17 @@
+@import '@styles/variables.scss';
+
+.baseInput {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $primaryColor;
+  padding: 0.3rem 0;
+}
+
+.baseInput:focus {
+  outline: none;
+}
+
+.baseInput--error {
+  border-bottom-color: $danger;
+  color: $danger;
+}

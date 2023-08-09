@@ -1,0 +1,42 @@
+@import '@styles/variables.scss';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  width: 500px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.userName {
+  color: $white;
+  font-size: 20px;
+}
+
+.links {
+  margin-top: 40px;
+}
+
+.linkItem {
+  border-bottom: none;
+}
+
+.buttons {
+  width: 100%;
+  margin-top: 40px;
+
+  button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

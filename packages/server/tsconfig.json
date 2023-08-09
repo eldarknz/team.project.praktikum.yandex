@@ -1,29 +1,48 @@
 {
+  "extends": "../../tsconfig.base.json",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "files": true
+  },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true
+  },
   "compilerOptions": {
-    "composite": true,
-    "target": "es2019",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "removeComments": true,
+    "outDir": "dist",
+    "rootDir": "src",
+
+    "composite": false,
     "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
-    "lib": ["es2019", "esnext.asynciterable"],
+    "declaration": false,
+    "declarationMap": false,
+    "lib": ["DOM", "es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
-    "baseUrl": ".",
+
+    "baseUrl": "./src",
     "paths": {
-      "*": ["types/*"]
-    },
-    "outDir": "dist"
-  }
+      "@constants": ["./constants"],
+      "@constants/*": ["./constants/*"],
+
+      "@api": ["./api"],
+      "@api/*": ["./api/*"],
+
+      "@middlewares": ["./middlewares"],
+      "@middlewares/*": ["./middlewares/*"],
+
+      "@routers": ["./routers"],
+      "@routers/*": ["./routers/*"],
+
+      "@app": ["./app"],
+      "@app/*": ["./app/*"],
+
+      "@db": ["./db"],
+      "@db/*": ["./db/*"]
+    }
+  },
+  "files": [],
+  "include": ["src"],
+  "exclude": ["dist"]
 }

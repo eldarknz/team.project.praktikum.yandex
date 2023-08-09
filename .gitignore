@@ -1,6 +1,11 @@
 node_modules/
 .env
+.env.prod
 .idea
 .vscode
 dist
+dev-dist
 tmp
+.DS_Store
+lerna-debug.log
+ssr-dist/

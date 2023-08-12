@@ -9,6 +9,7 @@ interface UseFormProps {
 
 type UseFormState = {
   isSubmitting: boolean;
+  clear: () => void;
   formProps: {
     onSubmit: FormHTMLAttributes<HTMLFormElement>['onSubmit'];
   };
@@ -19,12 +20,16 @@ type UseFormState = {
 export const useForm = ({ fields, onSubmit }: UseFormProps): UseFormState => {
   const [isSubmitting, setSubmitting] = useState(false);
 
+  const clear = useCallback(() => {
+    fields.forEach(field => field.clear());
+  }, []);
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
     async event => {
       event.preventDefault();
 
       const isFormValid = (await Promise.all(fields.map(field => field.isValid()))).every(
-        isValid => isValid,
+        isValid => isValid
       );
 
       if (isFormValid) {
@@ -41,11 +46,12 @@ export const useForm = ({ fields, onSubmit }: UseFormProps): UseFormState => {
         }
       }
     },
-    [fields, onSubmit],
+    [fields, onSubmit]
   );
 
   return {
     isSubmitting,
+    clear,
     formProps: {
       onSubmit: handleSubmit,
     },

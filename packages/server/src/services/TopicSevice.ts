@@ -1,4 +1,4 @@
-import { ITopicModel, TopicModel } from '@db/models';
+import { CommentModel, ITopicModel, TopicModel } from '@db/models';
 import { BaseRESTService } from './BaseRESTService';
 
 type WithIdRequest = {
@@ -18,7 +18,9 @@ class TopicService implements BaseRESTService {
   }
 
   async create(props: ITopicModel) {
-    return TopicModel.create(props);
+    return TopicModel.create({
+      ...props,
+    });
   }
 
   async update(props: ITopicModel) {
@@ -33,6 +35,14 @@ class TopicService implements BaseRESTService {
     return TopicModel.destroy({
       where: {
         id,
+      },
+    });
+  }
+
+  async comments({ id }: WithIdRequest) {
+    return CommentModel.findAll({
+      where: {
+        topicId: id,
       },
     });
   }

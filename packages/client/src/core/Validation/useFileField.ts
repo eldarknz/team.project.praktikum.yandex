@@ -45,7 +45,7 @@ export const useFileField = (props: UseFieldFieldProps): UseFieldFieldState => {
       setValue(file);
       setError(await validateValue(file, rules));
     },
-    [props, rules],
+    [props, rules]
   );
 
   const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
@@ -56,7 +56,7 @@ export const useFileField = (props: UseFieldFieldProps): UseFieldFieldState => {
 
       setError(await validateValue(value, rules));
     },
-    [props, rules, value],
+    [props, rules, value]
   );
 
   const isValid = useCallback(async () => {
@@ -76,5 +76,6 @@ export const useFileField = (props: UseFieldFieldProps): UseFieldFieldState => {
     isValid,
     value,
     error,
+    clear: () => setValue(null),
   };
 };

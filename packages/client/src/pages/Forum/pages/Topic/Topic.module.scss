@@ -1,0 +1,44 @@
+@import '@styles/variables.scss';
+
+.page {
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 100%;
+  color: $onPrimaryColor;
+}
+
+.container {
+  padding-top: 20px;
+  height: 100%;
+  width: 740px;
+  max-width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.header {
+  flex-grow: 0;
+}
+
+.createdAt {
+  opacity: 0.5;
+  font-size: 0.8em;
+}
+
+.title {
+  margin-top: 12px;
+}
+
+.content {
+  padding: 24px 0;
+  margin-bottom: 12px;
+}
+
+.comments {
+  flex-grow: 1;
+}

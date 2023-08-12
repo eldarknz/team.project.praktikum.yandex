@@ -1,0 +1,16 @@
+@import '@styles/variables.scss';
+
+.page {
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100vw;
+  flex-wrap: wrap;
+  right: $spacing-3;
+  top: $spacing-3;
+  color: $onPrimaryColor;
+}

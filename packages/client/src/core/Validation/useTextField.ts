@@ -9,12 +9,13 @@ import { FormFieldState, FormFieldProps, ValidationResult } from './types';
 import { validateValue } from './validation';
 
 type Value = string;
+type Element = HTMLInputElement | HTMLTextAreaElement;
 
 type UseTextFieldProps = {
   name: string;
   value?: Value;
-  onChange?: InputHTMLAttributes<HTMLInputElement>['onChange'];
-  onBlur?: InputHTMLAttributes<HTMLInputElement>['onBlur'];
+  onChange?: InputHTMLAttributes<Element>['onChange'];
+  onBlur?: InputHTMLAttributes<Element>['onBlur'];
 } & FormFieldProps<Value>;
 
 type UseTextFieldState = FormFieldState<
@@ -23,8 +24,8 @@ type UseTextFieldState = FormFieldState<
     type: 'text';
     name: string;
     value?: Value;
-    onChange?: InputHTMLAttributes<HTMLInputElement>['onChange'];
-    onBlur?: InputHTMLAttributes<HTMLInputElement>['onBlur'];
+    onChange?: InputHTMLAttributes<Element>['onChange'];
+    onBlur?: InputHTMLAttributes<Element>['onBlur'];
   }
 >;
 
@@ -34,7 +35,7 @@ export const useTextField = (props: UseTextFieldProps): UseTextFieldState => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState<ValidationResult>(null);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+  const onChange: ChangeEventHandler<Element> = useCallback(
     async event => {
       if (props.onChange) {
         props.onChange(event);
@@ -45,10 +46,10 @@ export const useTextField = (props: UseTextFieldProps): UseTextFieldState => {
       setValue(value);
       setError(await validateValue(value, rules));
     },
-    [props, rules],
+    [props, rules]
   );
 
-  const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+  const onBlur: FocusEventHandler<Element> = useCallback(
     async event => {
       if (props.onBlur) {
         props.onBlur(event);
@@ -56,7 +57,7 @@ export const useTextField = (props: UseTextFieldProps): UseTextFieldState => {
 
       setError(await validateValue(value, rules));
     },
-    [props, rules, value],
+    [props, rules, value]
   );
 
   const isValid = useCallback(async () => {
@@ -77,5 +78,6 @@ export const useTextField = (props: UseTextFieldProps): UseTextFieldState => {
     isValid,
     value,
     error,
+    clear: () => setValue(''),
   };
 };

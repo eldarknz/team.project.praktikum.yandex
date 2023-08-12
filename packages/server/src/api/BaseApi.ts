@@ -13,14 +13,14 @@ export class BaseApi implements BaseApiImpl {
     await this.service
       .find({ id: query.id && !!Number(query.id) ? Number(query.id) : undefined })
       .then(d => res.status(200).send(d))
-      .catch(e => res.send(500).send({ message: e }));
+      .catch(e => res.status(500).send({ message: e }));
   };
 
   public create = async (req: Request, res: Response) => {
     const { body } = req;
     await this.service
       .create(body)
-      .then(() => res.status(200).send({ message: 'ok' }))
+      .then(data => res.status(200).send(data))
       .catch(e => res.status(500).send({ message: e }));
   };
 
@@ -32,7 +32,7 @@ export class BaseApi implements BaseApiImpl {
     }
     await this.service
       .update(body)
-      .then(() => res.status(200).send({ message: 'ok' }))
+      .then(data => res.status(200).send(data))
       .catch(e => res.status(500).send({ message: e }));
   };
 
@@ -44,7 +44,7 @@ export class BaseApi implements BaseApiImpl {
     }
     await this.service
       .delete(body)
-      .then(() => res.status(200).send({ message: 'ok' }))
+      .then(data => res.status(200).send(data))
       .catch(e => res.status(500).send({ message: e }));
   };
 }

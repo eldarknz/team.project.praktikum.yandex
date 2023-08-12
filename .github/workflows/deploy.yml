@@ -1,6 +1,7 @@
 name: Push to GitHub Container Registry
 
 on:
+  pull_request:
   push:
     branches:
       - main

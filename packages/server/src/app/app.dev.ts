@@ -6,7 +6,7 @@ import { createServer as createViteServer } from 'vite';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import { createReduxStore } from '@workspace/shared/src';
+import { createReduxStore } from '@workspace/shared';
 import { PORT, CORS_ORIGIN_WHITELIST } from '@constants';
 import userRouter from '@routers/UserRouter';
 import topicRouter from '@routers/TopicRouter';

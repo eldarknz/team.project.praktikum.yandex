@@ -44,5 +44,5 @@
       "path": "./tsconfig.node.json"
     }
   ],
-  "include": ["src", "node_modules/@workspace/shared/*.d.ts"]
+  "include": ["src"]
 }

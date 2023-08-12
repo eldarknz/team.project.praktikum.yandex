@@ -12,7 +12,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 RUN yarn lerna bootstrap \
-    && yarn build:server
+    && yarn build
 
 COPY utils/wait-for.sh wait-for.sh
 

@@ -6,7 +6,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import { createReduxStore } from '@workspace/shared';
+import { createReduxStore } from '@workspace/shared/src';
 import { dbConnect } from '@db';
 import userRouter from '@routers/UserRouter';
 import topicRouter from '@routers/TopicRouter';

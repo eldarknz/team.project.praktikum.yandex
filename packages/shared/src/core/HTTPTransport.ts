@@ -66,10 +66,31 @@ class HTTPTransport {
     }).then(handleResponse);
   }
 
-  public get<TResponse>({ url }: { url: string }): Promise<TResponse> {
+  public get<TResponse, TBody = unknown>({
+    url,
+    body,
+  }: {
+    url: string;
+    body?: TBody;
+  }): Promise<TResponse> {
     return fetch(url, {
       credentials: 'include',
       cache: 'reload',
+      body: body ? JSON.stringify(body) : null,
+    }).then(handleResponse);
+  }
+
+  public delete<TResponse, TBody = unknown>({
+    url,
+    body,
+    headers = 'JSON',
+  }: PostProps<TBody>): Promise<TResponse> {
+    return fetch(url, {
+      method: METHODS.DELETE,
+      headers: HEADERS[headers],
+      credentials: 'include',
+      cache: 'reload',
+      body: body ? JSON.stringify(body) : null,
     }).then(handleResponse);
   }
 }

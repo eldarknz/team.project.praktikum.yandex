@@ -16,7 +16,7 @@ export const GamePage = () => {
   const [game, setGame] = useState<GameLogic | null>(null);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const viewer = useAppSelector(store => store.userReducer.user);
+  const viewer = useAppSelector(store => store.user.user);
   const controllers = useControllers();
 
   useEffect(() => {

@@ -1,13 +1,11 @@
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 
 import { AuthController } from '@controllers/AuthController';
-import { ViewerController } from '@controllers/ViewerController';
 import { LeaderboardController } from '@controllers/LeaderboardController';
 
 import { ServicesModel, useServices } from './ServicesContext';
 
 export interface ControllersModel {
-  viewer: ViewerController;
   auth: AuthController;
   lead: LeaderboardController;
 }

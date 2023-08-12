@@ -1,9 +1,11 @@
 import { RouteAccessGuard } from '@routers/RouteGuard';
 import { lazy, ComponentType } from 'react';
 
+import { pages as forumPages } from '@pages/Forum';
+import { Layout } from '@layouts/index';
+
 const LandingPage = lazy(() => import('@pages/Landing'));
 const AccountPage = lazy(() => import('@pages/Account'));
-const ForumPage = lazy(() => import('@pages/Forum'));
 const LeaderboardPage = lazy(() => import('@pages/Leaderboard'));
 const GamePage = lazy(() => import('@pages/Game'));
 const SignInPage = lazy(() => import('@pages/SignIn'));
@@ -13,14 +15,6 @@ const Error500Page = lazy(() => import('@pages/Error500'));
 
 const End = lazy(() => import('@pages/End'));
 const Start = lazy(() => import('@pages/Start'));
-
-export enum Layout {
-  Default,
-  Auth,
-  Error,
-  Game,
-  Empty,
-}
 
 export type RouteItem = {
   path: string;
@@ -34,14 +28,9 @@ export const ROUTES = {
     path: '/',
     accessType: undefined,
     component: LandingPage,
-    layout: Layout.Empty,
-  },
-  Forum: {
-    path: '/forum',
-    accessType: undefined,
-    component: ForumPage,
     layout: Layout.Default,
   },
+  ...forumPages,
   Game: {
     path: '/game',
     accessType: RouteAccessGuard.Private,

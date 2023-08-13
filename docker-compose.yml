@@ -1,35 +1,13 @@
 version: '3.9'
 
 volumes:
-  DataVolume:
-    name: 'prakticum_volume'
   pgadmin-data:
     name: 'pgadmin-data'
 
 services:
-  client:
-    container_name: prakticum-client
-    image: prakticum-client
-    volumes:
-      - DataVolume:/output:rw
-    build:
-      context: .
-      dockerfile: Dockerfile.client
-      args:
-        CLIENT_PORT: ${CLIENT_PORT}
-    restart: always
-    ports:
-      - '${CLIENT_PORT}:80'
-    env_file:
-      - ./.env
-    networks:
-      - prakticum
-
   server:
     container_name: prakticum-server
     image: prakticum-server
-    volumes:
-      - DataVolume:/app/dist/client:rw
     build:
       context: .
       dockerfile: Dockerfile.server
@@ -43,9 +21,8 @@ services:
     networks:
       - prakticum
     depends_on:
-      - client
       - postgres
-    command: ./wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
+    command: ./utils/wait-for.sh postgres:${POSTGRES_PORT} -- node /app/packages/server/dist/index.js
 
   postgres:
     container_name: prakticum-database
